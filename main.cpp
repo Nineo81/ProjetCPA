@@ -1,11 +1,12 @@
-#include "mainwindow.h"
 #include <QApplication>
+#include <QPushButton>
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    QApplication app(argc, argv);
 
-    return a.exec();
+    QPushButton bouton("Salut les Zéros, la forme ?");
+    bouton.show();
+
+    return app.exec();
 }
