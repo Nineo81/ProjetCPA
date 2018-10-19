@@ -5,7 +5,7 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    QPushButton bouton("Salut les Zéros, la forme ?");
+    QPushButton bouton("Vous êtes mauvais !");
     bouton.show();
 
     return app.exec();

@@ -25,9 +25,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp
+        main.cpp \
+    game.cpp \
+    player.cpp \
+    TerrainMap.cpp \
+    UnitsMap.cpp \
+    gameobject.cpp
 
-HEADERS +=
+HEADERS += \
+    game.h \
+    player.h \
+    TerrainMap.h \
+    UnitsMap.h \
+    gameobject.h
 
 FORMS +=
 
