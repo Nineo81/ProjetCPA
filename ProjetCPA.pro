@@ -28,16 +28,16 @@ SOURCES += \
         main.cpp \
     game.cpp \
     player.cpp \
-    TerrainMap.cpp \
-    UnitsMap.cpp \
-    gameobject.cpp
+    gameobject.cpp \
+    mainwindow.cpp \
+    map.cpp
 
 HEADERS += \
     game.h \
     player.h \
-    TerrainMap.h \
-    UnitsMap.h \
-    gameobject.h
+    gameobject.h \
+    mainwindow.h \
+    map.h
 
 FORMS +=
 
