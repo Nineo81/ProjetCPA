@@ -9,6 +9,8 @@ private:
     int position[];
 public:
     GameObject();
+    int getposition();
+    void setposition(int newposition[]);
 };
 
 #endif // GAMEOBJECT_H
