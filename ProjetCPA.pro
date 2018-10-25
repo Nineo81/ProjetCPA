@@ -44,7 +44,8 @@ SOURCES += \
     building.cpp \
     city.cpp \
     factory.cpp \
-    airport.cpp
+    airport.cpp \
+    unit.cpp
 
 HEADERS += \
     game.h \
@@ -65,7 +66,8 @@ HEADERS += \
     building.h \
     city.h \
     factory.h \
-    airport.h
+    airport.h \
+    unit.h
 
 FORMS +=
 
