@@ -6,7 +6,7 @@
 class GameObject
 {
 private:
-    int position[];
+    int position; //la position srait donnée par le pointeur du tableau de position [x,y]
 public:
     GameObject();
     int getposition();
