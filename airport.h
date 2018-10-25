@@ -6,7 +6,7 @@ class Airport:public Building
 {
 public:
     Airport(int pos[2]);
-    Plane createUnit(int typeUnit);   //changer le nom du type selon
+    //Plane createUnit(int typeUnit);   //changer le nom du type selon
     //je sais pas si c'est mieux de renvoyer un pointeur ou une unite, a voir
 };
 
