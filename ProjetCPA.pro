@@ -30,14 +30,42 @@ SOURCES += \
     player.cpp \
     gameobject.cpp \
     mainwindow.cpp \
-    map.cpp
+    map.cpp \
+    terrain.cpp \
+    plain.cpp \
+    mountain.cpp \
+    wood.cpp \
+    river.cpp \
+    road.cpp \
+    bridge.cpp \
+    sea.cpp \
+    shoal.cpp \
+    reef.cpp \
+    building.cpp \
+    city.cpp \
+    factory.cpp \
+    airport.cpp
 
 HEADERS += \
     game.h \
     player.h \
     gameobject.h \
     mainwindow.h \
-    map.h
+    map.h \
+    terrain.h \
+    plain.h \
+    mountain.h \
+    wood.h \
+    river.h \
+    road.h \
+    bridge.h \
+    sea.h \
+    shoal.h \
+    reef.h \
+    building.h \
+    city.h \
+    factory.h \
+    airport.h
 
 FORMS +=
 
