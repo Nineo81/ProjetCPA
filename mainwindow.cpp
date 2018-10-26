@@ -2,9 +2,8 @@
 #include "gamewindow.h"
 #include <QPainter>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),centerZone()
 {
-    GameWindow *centerZone = new GameWindow;
-    setCentralWidget(centerZone);
-    centerZone->setFixedSize(600,350);
+    setCentralWidget(&centerZone);
+    centerZone.setFixedSize(600,350);
 }
