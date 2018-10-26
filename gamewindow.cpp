@@ -1,7 +1,7 @@
 #include "gamewindow.h"
 #include <QPainter>
 
-GameWindow::GameWindow(QWidget *parent) : QWidget(parent)
+GameWindow::GameWindow(QWidget *parent) : QWidget(parent),map(nullptr)
 {
 
 }

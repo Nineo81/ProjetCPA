@@ -2,12 +2,16 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "gamewindow.h"
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
     explicit MainWindow(QWidget *parent = nullptr);
+
+private:
+    GameWindow centerZone;
 
 signals:
 
