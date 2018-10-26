@@ -1,6 +1,8 @@
 #ifndef UNIT_H
 #define UNIT_H
 #include "gameobject.h"
+#include <string>
+using namespace std;
 
 
 class Unit : public GameObject
@@ -11,6 +13,9 @@ private:
     int round;
     int cost;
     int type;
+    string move_type;
+    int range[2];
+
 public:
     Unit();
     int getlife_points();

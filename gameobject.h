@@ -6,11 +6,12 @@
 class GameObject
 {
 private:
-    int position; //la position srait donnée par le pointeur du tableau de position [x,y]
+    int position[2];
 public:
-    GameObject();
-    int getposition();
-    void setposition(int newposition[]);
+    GameObject(int pos[2]);
+    int get_X();
+    int get_Y();
+    void setposition(int newposition[2]);
 };
 
 #endif // GAMEOBJECT_H
