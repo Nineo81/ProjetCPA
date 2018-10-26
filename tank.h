@@ -1,8 +1,8 @@
 #ifndef TANK_H
 #define TANK_H
+#include "unit.h"
 
-
-class Tank
+class Tank : Unit
 {
 public:
     Tank();

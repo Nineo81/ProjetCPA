@@ -1,6 +1,6 @@
 #include "airunit.h"
 
-airunit::airunit()
+AirUnit::AirUnit()
 {
 
 }

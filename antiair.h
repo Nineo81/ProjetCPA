@@ -1,8 +1,8 @@
 #ifndef ANTIAIR_H
 #define ANTIAIR_H
+#include "landunit.h"
 
-
-class antiair
+class antiair : public LandUnit
 {
 public:
     antiair();

@@ -1,8 +1,8 @@
 #ifndef FIGHTER_H
 #define FIGHTER_H
+#include "airunit.h"
 
-
-class Fighter
+class Fighter : public AirUnit
 {
 public:
     Fighter();

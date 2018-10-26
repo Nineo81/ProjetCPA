@@ -1,11 +1,11 @@
 #ifndef AIRUNIT_H
 #define AIRUNIT_H
+#include "unit.h"
 
-
-class airunit
+class AirUnit : public Unit
 {
 public:
-    airunit();
+    AirUnit();
 };
 
 #endif // AIRUNIT_H

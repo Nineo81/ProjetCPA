@@ -46,7 +46,18 @@ SOURCES += \
     factory.cpp \
     airport.cpp \
     unit.cpp \
-    gamewindow.cpp
+    gamewindow.cpp \
+    airunit.cpp \
+    bomber.cpp \
+    fighter.cpp \
+    infantery.cpp \
+    bazooka.cpp \
+    recon.cpp \
+    antiair.cpp \
+    tank.cpp \
+    mdtank.cpp \
+    megatank.cpp \
+    neotank.cpp
 
 HEADERS += \
     game.h \
@@ -69,7 +80,18 @@ HEADERS += \
     factory.h \
     airport.h \
     unit.h \
-    gamewindow.h
+    gamewindow.h \
+    airunit.h \
+    bomber.h \
+    fighter.h \
+    infantery.h \
+    bazooka.h \
+    recon.h \
+    antiair.h \
+    tank.h \
+    mdtank.h \
+    megatank.h \
+    neotank.h
 
 FORMS +=
 

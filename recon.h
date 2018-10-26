@@ -1,8 +1,9 @@
 #ifndef RECON_H
 #define RECON_H
+#include "unit.h"
 
 
-class Recon
+class Recon : public Unit
 {
 public:
     Recon();

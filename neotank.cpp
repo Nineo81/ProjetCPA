@@ -1,4 +1,4 @@
-#include "neatank.h"
+#include "neotank.h"
 
 neatank::neatank()
 {

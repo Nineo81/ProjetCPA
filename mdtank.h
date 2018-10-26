@@ -1,8 +1,9 @@
 #ifndef MDTANK_H
 #define MDTANK_H
+#include"unit.h"
 
 
-class mdtank
+class mdtank : public Unit
 {
 public:
     mdtank();
