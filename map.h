@@ -1,15 +1,16 @@
 #ifndef MAP_H
 #define MAP_H
 #include <vector>
-#include "gameobject.h"
+#include <string>
 
 class Map
 {
 public:
     Map();
+    void ReadFile(std::string fileName);
 
 private:
-    std::vector<std::vector<GameObject>> map;
+    std::vector<std::vector<int>> map;
 };
 
 #endif // MAP_H
