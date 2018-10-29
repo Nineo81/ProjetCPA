@@ -16,9 +16,20 @@ void Map::ReadFile(string fileName)
     if(file)
     {
         string line;
+        string bit="";
         while(getline(file,line))
         {
+            for (unsigned i=0;i<line.length();++i)
+            {
+                if(line[i]==',')
+                {
 
+                }
+                else
+                {
+                    bit+=line[i];
+                }
+            }
         }
     }
     else
