@@ -9,6 +9,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 public:
     explicit MainWindow(QWidget *parent = nullptr);
+    void keyPressEvent(QKeyEvent * event);
 
 private:
     GameWindow centerZone;
