@@ -6,7 +6,7 @@
 class mdtank : public Unit
 {
 public:
-    mdtank();
+    mdtank(int pos[2],int color, int round);
 };
 
 #endif // MDTANK_H

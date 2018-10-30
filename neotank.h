@@ -6,7 +6,7 @@
 class neatank : public Unit
 {
 public:
-    neatank();
+    neatank(int pos[2],int color, int round);
 };
 
 #endif // NEATANK_H

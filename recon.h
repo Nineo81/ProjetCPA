@@ -6,7 +6,7 @@
 class Recon : public Unit
 {
 public:
-    Recon();
+    Recon(int pos[2],int color, int round);
 };
 
 #endif // RECON_H

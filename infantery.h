@@ -5,7 +5,7 @@
 class infantery : public Unit
 {
 public:
-    infantery();
+    infantery(int pos[2],int color, int round);
 };
 
 #endif // INFANTERY_H

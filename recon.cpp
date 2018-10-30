@@ -1,6 +1,6 @@
 #include "recon.h"
 
-Recon::Recon()
+Recon::Recon(int pos[2],int color, int round):Unit(pos, color, round)
 {
 
 }

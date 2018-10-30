@@ -5,7 +5,7 @@
 class Tank : Unit
 {
 public:
-    Tank();
+    Tank(int pos[2],int color, int round);
 };
 
 #endif // TANK_H

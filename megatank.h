@@ -6,7 +6,7 @@
 class megatank : public Unit
 {
 public:
-    megatank();
+    megatank(int pos[2],int color, int round);
 };
 
 #endif // MEGATANK_H

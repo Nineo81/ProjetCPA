@@ -1,6 +1,6 @@
 #include "bazooka.h"
 
-Bazooka::Bazooka()
+Bazooka::Bazooka(int pos[2],int color, int round):Unit(pos, color, round)
 {
 
 }

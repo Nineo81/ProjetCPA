@@ -1,6 +1,10 @@
 #include "tank.h"
 
-Tank::Tank()
+Tank::Tank(int pos[2],int color, int round):Unit(pos, color, round)
 {
+    this->absMP=6;
+    this->MP=this->absMP;
+    this->cost=7000;
+    this->move_type="T";
 
 }

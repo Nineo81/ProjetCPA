@@ -1,11 +1,11 @@
 #ifndef ANTIAIR_H
 #define ANTIAIR_H
-#include "landunit.h"
+#include "unit.h"
 
-class antiair : public LandUnit
+class AntiAir : public Unit
 {
 public:
-    antiair();
+    AntiAir(int pos[2],int color, int round);
 };
 
 #endif // ANTIAIR_H
