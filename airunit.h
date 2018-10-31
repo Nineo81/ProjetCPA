@@ -5,7 +5,7 @@
 class AirUnit : public Unit
 {
 public:
-    AirUnit();
+    AirUnit(int pos[2],int color, int round);
 };
 
 #endif // AIRUNIT_H
