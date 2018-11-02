@@ -2,6 +2,7 @@
 #include "gamewindow.h"
 #include <QPainter>
 #include <QKeyEvent>
+#include <QMouseEvent>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),centerZone()
 {
@@ -31,3 +32,5 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
     //retour == bouton B
     }
 }
+
+
