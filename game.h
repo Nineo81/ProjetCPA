@@ -4,6 +4,8 @@
 
 class Game
 {
+private:
+    int damage_chart[11][11];
 public:
     Game();
 };

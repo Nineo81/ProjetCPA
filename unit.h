@@ -10,7 +10,7 @@ class Unit : public GameObject
 private:
     int color;
     int round;
-    int type;
+    int* pdc;
 
 
 protected:
@@ -20,6 +20,8 @@ protected:
     int range[2];
     int absMP;
     int MP;
+    int type;
+
 
 
 public:
@@ -30,12 +32,14 @@ public:
     int getcost() const;      //fait
     int getround() const;   //fait
     void setround(); //fait
-    int gettype() const;  //je sais plus à quoi sert type....
+    int gettype() const;
     int move();
     void join_unit();
-    int getMP() const;
-    void setMP(int newMP);
+    int getMP() const; //fait
+    void setMP(int newMP); //fait
     void resetMP();   //fait
+    int damage(Unit defender);
+    int find_B(Unit defender);
 
 
 };

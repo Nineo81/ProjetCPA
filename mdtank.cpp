@@ -2,6 +2,7 @@
 
 mdtank::mdtank(int pos[2],int color, int round):Unit(pos, color, round)
 {
+    this->type=7;
     this->absMP=5;
     this->MP=this->absMP;
     this->cost=16000;

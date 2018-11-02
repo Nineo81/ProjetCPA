@@ -51,3 +51,27 @@ void Unit::resetMP()
 {
     this->MP=this->absMP;
 }
+
+int Unit::gettype() const
+{
+    return this->type;
+}
+
+int Unit::find_B(Unit defender)
+{
+    int ta=this->gettype();
+    int td=defender.gettype();
+   // int damage_chart[11][11]= *pdc;
+    //int B=damage_chart[ta][td];
+    //return B;
+}
+
+int Unit::damage(Unit defender)
+{
+    int A_HP=this->HP;
+    int D_TR;
+    int D_HP=defender.getHP();
+    int damage;
+    return damage;
+
+}
