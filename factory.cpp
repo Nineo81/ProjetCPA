@@ -1,11 +1,53 @@
 #include "factory.h"
+#include "antiair.h"
+#include "bazooka.h"
+#include "infantery.h"
+#include "mdtank.h"
+#include "megatank.h"
+#include "neotank.h"
+#include "recon.h"
+#include "tank.h"
 
-Factory::Factory(int pos[2]):Building (pos,0)       //changer l'apparence
+
+Factory::Factory(int pos[2], int color, Player* player):Building (pos, color)
 {
-
+    this->player = player;
 }
 
-Unit Factory::createUnit(int typeUnit){
-    /*Il faut creer l'unité choisi par le joueur
-     * baisser l'argent du joueur */
+Unit* Factory::createUnit(int typeUnit){
+    Unit *unit = NULL;
+    switch (typeUnit)
+    {
+        case 1:{
+            unit = new infantery(this->position,this->color,0);      //c'est quoi l'attribut round?
+            break;}
+        case 2:{
+            unit = new Bazooka(this->position,this->color,0);
+            break;}
+        case 3:{
+            unit = new Recon(this->position,this->color,0);
+            break;}
+        case 4:{
+            unit = new AntiAir(this->position,this->color,0);
+            break;}
+        case 5:{
+            unit = new Tank(this->position,this->color,0);
+            break;}
+        case 6:{
+            unit = new mdtank(this->position,this->color,0);
+            break;}
+        case 7:{
+            unit = new megatank(this->position,this->color,0);
+            break;}
+        case 8:{
+            unit = new neotank(this->position,this->color,0);
+            break;}
+    }
+    this->player->set_money(unit->getcost(),'d');
+    if (this->player->get_money()<0){
+        this->player->set_money(unit->getcost(),'a');
+        delete unit;
+        return NULL;
+    }
+    else{return unit;}
 }

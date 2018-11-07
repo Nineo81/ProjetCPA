@@ -5,7 +5,7 @@
 class River: public Terrain
 {
 public:
-    River(int pos[2], int app);
+    River(int pos[2]);
 };
 
 #endif // RIVER_H

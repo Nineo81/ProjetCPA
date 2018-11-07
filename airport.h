@@ -1,13 +1,16 @@
 #ifndef AIRPORT_H
 #define AIRPORT_H
 #include "building.h"
+#include "airunit.h"
+#include "player.h"
 
 class Airport:public Building
 {
 public:
-    Airport(int pos[2]);
-    //Plane createUnit(int typeUnit);   //changer le nom du type selon
-    //je sais pas si c'est mieux de renvoyer un pointeur ou une unite, a voir
+    Airport(int pos[2],int color,Player* player);
+    AirUnit* createUnit(int typeUnit);
+private:
+    Player* player;
 };
 
 #endif // AIRPORT_H

@@ -5,7 +5,7 @@
 class Road: public Terrain
 {
 public:
-    Road(int pos[2], int app);
+    Road(int pos[2]);
 };
 
 #endif // ROAD_H

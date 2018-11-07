@@ -5,7 +5,7 @@
 class Shoal:public Terrain
 {
 public:
-    Shoal(int pos[2], int app);
+    Shoal(int pos[2]);
 };
 
 #endif // SHOAL_H

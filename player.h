@@ -1,9 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <vector>
+#include "building.h"
 #include "unit.h"
-#include"building.h"
-#include"city.h"
 
 
 class Player
@@ -21,7 +20,7 @@ public:
     void add_building(Building building);
     void delete_building(Building building);
     int get_money();
-    int set_money(int diff,char sign);
+    void set_money(int diff,char sign);
 
 };
 

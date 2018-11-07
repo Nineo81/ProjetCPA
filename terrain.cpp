@@ -1,15 +1,10 @@
 #include "Terrain.h"
 
-Terrain::Terrain(int pos[2], int def, int app)
+Terrain::Terrain(int pos[2], int def)
 {
     position[0] = pos[0];
     position[1] = pos[1];
     defense = def;
-    apparence = app;
-}
-
-int Terrain::getApparence() const{
-    return apparence;
 }
 
 int Terrain::getDefense() const{

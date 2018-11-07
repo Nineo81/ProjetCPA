@@ -1,6 +1,6 @@
 #include "bridge.h"
 
-Bridge::Bridge(int pos[2],int app):Terrain(pos,0,app)     //apparence a changer
+Bridge::Bridge(int pos[2]):Terrain(pos,0)     //apparence a changer
 {
 
 }
