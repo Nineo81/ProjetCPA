@@ -1,6 +1,6 @@
 #include "building.h"
 
-Building::Building(int pos[2],int app):Terrain (pos,3,app)
+Building::Building(int pos[2], int color):Terrain (pos,3)
 {
     life = 20;
 }
@@ -10,7 +10,8 @@ int Building::getLife() const{
 }
 
 void Building::changeLife(int damage){       //plutot que faire des degats, peut aller chercher la vie de l'unité dessus
-                                            //rajouter un while(pos unite = pos bat) => vie doit revenir à 20 sinon
+                                            //rajouter un while(pos unit = pos bat) => vie doit revenir à 20 sinon
+
     int temp = life - damage;
     if (temp <= 0){
         //le batiment doit changer de joueur

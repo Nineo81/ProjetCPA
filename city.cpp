@@ -1,6 +1,6 @@
 #include "city.h"
 
-City::City(int pos[2]):Building(pos,0)  //changer l'apparence
+City::City(int pos[2],int color, Player* player):Building(pos, color)  //changer l'apparence
 {
-
+    this->player = player;
 }

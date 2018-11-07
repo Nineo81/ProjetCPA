@@ -10,7 +10,6 @@ class Unit : public GameObject
 private:
     int color;
     int round;
-    int* pdc;
 
 
 protected:
@@ -27,21 +26,22 @@ protected:
 public:
     Unit(int pos[2], int color, int round);
     int getHP() const;          //fait
-    void settHP(int newHP);//fait
+    void setHP(int newHP,char sign);//fait
+    void setHP();
     int getcolor() const;        //fait
     int getcost() const;      //fait
     int getround() const;   //fait
     void setround(); //fait
-    int gettype() const;
+    int gettype() const; //fait
     int move();
-    void join_unit();
+    void join_unit(Unit Unit2);
     int getMP() const; //fait
     void setMP(int newMP); //fait
     void resetMP();   //fait
     int damage(Unit defender);
-    int find_B(Unit defender);
-
-
+    int find_B(Unit defender); //fait
+    int get_D_TR();
+    void attack(Unit defender); //fait
 };
 
 #endif // UNIT_H

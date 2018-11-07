@@ -6,8 +6,9 @@ class Building:public Terrain
 {
 protected:
     int life;
+    int color;
 public:
-    Building(int pos[2], int app);
+    Building(int pos[2], int color);
     int getLife() const;
     void changeLife(int damage);        //on peut changer pour ne pas avoir d'argument
 };
