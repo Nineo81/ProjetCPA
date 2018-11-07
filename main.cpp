@@ -5,7 +5,8 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    MainWindow w;
+    Map map("Map1V1.txt");
+    MainWindow w(&map);
     w.show();
 
     return app.exec();

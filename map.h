@@ -6,8 +6,14 @@
 class Map
 {
 public:
-    Map();
-    void ReadFile(std::string fileName);
+    Map(const char* fileName);
+    void readFile(const char* fileName);
+
+    unsigned int getSize(char a);
+
+    int getElement(unsigned int posX, unsigned int posY);
+
+    void setElement(int element, unsigned int posX, unsigned int posY);
 
 private:
     std::vector<std::vector<int>> map;
