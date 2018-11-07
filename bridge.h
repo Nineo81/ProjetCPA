@@ -5,7 +5,7 @@
 class Bridge: public Terrain
 {
 public:
-    Bridge(int pos[2]);
+    Bridge(int pos[2], int app);
 };
 
 #endif // BRIDGE_H

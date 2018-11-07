@@ -5,7 +5,7 @@
 class City:public Building
 {
 public:
-    City(int pos[2]);
+    City(int pos[2], int app);
 };
 
 #endif // CITY_H
