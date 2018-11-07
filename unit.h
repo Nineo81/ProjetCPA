@@ -31,7 +31,7 @@ public:
     int getcost() const;      //fait
     int getround() const;   //fait
     void setround(); //fait
-    int gettype() const;
+    int gettype() const; //fait
     int move();
     void join_unit();
     int getMP() const; //fait
@@ -40,8 +40,7 @@ public:
     int damage(Unit defender);
     int find_B(Unit defender); //fait
     int get_D_TR();
-
-
+    void attack(Unit defender);
 };
 
 #endif // UNIT_H
