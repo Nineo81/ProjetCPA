@@ -2,10 +2,10 @@
 #define GAME_H
 
 
-class Game
+class Game           //fct joinUnit dans game ou dans unit? (on devrait supprimer une unité)
 {
 private:
-    int damage_chart[11][11];
+
 public:
     Game();
 };

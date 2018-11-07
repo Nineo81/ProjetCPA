@@ -3,10 +3,10 @@
 #include"airunit.h"
 
 
-class b_copter : public AirUnit
+class B_Copter : public AirUnit
 {
 public:
-    b_copter(int pos[2],int color, int round);
+    B_Copter(int pos[2],int color, int round);
 };
 
 #endif // B_COPTER_H
