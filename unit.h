@@ -12,6 +12,7 @@ private:
     int round;
 
 
+
 protected:
     int HP;
     int cost;
