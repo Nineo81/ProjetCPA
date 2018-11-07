@@ -2,7 +2,7 @@
 #define GAME_H
 
 
-class Game           //fct joinUnit dans game ou dans unit? (on devrait supprimer une unité)
+class Game
 {
 private:
 

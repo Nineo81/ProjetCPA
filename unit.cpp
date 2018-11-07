@@ -94,5 +94,12 @@ int Unit::damage(Unit defender)
                                                       * c++ arrondi tjs en-dessous*/
 
     return damage;
-
 }
+
+void Unit::attack(Unit defender)
+{
+    int damage=this->damage(defender);
+    defender.settHP(damage);
+}
+
+
