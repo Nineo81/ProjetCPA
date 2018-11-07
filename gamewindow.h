@@ -8,10 +8,9 @@ class GameWindow : public QWidget
 {
     Q_OBJECT
 public:
-    explicit GameWindow(QWidget *parent = nullptr);
+    explicit GameWindow(Map *map=nullptr);
 
     void paintEvent(QPaintEvent *event);
-    void setMap(Map *map);
 private:
     Map *map;
 signals:

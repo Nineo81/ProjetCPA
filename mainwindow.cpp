@@ -4,10 +4,10 @@
 #include <QKeyEvent>
 #include <QMouseEvent>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),centerZone()
+MainWindow::MainWindow(Map *map) : centerZone(map)
 {
     setCentralWidget(&centerZone);
-    centerZone.setFixedSize(600,350);
+    //centerZone.setFixedSize(600,350);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent * event){
