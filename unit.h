@@ -10,7 +10,6 @@ class Unit : public GameObject
 private:
     int color;
     int round;
-    int* pdc;
 
 
 protected:
@@ -39,7 +38,8 @@ public:
     void setMP(int newMP); //fait
     void resetMP();   //fait
     int damage(Unit defender);
-    int find_B(Unit defender);
+    int find_B(Unit defender); //fait
+    int get_D_TR();
 
 
 };
