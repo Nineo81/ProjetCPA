@@ -1,4 +1,8 @@
 #include "unit.h"
+#include <string>
+#include <iostream>
+using namespace std;
+
 
 Unit::Unit(int pos[2], int color, int round) : GameObject(pos)
 {
@@ -7,14 +11,25 @@ Unit::Unit(int pos[2], int color, int round) : GameObject(pos)
     this->HP=10;
 }
 
+
 int Unit::getHP() const
 {
     return this->HP;
 }
 
-void Unit::settHP(int HPloss)
+void Unit::setHP()
 {
-    this->HP-=HPloss;
+    this->HP=10;
+}
+
+void Unit::setHP(int newHP,char sign)
+{
+    if (sign=='a')
+        this->HP+=newHP;
+    else if (sign=='d')
+        this->HP-=newHP;
+    else
+        cout<<"Erreur caractère dans setHP non incorrect."<<endl;
 }
 
 int Unit::getcolor() const
@@ -99,7 +114,14 @@ int Unit::damage(Unit defender)
 void Unit::attack(Unit defender)
 {
     int damage=this->damage(defender);
-    defender.settHP(damage);
+    defender.setHP(damage,'d');
 }
 
+void Unit::join_unit(Unit unit2)
+{
+    unit2.setHP(this->getHP(),'a');
+    if (unit2.getHP()>10)
+        unit2.setHP();               //si HP de unit2 >10 : on arrondi son HP à 10
+    delete this;                     //auto-destruction de l'unité pour que les 2 unités deviennent un
+}
 
