@@ -9,6 +9,14 @@ Map::Map(const char* fileName)
     readFile(fileName);
 }
 
+Map::Map(unsigned int sizeX,unsigned int sizeY)
+{
+    for(unsigned int i=0;i<sizeX;i++)
+    {
+        map.push_back(vector<int>(sizeY,0));
+    }
+}
+
 void Map::readFile(const char* fileName)
 {
     ifstream file;
@@ -48,7 +56,6 @@ void Map::readFile(const char* fileName)
         cout << "ERREUR: Impossible d'ouvrir le fichier en lecture." << endl;
     }
     file.close();
-    cout << "j'ai su le faire";//on ferme le fichier
 }
 
 unsigned int Map::getSize(char a)

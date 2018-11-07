@@ -6,6 +6,7 @@
 class Map
 {
 public:
+    Map(unsigned int sizeX,unsigned int sizeY);
     Map(const char* fileName);
     void readFile(const char* fileName);
 
