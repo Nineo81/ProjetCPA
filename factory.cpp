@@ -51,3 +51,14 @@ Unit* Factory::createUnit(int typeUnit){
     }
     else{return unit;}
 }
+
+void Factory::setLife(int damage, Player* attacker){
+    int temp = life - damage;
+    if (temp <= 0){
+        Factory* building = new Factory(this->position,0,attacker);
+        attacker->add_building(building);
+        //changer l'affichage aussi??
+        delete this;
+    }
+    else {life = temp;}
+}

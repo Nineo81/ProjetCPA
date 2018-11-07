@@ -30,3 +30,14 @@ AirUnit* Airport::createUnit(int typeUnit){
     }
     else{return unit;}
 }
+
+void Airport::setLife(int damage, Player* attacker){
+    int temp = life - damage;
+    if (temp <= 0){
+        Airport* building = new Airport(this->position,0,attacker);
+        attacker->add_building(building);
+        //changer l'affichage aussi??
+        delete  this;
+    }
+    else {life = temp;}
+}

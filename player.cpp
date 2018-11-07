@@ -1,6 +1,6 @@
 #include "player.h"
 
-Player::Player(vector<Building> firstBuildings)
+Player::Player(vector<Building*> firstBuildings)
 {
     this->listBuilding=firstBuildings;
     this->money=1000*(this->listBuilding.size());
@@ -16,4 +16,8 @@ void Player::set_money(int diff, char sign){
     else if (sign == 'a') {
         this->money += diff;
     }
+}
+
+void Player::add_building(Building* building){
+    this->listBuilding.push_back(building);
 }

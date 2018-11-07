@@ -9,6 +9,7 @@ class Airport:public Building
 public:
     Airport(int pos[2],int color,Player* player);
     AirUnit* createUnit(int typeUnit);
+    void setLife(int damage, Player* attacker);
 private:
     Player* player;
 };

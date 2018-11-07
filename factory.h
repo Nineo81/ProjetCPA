@@ -9,6 +9,7 @@ class Factory:public Building
 public:
     Factory(int pos[2], int color, Player* player);
     Unit* createUnit(int typeUnit);   //changer le nom du type selon
+    void setLife(int damage, Player* attacker);
 
 private:
     int typeUnit;

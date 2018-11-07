@@ -10,7 +10,6 @@ protected:
 public:
     Building(int pos[2], int color);
     int getLife() const;
-    void changeLife(int damage);        //on peut changer pour ne pas avoir d'argument
 };
 
 #endif // BUILDING_H

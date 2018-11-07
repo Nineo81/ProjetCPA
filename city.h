@@ -7,6 +7,7 @@ class City:public Building
 {
 public:
     City(int pos[2],int color,Player* player);
+    void setLife(int damage, Player* attacker);
 private:
     Player* player;
 };
