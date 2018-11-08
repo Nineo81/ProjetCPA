@@ -1,6 +1,8 @@
 #include "unit.h"
 #include <string>
 #include <iostream>
+#include "terrain.h"
+
 using namespace std;
 
 
@@ -71,7 +73,6 @@ int Unit::gettype() const
 {
     return this->type;
 }
-
 
 
 int Unit::find_B(Unit defender)
