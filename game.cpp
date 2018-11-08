@@ -1,7 +1,11 @@
 #include "game.h"
 
 Game::Game()
-{
+{   //batiments neutres
+    //player
+    //maps
+    //main
+    //tableau des defenses
    /*damage_chart={{45,120,105,75,65,105,10,1,5,60,25},
                         {25,65,75,0,0,75,25,10,20,55,55},
                         {65,9,55,0,0,65,15,5,15,85,55},

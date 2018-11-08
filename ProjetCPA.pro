@@ -32,15 +32,6 @@ SOURCES += \
     mainwindow.cpp \
     map.cpp \
     terrain.cpp \
-    plain.cpp \
-    mountain.cpp \
-    wood.cpp \
-    river.cpp \
-    road.cpp \
-    bridge.cpp \
-    sea.cpp \
-    shoal.cpp \
-    reef.cpp \
     building.cpp \
     city.cpp \
     factory.cpp \
@@ -67,15 +58,6 @@ HEADERS += \
     mainwindow.h \
     map.h \
     terrain.h \
-    plain.h \
-    mountain.h \
-    wood.h \
-    river.h \
-    road.h \
-    bridge.h \
-    sea.h \
-    shoal.h \
-    reef.h \
     building.h \
     city.h \
     factory.h \
