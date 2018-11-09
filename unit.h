@@ -2,6 +2,7 @@
 #define UNIT_H
 #include "gameobject.h"
 #include <string>
+#include <vector>
 using namespace std;
 
 
@@ -10,6 +11,8 @@ class Unit : public GameObject
 private:
     int color;
     int round;
+    vector<int>* v;
+
 
 
 
