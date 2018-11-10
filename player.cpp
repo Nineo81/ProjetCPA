@@ -4,6 +4,9 @@ Player::Player(vector<Building*> firstBuildings)
 {
     this->listBuilding=firstBuildings;
     this->money=1000*(this->listBuilding.size());
+    for (int i;i<listBuilding.size();i++){
+        listBuilding[i]->setPlayer(this);
+    }
 }
 
 int Player::get_money(){

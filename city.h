@@ -6,10 +6,10 @@
 class City:public Building
 {
 public:
-    City(int pos[2],int color,Player* player);
+    City(int pos[2], Player* player);
+    City(int pos[2]);
     void setLife(int damage, Player* attacker);
 private:
-    Player* player;
 };
 
 #endif // CITY_H

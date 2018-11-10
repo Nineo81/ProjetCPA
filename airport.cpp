@@ -3,9 +3,13 @@
 #include "bomber.h"
 #include "fighter.h"
 
-Airport::Airport(int pos[2], int color, Player* player):Building (pos,color)
+Airport::Airport(int pos[2], Player* player):Building (pos, player)
 {
-    this->player = player;
+
+}
+
+Airport::Airport(int pos[2]):Building(pos){
+
 }
 
 AirUnit* Airport::createUnit(int typeUnit){
@@ -34,7 +38,7 @@ AirUnit* Airport::createUnit(int typeUnit){
 void Airport::setLife(int damage, Player* attacker){
     int temp = life - damage;
     if (temp <= 0){
-        Airport* building = new Airport(this->position,0,attacker);
+        Airport* building = new Airport(this->position,attacker);
         attacker->add_building(building);
         //changer l'affichage aussi??
         delete  this;
