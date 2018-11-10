@@ -49,7 +49,8 @@ SOURCES += \
     mdtank.cpp \
     megatank.cpp \
     neotank.cpp \
-    b_copter.cpp
+    b_copter.cpp \
+    cursor.cpp
 
 HEADERS += \
     game.h \
@@ -75,7 +76,8 @@ HEADERS += \
     mdtank.h \
     megatank.h \
     neotank.h \
-    b_copter.h
+    b_copter.h \
+    cursor.h
 
 FORMS +=
 
