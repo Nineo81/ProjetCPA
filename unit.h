@@ -11,7 +11,7 @@ class Unit : public GameObject
 private:
     int color;
     int round;
-    vector<int>* v;
+    vector<int> *DC; //pointeur vers defenseChart
 
 
 
@@ -27,8 +27,9 @@ protected:
 
 
 
+
 public:
-    Unit(int pos[2], int color, int round);
+    Unit(int pos[2], int color, int round, vector<int> *TM);
     int getHP() const;          //fait
     void setHP(int newHP,char sign);//fait
     void setHP();
@@ -37,6 +38,7 @@ public:
     int getround() const;   //fait
     void setround(); //fait
     int gettype() const; //fait
+    vector<int> *getDC();
     int move();
     void join_unit(Unit Unit2);
     int getMP() const; //fait
