@@ -7,7 +7,7 @@
 #include <QApplication>
 using namespace std;
 
-GameWindow::GameWindow(Map *terrainMap,Map *unitMap) :terrainMap(terrainMap),unitMap(unitMap)
+GameWindow::GameWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) :terrainMap(terrainMap),unitMap(unitMap),cursor(cursor)
 {
 
 }

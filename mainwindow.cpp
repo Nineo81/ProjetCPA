@@ -4,7 +4,7 @@
 #include <QKeyEvent>
 #include <QMouseEvent>
 
-MainWindow::MainWindow(Map *terrainMap,Map *unitMap) : centerZone(terrainMap,unitMap)
+MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) : centerZone(terrainMap,unitMap,cursor)
 {
     setCentralWidget(&centerZone);
     //centerZone.setFixedSize(600,350);
@@ -36,6 +36,11 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
 GameWindow* MainWindow::getWidget()
 {
     return &centerZone;
+}
+
+void MainWindow::updateWidget()
+{
+    centerZone.updateMap();
 }
 
 

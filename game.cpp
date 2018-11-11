@@ -4,9 +4,9 @@
 #include "factory.h"
 #include "airport.h"
 
-Game::Game():terrainMap("Map1V1.txt"),
+Game::Game():cursor(5,5),terrainMap("Map1V1.txt"),
             unitMap(terrainMap.getSize('m'),
-            terrainMap.getSize('p')),w(&terrainMap,&unitMap)
+            terrainMap.getSize('p')),w(&terrainMap,&unitMap,&cursor)
 {
     unitMap.setWindow(w.getWidget());
     w.show();
@@ -122,6 +122,11 @@ Map Game::getUnitMap() const{
 
 int Game::getDefense(unsigned int X, unsigned int Y) const{
     return defenseChart[X][Y];
+}
+
+void Game::updateWindow()
+{
+    w.updateWidget();
 }
 
 /*std::vector<std::vector<int>> initDefense(Map terrainMap){

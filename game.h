@@ -6,10 +6,12 @@
 #include <vector>
 #include "building.h"
 #include "player.h"
+#include "cursor.h"
 
 class Game
 {
 private:
+   Cursor cursor;
    Map terrainMap;
    Map unitMap;
    MainWindow w;
@@ -24,6 +26,7 @@ public:
     int getDefense(unsigned int X, unsigned int Y) const;
     void start();
     std::vector<std::vector<int>> initDefense(Map terrainMap);
+    void updateWindow();
 };
 
 #endif // GAME_H
