@@ -8,11 +8,13 @@ class GameWindow : public QWidget
 {
     Q_OBJECT
 public:
-    explicit GameWindow(Map *map=nullptr);
+    explicit GameWindow(Map *terrainMap=nullptr,Map *unitMap=nullptr);
 
     void paintEvent(QPaintEvent *event);
+    void updateMap();
 private:
-    Map *map;
+    Map *terrainMap;
+    Map *unitMap;
 signals:
 
 public slots:

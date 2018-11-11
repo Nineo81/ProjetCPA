@@ -7,7 +7,7 @@
 #include <QApplication>
 using namespace std;
 
-GameWindow::GameWindow(Map *map) :map(map)
+GameWindow::GameWindow(Map *terrainMap,Map *unitMap) :terrainMap(terrainMap),unitMap(unitMap)
 {
 
 }
@@ -16,11 +16,11 @@ void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
 
-    for(unsigned int i=0;i<=map->getSize('m')-1;i++)
+    for(unsigned int i=0;i<=terrainMap->getSize('m')-1;i++)
     {
-        for(unsigned int j=0;j<=map->getSize('p')-1;j++)
+        for(unsigned int j=0;j<=terrainMap->getSize('p')-1;j++)
         {
-            switch(map->getElement(i,j))
+            switch(terrainMap->getElement(i,j))
             {
             case(1):
                 painter.drawImage(QRect(50*(static_cast<int>(j)+1),50*(static_cast<int>(i)+1),50,50),QImage("1.png"));
@@ -195,4 +195,9 @@ void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
             }
         }
     }
+}
+
+void GameWindow::updateMap()
+{
+    update();
 }

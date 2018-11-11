@@ -2,6 +2,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "gamewindow.h"
+
 using namespace std;
 
 Map::Map(const char* fileName)
@@ -72,6 +74,14 @@ unsigned int Map::getSize(char a)
     return size;
 }
 
+void Map::replace(unsigned int oldX,unsigned int oldY,unsigned int newX,unsigned int newY)
+{
+    int element = map[oldX][oldY];
+    map[oldX][oldY]=0;
+    map[newX][newY]=element;
+    window->updateMap();
+}
+
 int Map::getElement(unsigned int posX, unsigned int posY)
 {
     return map[posX][posY];
@@ -80,4 +90,10 @@ int Map::getElement(unsigned int posX, unsigned int posY)
 void Map::setElement(int element, unsigned int posX, unsigned int posY)
 {
     map[posX][posY]=element;
+    window->updateMap();
+}
+
+void Map::setWindow(GameWindow* window)
+{
+    this->window=window;
 }

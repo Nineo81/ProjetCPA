@@ -32,15 +32,6 @@ SOURCES += \
     mainwindow.cpp \
     map.cpp \
     terrain.cpp \
-    plain.cpp \
-    mountain.cpp \
-    wood.cpp \
-    river.cpp \
-    road.cpp \
-    bridge.cpp \
-    sea.cpp \
-    shoal.cpp \
-    reef.cpp \
     building.cpp \
     city.cpp \
     factory.cpp \
@@ -58,7 +49,8 @@ SOURCES += \
     mdtank.cpp \
     megatank.cpp \
     neotank.cpp \
-    b_copter.cpp
+    b_copter.cpp \
+    cursor.cpp
 
 HEADERS += \
     game.h \
@@ -67,15 +59,6 @@ HEADERS += \
     mainwindow.h \
     map.h \
     terrain.h \
-    plain.h \
-    mountain.h \
-    wood.h \
-    river.h \
-    road.h \
-    bridge.h \
-    sea.h \
-    shoal.h \
-    reef.h \
     building.h \
     city.h \
     factory.h \
@@ -93,7 +76,8 @@ HEADERS += \
     mdtank.h \
     megatank.h \
     neotank.h \
-    b_copter.h
+    b_copter.h \
+    cursor.h
 
 FORMS +=
 

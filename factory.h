@@ -7,13 +7,12 @@
 class Factory:public Building
 {
 public:
-    Factory(int pos[2], int color, Player* player);
+    Factory(int pos[2], Player* player);
+    Factory(int pos[2]);
     Unit* createUnit(int typeUnit);   //changer le nom du type selon
     void setLife(int damage, Player* attacker);
 
 private:
-    int typeUnit;
-    Player* player;
 };
 
 #endif // FACTORY_H

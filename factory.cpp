@@ -9,9 +9,13 @@
 #include "tank.h"
 
 
-Factory::Factory(int pos[2], int color, Player* player):Building (pos, color)
+Factory::Factory(int pos[2], Player* player):Building (pos, player)
 {
-    this->player = player;
+
+}
+
+Factory::Factory(int pos[2]):Building (pos){
+
 }
 
 Unit* Factory::createUnit(int typeUnit){
@@ -55,7 +59,7 @@ Unit* Factory::createUnit(int typeUnit){
 void Factory::setLife(int damage, Player* attacker){
     int temp = life - damage;
     if (temp <= 0){
-        Factory* building = new Factory(this->position,0,attacker);
+        Factory* building = new Factory(this->position,attacker);
         attacker->add_building(building);
         //changer l'affichage aussi??
         delete this;
