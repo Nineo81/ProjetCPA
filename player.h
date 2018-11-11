@@ -3,16 +3,13 @@
 #include <vector>
 #include "building.h"
 #include "unit.h"
+#include "map.h"
 
 
 class Player
 {
-private:
-    int money;
-    vector<Unit> listUnit;
-    vector<Building*> listBuilding;
 public:
-    Player(vector<Building*> firstBuildings);
+    Player(vector<Building*> firstBuildings,Map* terrainMap,Map* unitMap);
     vector<Building*>* get_listBuilding();
     vector<Unit>* get_listUnit();
     void add_unit(Unit unit);
@@ -21,7 +18,12 @@ public:
     void delete_building(Building* building);
     int get_money();
     void set_money(int diff,char sign);
-
+private:
+    int money;
+    vector<Unit> listUnit;
+    vector<Building*> listBuilding;
+    Map* terrainMap;
+    Map* unitMap;
 };
 
 #endif // PLAYER_H
