@@ -6,11 +6,12 @@
 using namespace std;
 
 
-Unit::Unit(int pos[2], int color, int round) : GameObject(pos)
+Unit::Unit(int pos[2], int color, int round, vector<int> *DC) : GameObject(pos)
 {
     this->color=color;
     this->round=round;
     this->HP=10;
+    this->DC=DC;
 }
 
 
@@ -32,6 +33,11 @@ void Unit::setHP(int newHP,char sign)
         this->HP-=newHP;
     else
         cout<<"Erreur caractère dans setHP non incorrect."<<endl;
+}
+
+vector<int> *Unit::getDC()
+{
+    return this->DC;
 }
 
 int Unit::getcolor() const
@@ -95,6 +101,11 @@ int Unit::find_B(Unit defender)
 
 int Unit::get_D_TR()
 {
+    int X=this->get_X();
+    int Y=this->get_Y();
+    vector<int> *DC=this->getDC();
+    vector<int> defenseChart= *DC;
+   // int D_TR=defenseChart[X][Y];
     return 0;
 }
 
