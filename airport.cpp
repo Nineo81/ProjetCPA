@@ -3,13 +3,15 @@
 #include "bomber.h"
 #include "fighter.h"
 
-Airport::Airport(int pos[2], Player* player):Building (pos, player)
+Airport::Airport(int pos[2], Player* player,vector<vector<int>> *DC):Building (pos, player)
 {
     type = 36;
+    this->DC = DC;
 }
 
-Airport::Airport(int pos[2]):Building(pos){
+Airport::Airport(int pos[2],vector<vector<int>> *DC):Building(pos){
     type = 36;
+    this->DC = DC;
 }
 
 AirUnit* Airport::createUnit(int typeUnit){
@@ -17,13 +19,13 @@ AirUnit* Airport::createUnit(int typeUnit){
     switch (typeUnit)
     {
         case 1:{
-            unit = new B_Copter(this->position,this->color,0);      //c'est quoi l'attribut round?
+            unit = new B_Copter(this->position,this->color,0,DC);      //c'est quoi l'attribut round?
             break;}
         case 2:{
-            unit = new Fighter(this->position,this->color,0);
+            unit = new Fighter(this->position,this->color,0,DC);
             break;}
         case 3:{
-            unit = new Bomber(this->position,this->color,0);
+            unit = new Bomber(this->position,this->color,0,DC);
             break;}
     }
     this->player->set_money(unit->getcost(),'d');
