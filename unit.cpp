@@ -2,11 +2,12 @@
 #include <string>
 #include <iostream>
 #include "terrain.h"
+#include "game.h"
 
 using namespace std;
 
 
-Unit::Unit(int pos[2], int color, int round, vector<int> *DC) : GameObject(pos)
+Unit::Unit(int pos[2], int color, int round, vector<vector<int>> *DC) : GameObject(pos)
 {
     this->color=color;
     this->round=round;
@@ -35,7 +36,7 @@ void Unit::setHP(int newHP,char sign)
         cout<<"Erreur caractère dans setHP non incorrect."<<endl;
 }
 
-vector<int> *Unit::getDC()
+vector<vector<int>> *Unit::getDC()
 {
     return this->DC;
 }
@@ -103,9 +104,9 @@ int Unit::get_D_TR()
 {
     int X=this->get_X();
     int Y=this->get_Y();
-    vector<int> *DC=this->getDC();
-    vector<int> defenseChart= *DC;
-   // int D_TR=defenseChart[X][Y];
+    vector<vector<int>> *DC=this->getDC();
+    vector<vector<int>> defenseChart= *DC;
+    int D_TR=defenseChart[X][Y];
     return 0;
 }
 
