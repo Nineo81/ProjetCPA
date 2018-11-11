@@ -7,7 +7,7 @@ Building::Building(int pos[2], Player* player):Terrain (pos,3)
 }
 
 Building::Building(int pos[2]):Terrain (pos,3){
-
+    life = 20;
 }
 
 int Building::getLife() const{
@@ -16,4 +16,8 @@ int Building::getLife() const{
 
 void Building::setPlayer(Player* player){
     this->player = player;
+}
+
+int Building::getType() const{
+    return type;
 }
