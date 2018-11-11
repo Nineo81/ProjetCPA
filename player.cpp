@@ -1,7 +1,8 @@
 #include "player.h"
 
-Player::Player(vector<Building*> firstBuildings,Map* terrainMap,Map* unitMap)
+Player::Player(int playerNumber, vector<Building*> firstBuildings,Map* terrainMap,Map* unitMap)
 {
+    this->playerNumber = playerNumber;
     this->terrainMap=terrainMap;
     this->unitMap=unitMap;
     this->listBuilding=firstBuildings;
@@ -25,16 +26,11 @@ void Player::set_money(int diff, char sign){
 
 void Player::add_building(Building* building){
     listBuilding.push_back(building);
-    switch(building->getType())
-    {
-    case(36):
-        terrainMap->setElement(40,building->getPositionX(),building->getPositionY());
-        break;
-    case(35):
-        terrainMap->setElement(39,building->getPositionX(),building->getPositionY());
-        break;
-    case(34):
-        terrainMap->setElement(38,building->getPositionX(),building->getPositionY());
+    if (playerNumber == 1){
+        terrainMap->setElement(building->getType()+4,building->getPositionX(),building->getPositionY());
+    }
+    else if (playerNumber == 2){
+        terrainMap->setElement(building->getType()+9,building->getPositionX(),building->getPositionY());
     }
 }
 

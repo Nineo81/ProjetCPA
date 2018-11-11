@@ -107,8 +107,8 @@ Game::Game():terrainMap("Map1V1.txt"),
             }
         }
     }
-    Player *playerOS = new Player(buildingsOS,&terrainMap,&unitMap);
-    Player *playerBM = new Player(buildingsBM,&terrainMap,&unitMap);
+    Player *playerOS = new Player(1,buildingsOS,&terrainMap,&unitMap);
+    Player *playerBM = new Player(2,buildingsBM,&terrainMap,&unitMap);
     listPlayer = {*playerOS, *playerBM};
 }
 

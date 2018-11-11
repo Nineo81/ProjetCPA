@@ -9,7 +9,7 @@
 class Player
 {
 public:
-    Player(vector<Building*> firstBuildings,Map* terrainMap,Map* unitMap);
+    Player(int playerNUmber, vector<Building*> firstBuildings,Map* terrainMap,Map* unitMap);
     vector<Building*>* get_listBuilding();
     vector<Unit>* get_listUnit();
     void add_unit(Unit unit);
@@ -24,6 +24,7 @@ private:
     vector<Building*> listBuilding;
     Map* terrainMap;
     Map* unitMap;
+    int playerNumber;
 };
 
 #endif // PLAYER_H
