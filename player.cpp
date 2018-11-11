@@ -34,7 +34,31 @@ void Player::add_building(Building* building){
     }
 }
 
-void Player::add_unit(Unit unit)
+void Player::delete_building(Building* building){
+    int i = 0;
+    while (listBuilding[i] != building){
+        i++;
+    }
+    if ( i < listBuilding.size()){
+       listBuilding.erase(listBuilding.begin()+i);
+    }
+    else {cout<<"Bâtiment non trouvé"<<endl;}
+
+}
+
+void Player::delete_unit(Unit *unit){
+    int i = 0;
+    while (listUnit[i] != unit){
+        i++;
+    }
+    if ( i < listUnit.size()){
+       listUnit.erase(listUnit.begin()+i);
+    }
+    else {cout<<"Unité non trouvée"<<endl;}
+
+}
+
+void Player::add_unit(Unit* unit)
 {
     listUnit.push_back(unit);
 }

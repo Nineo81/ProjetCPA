@@ -12,7 +12,7 @@ City::City(int pos[2]):Building (pos){
 void City::setLife(int damage, Player* attacker){
     int temp = life - damage;
     if (temp <= 0){
-        //this->player->removeBuilding(this);
+        this->player->delete_building(this);
         attacker->add_building(this);
         this->life = 20;
     }
