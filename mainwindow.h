@@ -8,8 +8,9 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit MainWindow(Map *map);
+    explicit MainWindow(Map *terrainMap,Map *unitMap);
     void keyPressEvent(QKeyEvent * event);
+    GameWindow* getWidget();
 
 private:
     GameWindow centerZone;

@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 
+class GameWindow;
 class Map
 {
 public:
@@ -12,12 +13,17 @@ public:
 
     unsigned int getSize(char a);
 
+    void replace(unsigned int oldX,unsigned int oldY,unsigned int newX,unsigned int newY);
+
     int getElement(unsigned int posX, unsigned int posY);
 
     void setElement(int element, unsigned int posX, unsigned int posY);
 
+    void setWindow(GameWindow* window);
+
 private:
     std::vector<std::vector<int>> map;
+    GameWindow* window;
 };
 
 #endif // MAP_H

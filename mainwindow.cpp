@@ -4,7 +4,7 @@
 #include <QKeyEvent>
 #include <QMouseEvent>
 
-MainWindow::MainWindow(Map *map) : centerZone(map)
+MainWindow::MainWindow(Map *terrainMap,Map *unitMap) : centerZone(terrainMap,unitMap)
 {
     setCentralWidget(&centerZone);
     //centerZone.setFixedSize(600,350);
@@ -31,6 +31,11 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
     if (event->key() == Qt::Key_Escape || event->key() == Qt::Key_Backspace){
     //retour == bouton B
     }
+}
+
+GameWindow* MainWindow::getWidget()
+{
+    return &centerZone;
 }
 
 
