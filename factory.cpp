@@ -9,13 +9,15 @@
 #include "tank.h"
 
 
-Factory::Factory(int pos[2], Player* player):Building (pos, player)
+Factory::Factory(int pos[2], Player* player,vector<vector<int>> *DC):Building (pos, player)
 {
     type = 35;
+    this->DC = DC;
 }
 
-Factory::Factory(int pos[2]):Building (pos){
+Factory::Factory(int pos[2],vector<vector<int>> *DC):Building (pos){
     type = 35;
+    this->DC = DC;
 }
 
 Unit* Factory::createUnit(int typeUnit){
@@ -23,28 +25,28 @@ Unit* Factory::createUnit(int typeUnit){
     switch (typeUnit)
     {
         case 1:{
-            unit = new infantery(this->position,this->color,0);      //c'est quoi l'attribut round?
+            unit = new infantery(this->position,this->color,0,DC);      //c'est quoi l'attribut round?
             break;}
         case 2:{
-            unit = new Bazooka(this->position,this->color,0);
+            unit = new Bazooka(this->position,this->color,0,DC);
             break;}
         case 3:{
-            unit = new Recon(this->position,this->color,0);
+            unit = new Recon(this->position,this->color,0,DC);
             break;}
         case 4:{
-            unit = new AntiAir(this->position,this->color,0);
+            unit = new AntiAir(this->position,this->color,0,DC);
             break;}
         case 5:{
-            unit = new Tank(this->position,this->color,0);
+            unit = new Tank(this->position,this->color,0,DC);
             break;}
         case 6:{
-            unit = new mdtank(this->position,this->color,0);
+            unit = new mdtank(this->position,this->color,0,DC);
             break;}
         case 7:{
-            unit = new megatank(this->position,this->color,0);
+            unit = new megatank(this->position,this->color,0,DC);
             break;}
         case 8:{
-            unit = new neotank(this->position,this->color,0);
+            unit = new neotank(this->position,this->color,0,DC);
             break;}
     }
     this->player->set_money(unit->getcost(),'d');
