@@ -137,3 +137,18 @@ void Unit::join_unit(Unit unit2)
     delete this;                     //auto-destruction de l'unité pour que les 2 unités deviennent un
 }
 
+int Unit::get_MPLoss()
+{
+    int terrainChart[11][5]={{1,1,1,2,1},
+                             {2,1,0,0,1},
+                             {1,1,2,3,1},
+                             {2,1,0,0,1},
+                             {1,1,1,1,1},
+                             {0,0,0,0,1},
+                             {1,1,1,1,1},
+                             {0,0,0,0,1},
+                             {1,1,1,1,1},
+                             {1,1,1,1,1},
+                             {0,0,0,0,0}};
+
+}

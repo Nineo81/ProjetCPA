@@ -6,6 +6,6 @@ Tank::Tank(int pos[2],int color, int round,vector<vector<int>> *DC):Unit(pos, co
     this->absMP=6;
     this->MP=this->absMP;
     this->cost=7000;
-    this->move_type="T";
+    this->move_type=2;
 
 }

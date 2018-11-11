@@ -1,7 +1,6 @@
 #ifndef UNIT_H
 #define UNIT_H
 #include "gameobject.h"
-#include <string>
 #include <vector>
 using namespace std;
 
@@ -19,7 +18,7 @@ private:
 protected:
     int HP;
     int cost;
-    string move_type;
+    int move_type;
     int range[2];
     int absMP;
     int MP;
@@ -43,11 +42,12 @@ public:
     void join_unit(Unit Unit2);
     int getMP() const; //fait
     void setMP(int newMP); //fait
-    void resetMP();   //fait
-    int damage(Unit defender);  //fait
-    int find_B(Unit defender); //fait
-    int get_D_TR();             //fait
-    void attack(Unit defender); //fait
+    void resetMP();                       //fait
+    int damage(Unit defender);            //fait
+    int find_B(Unit defender);            //fait
+    int get_D_TR();                       //fait
+    void attack(Unit defender);           //fait
+    int get_MPLoss();
 };
 
 #endif // UNIT_H
