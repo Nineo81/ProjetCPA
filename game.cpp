@@ -57,7 +57,7 @@ Game::Game():terrainMap("Map1V1.txt"),
             int pos[2];
             pos[0] = i;
             pos[1] = j;
-            Building *building = NULL;
+            Building *building = nullptr;
             switch(temp){
                 case 34:{
                     building = new City(pos);
