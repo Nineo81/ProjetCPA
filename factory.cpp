@@ -11,11 +11,11 @@
 
 Factory::Factory(int pos[2], Player* player):Building (pos, player)
 {
-
+    type = 35;
 }
 
 Factory::Factory(int pos[2]):Building (pos){
-
+    type = 35;
 }
 
 Unit* Factory::createUnit(int typeUnit){
@@ -59,10 +59,9 @@ Unit* Factory::createUnit(int typeUnit){
 void Factory::setLife(int damage, Player* attacker){
     int temp = life - damage;
     if (temp <= 0){
-        Factory* building = new Factory(this->position,attacker);
-        attacker->add_building(building);
-        //changer l'affichage aussi??
-        delete this;
+        //this->player->removeBuilding(this);
+        attacker->add_building(this);
+        this->life = 20;
     }
     else {life = temp;}
 }

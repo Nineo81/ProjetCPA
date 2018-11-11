@@ -5,11 +5,11 @@
 
 Airport::Airport(int pos[2], Player* player):Building (pos, player)
 {
-
+    type = 36;
 }
 
 Airport::Airport(int pos[2]):Building(pos){
-
+    type = 36;
 }
 
 AirUnit* Airport::createUnit(int typeUnit){
@@ -38,10 +38,9 @@ AirUnit* Airport::createUnit(int typeUnit){
 void Airport::setLife(int damage, Player* attacker){
     int temp = life - damage;
     if (temp <= 0){
-        Airport* building = new Airport(this->position,attacker);
-        attacker->add_building(building);
-        //changer l'affichage aussi??
-        delete  this;
+        //this->player->removeBuilding(this);
+        attacker->add_building(this);
+        this->life = 20;
     }
     else {life = temp;}
 }
