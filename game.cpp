@@ -44,13 +44,13 @@ Game::Game():cursor(5,5),terrainMap("Map1V1.txt"),
         }
     }
     this->defenseChart = defenseChart;
-    /*comment et quand on ajoute les batiments?*/
 
     neutralBuildings = {};
     vector<Building*> buildingsOS = {};     //OS = orange star
     vector<Building*> buildingsBM = {};     //BM = bleu moon
-    /*ajout des batiments
-    Aussi assez bourrin pour l'instant*/
+
+    /*ajout des batimentst*/
+
     for (unsigned int i = 0; i<terrainMap.getSize('m');i++){
         for (unsigned int j = 0; j<terrainMap.getSize('p');j++){
             int temp =terrainMap.getElement(i,j);
