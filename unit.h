@@ -29,10 +29,10 @@ protected:
 
 
 public:
-    Unit(int pos[2], int color, int round, vector<vector<int>> *TM);
+    Unit(int pos[2], int color, int round, vector<vector<int>> *DC);
     int getHP() const;          //fait
     void setHP(int newHP,char sign);//fait
-    void setHP();
+    void setHP();                   //fait
     int getcolor() const;        //fait
     int getcost() const;      //fait
     int getround() const;   //fait
@@ -44,9 +44,9 @@ public:
     int getMP() const; //fait
     void setMP(int newMP); //fait
     void resetMP();   //fait
-    int damage(Unit defender);
+    int damage(Unit defender);  //fait
     int find_B(Unit defender); //fait
-    int get_D_TR();
+    int get_D_TR();             //fait
     void attack(Unit defender); //fait
 };
 

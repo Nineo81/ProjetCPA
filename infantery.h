@@ -5,7 +5,7 @@
 class infantery : public Unit
 {
 public:
-    infantery(int pos[2],int color, int round);
+    infantery(int pos[2],int color, int round,vector<vector<int>> *DC);
 };
 
 #endif // INFANTERY_H

@@ -5,7 +5,7 @@
 class Fighter : public AirUnit
 {
 public:
-    Fighter(int pos[2],int color, int round);
+    Fighter(int pos[2],int color, int round,vector<vector<int>> *DC);
 };
 
 #endif // FIGHTER_H

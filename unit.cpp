@@ -107,7 +107,7 @@ int Unit::get_D_TR()
     vector<vector<int>> *DC=this->getDC();
     vector<vector<int>> defenseChart= *DC;
     int D_TR=defenseChart[X][Y];
-    return 0;
+    return D_TR;
 }
 
 int Unit::damage(Unit defender)
@@ -120,7 +120,6 @@ int Unit::damage(Unit defender)
     int damage=(B*A_HP/10*(100-D_TR*D_HP)/100)+0.5; /*ajout de 0,5 pour être sûr que
                                                       *damage est arrondi aux bonnes valeurs
                                                       * c++ arrondi tjs en-dessous*/
-
     return damage;
 }
 
