@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "map.h"
 #include "cursor.h"
+#include <vector>
 
 class GameWindow : public QWidget
 {
@@ -17,6 +18,7 @@ private:
     Map *terrainMap;
     Map *unitMap;
     Cursor* cursor;
+    std::vector<QImage> listImage;
 signals:
 
 public slots:
