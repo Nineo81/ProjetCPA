@@ -50,8 +50,7 @@ SOURCES += \
     megatank.cpp \
     neotank.cpp \
     b_copter.cpp \
-    cursor.cpp \
-    keyboard.cpp
+    cursor.cpp
 
 HEADERS += \
     game.h \
@@ -78,8 +77,7 @@ HEADERS += \
     megatank.h \
     neotank.h \
     b_copter.h \
-    cursor.h \
-    keyboard.h
+    cursor.h
 
 FORMS +=
 
