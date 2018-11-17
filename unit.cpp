@@ -4,15 +4,17 @@
 #include "terrain.h"
 #include "game.h"
 
+
 using namespace std;
 
 
-Unit::Unit(int pos[2], int color, int round, vector<vector<int>> *DC) : GameObject(pos)
+Unit::Unit(int pos[2], int color, int round, vector<vector<int>> *PDC, Map *PTM) : GameObject(pos)
 {
     this->color=color;
     this->round=round;
     this->HP=10;
-    this->DC=DC;
+    this->PDC=PDC;
+    this->PTM=PTM;
 }
 
 
@@ -36,9 +38,14 @@ void Unit::setHP(int newHP,char sign)
         cout<<"Erreur caractère dans setHP non incorrect."<<endl;
 }
 
-vector<vector<int>> *Unit::getDC()
+vector<vector<int>> Unit::getDefenseChart() const
 {
-    return this->DC;
+    return *PDC;
+}
+
+Map Unit::getTerrainMap() const
+{
+    return *PTM;
 }
 
 int Unit::getcolor() const
@@ -81,6 +88,10 @@ int Unit::gettype() const
     return this->type;
 }
 
+int Unit::getMoveType() const
+{
+    return this->move_type;
+}
 
 int Unit::find_B(Unit defender)
 {
@@ -104,8 +115,7 @@ int Unit::get_D_TR()
 {
     int X=this->get_X();
     int Y=this->get_Y();
-    vector<vector<int>> *DC=this->getDC();
-    vector<vector<int>> defenseChart= *DC;
+    vector<vector<int>> defenseChart=this->getDefenseChart();
     int D_TR=defenseChart[X][Y];
     return D_TR;
 }
@@ -137,7 +147,7 @@ void Unit::join_unit(Unit unit2)
     delete this;                     //auto-destruction de l'unité pour que les 2 unités deviennent un
 }
 
-int Unit::get_MPLoss()
+int Unit::get_MPLoss(int x, int y)
 {
     int terrainChart[11][5]={{1,1,1,2,1},
                              {2,1,0,0,1},
@@ -150,5 +160,39 @@ int Unit::get_MPLoss()
                              {1,1,1,1,1},
                              {1,1,1,1,1},
                              {0,0,0,0,0}};
+    Map terrainMap=this->getTerrainMap();
+    int temp=terrainMap.getElement(x,y);
+    int terrainType=0;
+    if (temp==1)
+        terrainType=0;
+    else if(temp==2)
+        terrainType=1;
+    else if(temp==3)
+        terrainType=2;
+    else if(temp==10 || temp==11 || temp==12 || temp==4 || temp==5 ||
+            temp==6 || temp==7 || temp==8 || temp==9 || temp==13 || temp==14)
+        terrainType=3;
+    else if(temp==15 || temp==16 || temp==17 || temp==18 || temp==19 ||
+            temp==20 || temp==21 || temp==22 || temp==23 || temp==24 ||
+            temp==25)
+        terrainType=4;
+    else if(temp==28)
+        terrainType=5;
+    else if(temp==29 || temp==30 || temp==31 || temp==32)
+        terrainType=6;
+    else if(temp==33)
+        terrainType=7;
+    else if(temp==34 || temp==38 || temp==43)
+        terrainType=8;
+    else if(temp==35 || temp==39 || temp==44)
+        terrainType=9;
+    else if(temp==101 || temp==102 || temp==103 || temp==104 || temp==105 || temp==106 || temp==107 || temp==108 || temp==109 || temp==110)
+        terrainType=10;
+    return terrainChart[terrainType][this->getMoveType()];
+}
 
+
+vector<vector<int>> Unit::movePossib(int x,int y)
+{
+    int MPLoss=this->get_MPLoss(x,y);       //à terminer
 }

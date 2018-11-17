@@ -3,17 +3,19 @@
 #include "building.h"
 #include "player.h"
 #include "unit.h"
+#include "map.h"
 
 class Factory:public Building
 {
 public:
-    Factory(int pos[2], Player* player,vector<vector<int>> *DC);
-    Factory(int pos[2],vector<vector<int>> *DC);
+    Factory(int pos[2], Player* player,vector<vector<int>> *DC,Map *PTM);
+    Factory(int pos[2],vector<vector<int>> *DC,Map *PTM);
     Unit* createUnit(int typeUnit);   //changer le nom du type selon
     void setLife(int damage, Player* attacker);
 
 private:
     vector<vector<int>> *DC;
+    Map *PTM;
 };
 
 #endif // FACTORY_H
