@@ -2,7 +2,7 @@
 
 Tank::Tank(int pos[2],int color, int round,vector<vector<int>> *TDC,Map *PTM):Unit(pos, color, round,TDC,PTM)
 {
-    this->type=10;
+    this->type=55;
     this->absMP=6;
     this->MP=this->absMP;
     this->cost=7000;
