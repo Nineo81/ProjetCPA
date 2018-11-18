@@ -11,8 +11,7 @@ MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) : cursor(cur
 }
 
 void MainWindow::keyPressEvent(QKeyEvent * event){
-    /*Je ne suis pas sure que ce sera ici a la fin,
-     * ça depend de comment on fait notre truc il me semble.*/
+     /* ça depend de comment on fait notre truc il me semble.*/
     if (event->key() == Qt::Key_Left){
     //faire bouger la case selectionnee vers la gauche
         cursor->move(0,1,0,0);

@@ -1,6 +1,6 @@
 #include "cursor.h"
 
-Cursor::Cursor(int posX,int posY,Map* unitMap,Map* terrainMap):posX(posX),posY(posY),unitMap(unitMap),terrainMap(terrainMap)
+Cursor::Cursor(int posX,int posY,Map* unitMap,Map* terrainMap):posX(posX),posY(posY),unitMap(unitMap),terrainMap(terrainMap),playerOS(nullptr),playerBM(nullptr)
 {
 
 }
@@ -21,4 +21,25 @@ int Cursor::getPosX()
 int Cursor::getPosY()
 {
     return posY;
+}
+
+void Cursor::setPlayer(Player* player,int type)
+{
+    if(type==1)
+    {
+        playerOS=player;
+    }
+    if(type==2)
+    {
+        playerBM=player;
+    }
+}
+
+int Cursor::getTypeElement(unsigned int posX,unsigned int posY)
+{
+    if(unitMap->getElement(posX,posY)!=0)
+    {
+        return unitMap->getElement(posX,posY);
+    }
+
 }
