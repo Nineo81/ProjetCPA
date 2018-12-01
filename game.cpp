@@ -52,51 +52,41 @@ Game::Game():terrainMap("Map1V1.txt"),
             int pos[2];
             pos[0] = i;
             pos[1] = j;
-            Building *building = nullptr;
             switch(temp){
                 case 34:{
-                    building = new City(pos);
-                    neutralBuildings.push_back(*building);
+                    neutralBuildings.push_back(new City(pos));
                     break;
                 }
                 case 35:{
-                    building = new Factory(pos, &this->defenseChart,&terrainMap);
-                    neutralBuildings.push_back(*building);
+                    neutralBuildings.push_back(new Factory(pos, &this->defenseChart,&terrainMap));
                     break;
                 }
                 case 36:{
-                    building = new Airport(pos,&this->defenseChart,&terrainMap);
-                    neutralBuildings.push_back(*building);
+                    neutralBuildings.push_back(new Airport(pos,&this->defenseChart,&terrainMap));
                     break;
                 }
                 case 38:{
-                    building = new City(pos);
-                    buildingsOS.push_back(building);
+                    buildingsOS.push_back(new City(pos));
                     break;
                 }
                 case 39:{
-                    building = new Factory(pos,&this->defenseChart,&terrainMap);
-                    buildingsOS.push_back(building);
+                    buildingsOS.push_back(new Factory(pos,&this->defenseChart,&terrainMap));
                     break;
                 }
                 case 40:{
-                    building = new Airport(pos,&this->defenseChart,&terrainMap);
-                    buildingsOS.push_back(building);
+                    buildingsOS.push_back(new Airport(pos,&this->defenseChart,&terrainMap));
                     break;
                 }
                 case 42:{
-                    building = new City(pos);
-                    buildingsBM.push_back(building);
+                    buildingsBM.push_back(new City(pos));
                     break;
                 }
                 case 43:{
-                    building = new Factory(pos,&this->defenseChart,&terrainMap);
-                    buildingsBM.push_back(building);
+                    buildingsBM.push_back(new Factory(pos,&this->defenseChart,&terrainMap));
                     break;
                 }
                 case 44:{
-                    building = new Airport(pos,&this->defenseChart,&terrainMap);
-                    buildingsBM.push_back(building);
+                    buildingsBM.push_back(new Airport(pos,&this->defenseChart,&terrainMap));
                     break;
                 }
             }
@@ -130,8 +120,8 @@ void Game::updateWindow()
 }
 
 Game::~Game(){
-    for (Building b : neutralBuildings){
-        delete &b;
+    for (Building* b : neutralBuildings){
+        delete b;
     }
     for (Building* b : listPlayer[0].get_listBuilding()){
         delete b;

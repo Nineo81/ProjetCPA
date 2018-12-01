@@ -31,7 +31,6 @@ SOURCES += \
     gameobject.cpp \
     mainwindow.cpp \
     map.cpp \
-    terrain.cpp \
     building.cpp \
     city.cpp \
     factory.cpp \
@@ -58,7 +57,6 @@ HEADERS += \
     gameobject.h \
     mainwindow.h \
     map.h \
-    terrain.h \
     building.h \
     city.h \
     factory.h \

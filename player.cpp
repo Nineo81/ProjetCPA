@@ -27,10 +27,10 @@ void Player::set_money(int diff, char sign){
 void Player::add_building(Building* building){
     listBuilding.push_back(building);
     if (playerNumber == 1){
-        terrainMap->setElement(building->getType()+4,building->getPositionX(),building->getPositionY());
+        terrainMap->setElement(building->getType()+4,building->get_X(),building->get_Y());
     }
     else if (playerNumber == 2){
-        terrainMap->setElement(building->getType()+9,building->getPositionX(),building->getPositionY());
+        terrainMap->setElement(building->getType()+9,building->get_X(),building->get_Y());
     }
 }
 

@@ -1,9 +1,9 @@
 #ifndef BUILDING_H
 #define BUILDING_H
-#include "terrain.h"
+#include "gameobject.h"
 
 class Player;
-class Building:public Terrain
+class Building:public GameObject
 {
 protected:
     int life;
@@ -16,6 +16,7 @@ public:
     int getLife() const;
     void setPlayer(Player* player);
     int getType() const;
+    void setposition(int newposition[2]);
 };
 
 #endif // BUILDING_H

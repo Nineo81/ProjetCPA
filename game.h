@@ -16,7 +16,7 @@ private:
    Cursor cursor;
    MainWindow w;
    std::vector<std::vector<int>> defenseChart;
-   std::vector<Building> neutralBuildings;
+   std::vector<Building*> neutralBuildings;
    std::vector<Player> listPlayer;
 public:
     Game();

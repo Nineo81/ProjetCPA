@@ -5,7 +5,7 @@
 
 class GameObject
 {
-private:
+protected:
     int position[2];
 public:
     GameObject(int pos[2]);
