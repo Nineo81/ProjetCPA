@@ -122,6 +122,15 @@ int Unit::find_B(Unit defender)
     return B;
 }
 
+bool Unit::can_attack(Unit defender)
+{
+    int B=this->find_B(defender);
+    if (B!=0)
+        return true;
+    else
+        return false;
+}
+
 int Unit::get_D_TR()
 {
     int X=this->get_X();
@@ -170,7 +179,7 @@ int Unit::get_MPLoss(int x, int y)
                              {0,0,0,0,1},
                              {1,1,1,1,1},
                              {1,1,1,1,1},
-                             {0,0,0,0,0}};
+                             {10,10,10,10,10}};
     Map terrainMap=this->getTerrainMap();
     int temp=terrainMap.getElement(x,y);
     int terrainType=0;
