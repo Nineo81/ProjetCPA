@@ -13,9 +13,11 @@ public:
     int getPosY();
     void setPlayer(Player* player,int type);
     int getTypeElement(unsigned int posX,unsigned int posY);
+    void switchPlayerState();
 private:
     int posX;
     int posY;
+    int playerState;
     Map* unitMap;
     Map* terrainMap;
     Player* playerOS;

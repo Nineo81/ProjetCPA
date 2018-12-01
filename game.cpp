@@ -95,6 +95,8 @@ Game::Game():terrainMap("Map1V1.txt"),
     Player *playerOS = new Player(1,buildingsOS,&terrainMap,&unitMap);
     Player *playerBM = new Player(2,buildingsBM,&terrainMap,&unitMap);
     listPlayer = {*playerOS, *playerBM};
+    cursor.setPlayer(playerBM,2);
+    cursor.setPlayer(playerOS,1);
 }
 
 Map Game::getTerrainMap() const{

@@ -2,7 +2,7 @@
 
 Cursor::Cursor(int posX,int posY,Map* unitMap,Map* terrainMap):posX(posX),posY(posY),unitMap(unitMap),terrainMap(terrainMap),playerOS(nullptr),playerBM(nullptr)
 {
-
+    playerState=1;
 }
 
 void Cursor::move(int up,int left,int down,int right)
@@ -21,6 +21,18 @@ int Cursor::getPosX()
 int Cursor::getPosY()
 {
     return posY;
+}
+
+void Cursor::switchPlayerState()
+{
+    if(playerState==1)
+    {
+        playerState=2;
+    }
+    else
+    {
+        playerState=1;
+    }
 }
 
 void Cursor::setPlayer(Player* player,int type)

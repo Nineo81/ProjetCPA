@@ -1,13 +1,20 @@
 #include "mainwindow.h"
 #include "gamewindow.h"
 #include <QPainter>
+#include <QApplication>
+#include <QScreen>
+#include <QStyle>
 #include <QKeyEvent>
 #include <QMouseEvent>
 
 MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) : cursor(cursor),centerZone(terrainMap,unitMap,cursor)
 {
     setCentralWidget(&centerZone);
-    //centerZone.setFixedSize(600,350);
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect  screenGeometry = screen->geometry();
+    centerZone.setSize(screenGeometry.width()*0.9,screenGeometry.height()*0.9);
+    this->adjustSize();
+    move(screen->availableGeometry().center()-this->rect().center());
 }
 
 void MainWindow::keyPressEvent(QKeyEvent * event){

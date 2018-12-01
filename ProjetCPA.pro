@@ -142,4 +142,5 @@ DISTFILES += \
     113.png \
     114.png \
     115.png \
-    116.png
+    116.png \
+    50.png
