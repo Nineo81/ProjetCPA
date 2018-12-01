@@ -54,13 +54,13 @@ public:
     void join_unit(Unit Unit2); 
     void setMP(int newMP);                //fait
     void resetMP();                       //fait
-    bool can_attack(Unit defender);
+    bool can_attack(Unit defender);       //fait
     int damage(Unit defender);            //fait
     int find_B(Unit defender);            //fait
     void attack(Unit defender);           //fait
     bool terrain_avail(int x, int y);     //fait
-    bool compare_listPos_2(vector<int> a, vector<int> b);
-    void sort_listPos(vector<vector<int>>);
+    vector<vector<int>> fusion(vector<vector<int>> l4,vector<vector<int>> vLeft, vector<vector<int>> vRight);
+    void mergesort_ListPos(vector<vector<int>> l4,int left,int mid,int right);
 };
 
 #endif // UNIT_H

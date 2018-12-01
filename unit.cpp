@@ -1,7 +1,7 @@
 #include "unit.h"
 #include <string>
 #include <iostream>
-#include<algorithm>
+//#include<algorithm>
 #include "game.h"
 
 
@@ -16,6 +16,11 @@ Unit::Unit(int pos[2], int color, int round, vector<vector<int>> *PDC, Map *PTM,
     this->PDC=PDC;
     this->PTM=PTM;
     this->PUM=PUM;
+    Map unitMap=*PUM;
+    if (color==1)
+        unitMap.setElement(this->type,position[0],position[1]);
+    else
+        unitMap.setElement(this->type+10,position[0],position[1]);      //il faudra peut être changer le +10
 }
 
 
@@ -222,16 +227,46 @@ bool Unit::terrain_avail(int x,int y)
     return res;
 }
 
-bool Unit::compare_listPos_2(vector<int> a, vector<int> b)
+
+/*vector<vector<int>> Unit::fusion(vector<vector<int>> l4, vector<vector<int>> vLeft, vector<vector<int>> vRight)
 {
-    return a[2]<b[2];
+    int iL=0;
+    int iR=0;
+    vLeft.push_back({0,0,100});
+    vRight.push_back({0,0,100});
+    for (int i=0;i<l4.size()-1;i++)
+    {
+        if (vLeft[iL][2]<vRight[iR][2])
+        {
+            l4[i]=vLeft[iL];
+            iL++;
+        }
+        else
+        {
+            l4[i]=vRight[iR];
+            iR++;
+        }
+    }
+    if
+    return l4;
 }
 
-//void Unit::sort_listPos(vector<vector<int>> l4)
-//{
-//    std::sort(l4.begin(),l4.end(),compare_listPos_2);
-//}
-//
+void Unit::mergesort_ListPos(vector<vector<int>> l4,int left,int mid, int right)
+{
+    int nl=mid-left; int nr=right-mid+1;
+    vector<vector<int>> vLeft;
+    vector<vector<int>> vRight;
+    for (int i=left;i<mid-1;i++)
+    {
+        vLeft.push_back(l4[i]);
+    }
+    for(int i=mid;i<right;i++)
+    {
+        vRight.push_back(l4[i]);
+    }
+    if (vLeft.size()!=1)
+
+}*/
 
 
 
