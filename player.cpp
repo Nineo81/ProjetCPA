@@ -110,3 +110,7 @@ bool Player::lost(){
     }
     return b;
 }
+
+int Player::getPlayerNumber(){
+    return playerNumber;
+}

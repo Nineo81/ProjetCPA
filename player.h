@@ -22,6 +22,7 @@ public:
     bool hasUnit(int X, int Y);
     int hasBuilding(int X,int Y);
     bool lost();
+    int getPlayerNumber();
 private:
     int money;
     vector<Unit*> listUnit;
