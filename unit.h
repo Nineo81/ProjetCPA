@@ -31,14 +31,14 @@ protected:
 
 public:
     Unit(int pos[2], int color, int round, vector<vector<int>> *PDC, Map *PTM);
-    int getHP() const;          //fait
-    void setHP(int newHP,char sign);//fait
-    void setHP();                   //fait
-    int getcolor() const;        //fait
-    int getcost() const;      //fait
-    int getround() const;   //fait
-    void setround(); //fait
-    int gettype() const; //fait
+    int getHP() const;                    //fait
+    void setHP(int newHP,char sign);      //fait
+    void setHP();                         //fait
+    int getcolor() const;                 //fait
+    int getcost() const;                  //fait
+    int getround() const;                 //fait
+    void setround();                      //fait
+    int gettype() const;                  //fait
     int getMoveType() const;                     //fait
     vector<vector<int>> getDefenseChart() const; //fait
     Map getTerrainMap() const;            //fait
