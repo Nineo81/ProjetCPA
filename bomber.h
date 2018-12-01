@@ -5,7 +5,7 @@
 class Bomber : public AirUnit
 {
 public:
-    Bomber(int pos[2],int color, int round,vector<vector<int>> *DC);
+    Bomber(int pos[2],int color, int round,vector<vector<int>> *TDC,Map *PTM);
 };
 
 #endif // BOMBER_H

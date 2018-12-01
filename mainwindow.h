@@ -15,6 +15,7 @@ public:
     void updateWidget();
 
 private:
+    Cursor* cursor;
     GameWindow centerZone;
 
 signals:

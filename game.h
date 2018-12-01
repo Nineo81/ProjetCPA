@@ -11,9 +11,9 @@
 class Game
 {
 private:
-   Cursor cursor;
    Map terrainMap;
    Map unitMap;
+   Cursor cursor;
    MainWindow w;
    std::vector<std::vector<int>> defenseChart;
    std::vector<Building> neutralBuildings;
@@ -23,6 +23,7 @@ public:
     ~Game();        //allocation dynamique pour les joueurs, normalement il faut un destructeur?
     Map getTerrainMap() const;
     Map getUnitMap() const;
+    Cursor* getCursor();
     int getDefense(unsigned int X, unsigned int Y) const;
     void start();
     std::vector<std::vector<int>> initDefense(Map terrainMap);

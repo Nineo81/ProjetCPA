@@ -1,8 +1,8 @@
 #include "antiair.h"
 
-AntiAir::AntiAir(int pos[2],int color, int round,vector<vector<int>> *DC):Unit(pos, color, round,DC)
+AntiAir::AntiAir(int pos[2],int color, int round,vector<vector<int>> *TDC,Map *PTM):Unit(pos, color, round,TDC,PTM)
 {
-    this->type=0;
+    this->type=60;
     this->absMP=6;
     this->MP=this->absMP;
     this->cost=8000;

@@ -1,7 +1,7 @@
 #include "b_copter.h"
 
-B_Copter::B_Copter(int pos[2],int color, int round,vector<vector<int>> *DC):AirUnit(pos, color, round,DC)
+B_Copter::B_Copter(int pos[2],int color, int round,vector<vector<int>> *TDC,Map *PTM):AirUnit(pos, color, round,TDC,PTM)
 {
-    this->type=1;
+    this->type=59;
 
 }

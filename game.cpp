@@ -4,9 +4,10 @@
 #include "factory.h"
 #include "airport.h"
 
-Game::Game():cursor(5,5),terrainMap("Map1V1.txt"),
+Game::Game():terrainMap("Map1V1.txt"),
             unitMap(terrainMap.getSize('m'),
-            terrainMap.getSize('p')),w(&terrainMap,&unitMap,&cursor)
+            terrainMap.getSize('p')),cursor(5,5,&terrainMap,&unitMap),
+            w(&terrainMap,&unitMap,&cursor)
 {
     unitMap.setWindow(w.getWidget());
     w.show();
@@ -59,12 +60,12 @@ Game::Game():cursor(5,5),terrainMap("Map1V1.txt"),
                     break;
                 }
                 case 35:{
-                    building = new Factory(pos, &defenseChart);
+                    building = new Factory(pos, &defenseChart,&terrainMap);
                     neutralBuildings.push_back(*building);
                     break;
                 }
                 case 36:{
-                    building = new Airport(pos,&defenseChart);
+                    building = new Airport(pos,&defenseChart,&terrainMap);
                     neutralBuildings.push_back(*building);
                     break;
                 }
@@ -74,12 +75,12 @@ Game::Game():cursor(5,5),terrainMap("Map1V1.txt"),
                     break;
                 }
                 case 39:{
-                    building = new Factory(pos,&defenseChart);
+                    building = new Factory(pos,&defenseChart,&terrainMap);
                     buildingsOS.push_back(building);
                     break;
                 }
                 case 40:{
-                    building = new Airport(pos,&defenseChart);
+                    building = new Airport(pos,&defenseChart,&terrainMap);
                     buildingsOS.push_back(building);
                     break;
                 }
@@ -89,12 +90,12 @@ Game::Game():cursor(5,5),terrainMap("Map1V1.txt"),
                     break;
                 }
                 case 43:{
-                    building = new Factory(pos,&defenseChart);
+                    building = new Factory(pos,&defenseChart,&terrainMap);
                     buildingsBM.push_back(building);
                     break;
                 }
                 case 44:{
-                    building = new Airport(pos,&defenseChart);
+                    building = new Airport(pos,&defenseChart,&terrainMap);
                     buildingsBM.push_back(building);
                     break;
                 }
@@ -112,6 +113,11 @@ Map Game::getTerrainMap() const{
 
 Map Game::getUnitMap() const{
     return unitMap;
+}
+
+Cursor* Game::getCursor()
+{
+    return &cursor;
 }
 
 int Game::getDefense(unsigned int X, unsigned int Y) const{
