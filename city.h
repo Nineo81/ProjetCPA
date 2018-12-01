@@ -9,6 +9,7 @@ public:
     City(int pos[2], Player* player);
     City(int pos[2]);
     void setLife(int damage, Player* attacker);
+    void createUnit(int typeUnit);
 private:
 };
 

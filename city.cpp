@@ -18,3 +18,5 @@ void City::setLife(int damage, Player* attacker){
     }
     else {life = temp;}
 }
+
+void City::createUnit(int typeUnit){}

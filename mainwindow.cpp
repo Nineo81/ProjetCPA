@@ -7,6 +7,7 @@
 #include <QKeyEvent>
 #include <QMouseEvent>
 #include "unitmenu.h"
+#include "buildingmenu.h"
 
 MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) : cursor(cursor),centerZone(terrainMap,unitMap,cursor)
 {
@@ -43,6 +44,12 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         if(cursor->unitOfPlayer())
         {
             UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY());
+            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+            menu->show();
+        }
+        else if(cursor->buildOfPlayer() == 35)
+        {
+            BuildingMenu *menu = new BuildingMenu(cursor->getRealX(),cursor->getRealY(),cursor->getPlayer()->getBuilding(cursor->getPosX(),cursor->getPosY()));
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
         }
