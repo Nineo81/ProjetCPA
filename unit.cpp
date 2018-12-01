@@ -191,8 +191,7 @@ int Unit::get_MPLoss(int x, int y)
     return terrainChart[terrainType][this->getMoveType()];
 }
 
-
-vector<vector<int>> Unit::movePossib(int x,int y)
-{
-    int MPLoss=this->get_MPLoss(x,y);       //à terminer
-}
+//vector<vector<int>> Unit::movePossib(int x,int y)
+//{
+//    int MPLoss=this->get_MPLoss(x,y);       //à terminer
+//}
