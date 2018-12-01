@@ -54,6 +54,7 @@ public:
     void join_unit(Unit Unit2); 
     void setMP(int newMP);                //fait
     void resetMP();                       //fait
+    bool can_attack(Unit defender);
     int damage(Unit defender);            //fait
     int find_B(Unit defender);            //fait
     void attack(Unit defender);           //fait
