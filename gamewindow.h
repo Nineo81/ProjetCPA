@@ -13,8 +13,11 @@ public:
     explicit GameWindow(Map *terrainMap=nullptr,Map *unitMap=nullptr,Cursor* cursor=nullptr);
 
     void paintEvent(QPaintEvent *event);
+    void setSize(double width,double height);
     void updateMap();
 private:
+    unsigned int height;
+    unsigned int width;
     Map *terrainMap;
     Map *unitMap;
     Cursor* cursor;
