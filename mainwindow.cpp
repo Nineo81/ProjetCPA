@@ -6,6 +6,7 @@
 #include <QStyle>
 #include <QKeyEvent>
 #include <QMouseEvent>
+#include "unitmenu.h"
 
 MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) : cursor(cursor),centerZone(terrainMap,unitMap,cursor)
 {
@@ -39,9 +40,16 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
     }
     if (event->key() == Qt::Key_Space || event->key() == Qt::Key_Enter){
     //confirmer la selection == bouton A
+        if(cursor->unitOfPlayer())
+        {
+            UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY());
+            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+            menu->show();
+        }
     }
     if (event->key() == Qt::Key_Escape || event->key() == Qt::Key_Backspace){
     //retour == bouton B
+
     }
 }
 

@@ -40,6 +40,7 @@ void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
     }
     painter.setPen(Qt::red);
     painter.drawRect(sizePicture*cursor->getPosX(),sizePicture*cursor->getPosY(),sizePicture,sizePicture);
+    cursor->setSizePicture(sizePicture);
 }
 
 void GameWindow::updateMap()
