@@ -18,6 +18,7 @@ public:
     void delete_building(Building* building);
     int get_money();
     void set_money(int diff,char sign);
+    bool hasUnit(int X, int Y);
 private:
     int money;
     vector<Unit*> listUnit;

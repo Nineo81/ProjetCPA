@@ -70,3 +70,13 @@ vector<Building*> Player::get_listBuilding(){
 vector<Unit*> Player::get_listUnit(){
     return listUnit;
 }
+
+bool Player::hasUnit(int X, int Y){
+    bool b = false;
+    for (Unit* u : listUnit){
+        if (u->get_X() == X && u->get_Y() == Y){
+            b = true;
+        }
+    }
+    return b;
+}
