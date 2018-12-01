@@ -7,8 +7,8 @@ Player::Player(int playerNumber, vector<Building*> firstBuildings,Map* terrainMa
     this->unitMap=unitMap;
     this->listBuilding=firstBuildings;
     this->money=1000*(this->listBuilding.size());
-    for (int i = 0;i<listBuilding.size();i++){
-        listBuilding[i]->setPlayer(this);
+    for (Building* b : listBuilding) {
+        b->setPlayer(this);
     }
 }
 
@@ -61,4 +61,12 @@ void Player::delete_unit(Unit *unit){
 void Player::add_unit(Unit* unit)
 {
     listUnit.push_back(unit);
+}
+
+vector<Building*> Player::get_listBuilding(){
+    return listBuilding;
+}
+
+vector<Unit*> Player::get_listUnit(){
+    return listUnit;
 }
