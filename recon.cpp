@@ -1,6 +1,6 @@
 #include "recon.h"
 
-Recon::Recon(int pos[2],int color, int round,vector<vector<int>> *TDC,Map *PTM):Unit(pos, color, round,TDC,PTM)
+Recon::Recon(int pos[2],int color, int round,vector<vector<int>> *TDC,Map *PTM,Map *PUM):Unit(pos, color, round,TDC,PTM,PUM)
 {
     this->type=54;
     this->absMP=8;

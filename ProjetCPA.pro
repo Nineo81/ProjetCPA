@@ -50,7 +50,8 @@ SOURCES += \
     neotank.cpp \
     b_copter.cpp \
     cursor.cpp \
-    unitmenu.cpp
+    unitmenu.cpp \
+    buildingmenu.cpp
 
 HEADERS += \
     game.h \
@@ -77,7 +78,8 @@ HEADERS += \
     neotank.h \
     b_copter.h \
     cursor.h \
-    unitmenu.h
+    unitmenu.h \
+    buildingmenu.h
 
 FORMS +=
 

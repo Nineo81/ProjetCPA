@@ -3,40 +3,40 @@
 #include "bomber.h"
 #include "fighter.h"
 
-Airport::Airport(int pos[2], Player* player,vector<vector<int>> *DC,Map *PTM):Building (pos, player)
+Airport::Airport(int pos[2], Player* player,vector<vector<int>> *DC,Map *PTM,Map *PUM):Building (pos, player)
 {
     type = 36;
     this->DC = DC;
     this->PTM=PTM;
+    this->PUM=PUM;
 }
 
-Airport::Airport(int pos[2],vector<vector<int>> *DC,Map *PTM):Building(pos){
+Airport::Airport(int pos[2],vector<vector<int>> *DC,Map *PTM,Map *PUM):Building(pos){
     type = 36;
     this->DC = DC;
     this->PTM=PTM;
+    this->PUM=PUM;
 }
 
-AirUnit* Airport::createUnit(int typeUnit){
-    AirUnit* unit = NULL;
+void Airport::createUnit(int typeUnit){
+    AirUnit* unit = nullptr;
     switch (typeUnit)
     {
         case 1:{
-            unit = new B_Copter(this->position,this->color,0,DC,PTM);      //c'est quoi l'attribut round?
+            unit = new B_Copter(this->position,this->color,0,DC,PTM,PUM);      //c'est quoi l'attribut round?
             break;}
         case 2:{
-            unit = new Fighter(this->position,this->color,0,DC,PTM);
+            unit = new Fighter(this->position,this->color,0,DC,PTM,PUM);
             break;}
         case 3:{
-            unit = new Bomber(this->position,this->color,0,DC,PTM);
+            unit = new Bomber(this->position,this->color,0,DC,PTM,PUM);
             break;}
     }
     this->player->set_money(unit->getcost(),'d');
     if (this->player->get_money()<0){
         this->player->set_money(unit->getcost(),'a');
         delete unit;
-        return NULL;
     }
-    else{return unit;}
 }
 
 void Airport::setLife(int damage, Player* attacker){
@@ -48,3 +48,5 @@ void Airport::setLife(int damage, Player* attacker){
     }
     else {life = temp;}
 }
+
+Airport::~Airport(){}

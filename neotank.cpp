@@ -1,6 +1,6 @@
 #include "neotank.h"
 
-neotank::neotank(int pos[2],int color, int round,vector<vector<int>> *TDC,Map *PTM):Unit(pos, color, round,TDC,PTM)
+neotank::neotank(int pos[2],int color, int round,vector<vector<int>> *TDC,Map *PTM,Map *PUM):Unit(pos, color, round,TDC,PTM,PUM)
 {
     this->type=53;
     this->absMP=6;

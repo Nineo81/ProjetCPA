@@ -14,9 +14,10 @@ public:
     int getPosY();
     int getRealX();
     int getRealY();
+    Player* getPlayer();
     void setPlayer(Player* player,int type);
     bool unitOfPlayer();
-    bool buildOfPlayer();
+    int buildOfPlayer();
     void switchPlayerState();
     void setSizePicture(int sizePicture);
 private:

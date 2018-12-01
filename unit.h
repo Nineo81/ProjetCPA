@@ -12,7 +12,8 @@ private:
     int color;
     int round;
     vector<vector<int>> *PDC; //pointeur vers defenseChart
-    Map *PTM;
+    Map *PTM;                 //pointeur vers terrainMap
+    Map *PUM;                 //pointeur vers unitMap
 
 
 
@@ -30,7 +31,7 @@ protected:
 
 
 public:
-    Unit(int pos[2], int color, int round, vector<vector<int>> *PDC, Map *PTM);
+    Unit(int pos[2], int color, int round, vector<vector<int>> *PDC, Map *PTM, Map *PUM);
     int getHP() const;                    //fait
     void setHP(int newHP,char sign);      //fait
     void setHP();                         //fait
@@ -40,19 +41,25 @@ public:
     void setround();                      //fait
     int gettype() const;                  //fait
     int getMoveType() const;                     //fait
+    int getMP() const;                    //fait
+    int get_D_TR();                       //fait
+    int get_MPLoss(int x, int y);         //fait
+    int get_absMP();                      //fait
     vector<vector<int>> getDefenseChart() const; //fait
     Map getTerrainMap() const;            //fait
-    vector<vector<int>> movePossib(int x,int y);   //(x,y) la position actuelle de l'unité
+    Map getUnitMap() const;               //fait
+    void movePossib_recusif(vector<vector<int>> l1, vector<vector<int>> l2);   //a est la position qui a été vérifiée avant
+    vector<vector<int>> movePossib(int x,int y); //fait   //(x,y) la position actuelle de l'unité
     int move();
-    void join_unit(Unit Unit2);
-    int getMP() const;                    //fait
+    void join_unit(Unit Unit2); 
     void setMP(int newMP);                //fait
     void resetMP();                       //fait
     int damage(Unit defender);            //fait
     int find_B(Unit defender);            //fait
-    int get_D_TR();                       //fait
     void attack(Unit defender);           //fait
-    int get_MPLoss(int x, int y);         //fait
+    bool terrain_avail(int x, int y);     //fait
+    bool compare_listPos_2(vector<int> a, vector<int> b);
+    void sort_listPos(vector<vector<int>>);
 };
 
 #endif // UNIT_H

@@ -6,7 +6,7 @@
 class Recon : public Unit
 {
 public:
-    Recon(int pos[2],int color, int round,vector<vector<int>> *TDC,Map *PTM);
+    Recon(int pos[2],int color, int round,vector<vector<int>> *TDC,Map *PTM,Map *PUM);
 };
 
 #endif // RECON_H
