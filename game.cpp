@@ -58,11 +58,11 @@ Game::Game():terrainMap("Map1V1.txt"),
                     break;
                 }
                 case 35:{
-                    neutralBuildings.push_back(new Factory(pos, &this->defenseChart,&terrainMap));
+                    neutralBuildings.push_back(new Factory(pos, &this->defenseChart,&terrainMap,&unitMap));
                     break;
                 }
                 case 36:{
-                    neutralBuildings.push_back(new Airport(pos,&this->defenseChart,&terrainMap));
+                    neutralBuildings.push_back(new Airport(pos,&this->defenseChart,&terrainMap,&unitMap));
                     break;
                 }
                 case 38:{
@@ -70,11 +70,11 @@ Game::Game():terrainMap("Map1V1.txt"),
                     break;
                 }
                 case 39:{
-                    buildingsOS.push_back(new Factory(pos,&this->defenseChart,&terrainMap));
+                    buildingsOS.push_back(new Factory(pos,&this->defenseChart,&terrainMap,&unitMap));
                     break;
                 }
                 case 40:{
-                    buildingsOS.push_back(new Airport(pos,&this->defenseChart,&terrainMap));
+                    buildingsOS.push_back(new Airport(pos,&this->defenseChart,&terrainMap,&unitMap));
                     break;
                 }
                 case 42:{
@@ -82,11 +82,11 @@ Game::Game():terrainMap("Map1V1.txt"),
                     break;
                 }
                 case 43:{
-                    buildingsBM.push_back(new Factory(pos,&this->defenseChart,&terrainMap));
+                    buildingsBM.push_back(new Factory(pos,&this->defenseChart,&terrainMap,&unitMap));
                     break;
                 }
                 case 44:{
-                    buildingsBM.push_back(new Airport(pos,&this->defenseChart,&terrainMap));
+                    buildingsBM.push_back(new Airport(pos,&this->defenseChart,&terrainMap,&unitMap));
                     break;
                 }
             }
@@ -119,7 +119,7 @@ void Game::updateWindow()
     w.updateWidget();
 }
 
-Game::~Game(){
+/*Game::~Game(){
     for (Building* b : neutralBuildings){
         delete b;
     }
@@ -139,7 +139,7 @@ Game::~Game(){
         delete &p;
     }
     delete this;
-}
+}*/
 
 /*std::vector<std::vector<int>> initDefense(Map terrainMap){
     std::vector<std::vector<int>> defenseChart;

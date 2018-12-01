@@ -8,14 +8,15 @@
 class Factory:public Building
 {
 public:
-    Factory(int pos[2], Player* player,vector<vector<int>> *DC,Map *PTM);
-    Factory(int pos[2],vector<vector<int>> *DC,Map *PTM);
+    Factory(int pos[2], Player* player,vector<vector<int>> *DC,Map *PTM,Map *PUM);
+    Factory(int pos[2],vector<vector<int>> *DC,Map *PTM,Map *PUM);
     Unit* createUnit(int typeUnit);   //changer le nom du type selon
     void setLife(int damage, Player* attacker);
 
 private:
     vector<vector<int>> *DC;
     Map *PTM;
+    Map *PUM;
 };
 
 #endif // FACTORY_H

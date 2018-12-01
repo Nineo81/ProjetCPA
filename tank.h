@@ -5,7 +5,7 @@
 class Tank :public Unit
 {
 public:
-    Tank(int pos[2],int color, int round,vector<vector<int>> *TDC,Map *PTM);
+    Tank(int pos[2],int color, int round,vector<vector<int>> *TDC,Map *PTM,Map *PUM);
 };
 
 #endif // TANK_H

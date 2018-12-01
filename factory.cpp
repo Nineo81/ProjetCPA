@@ -10,17 +10,19 @@
 
 
 
-Factory::Factory(int pos[2], Player* player,vector<vector<int>> *DC,Map *PTM):Building (pos, player)
+Factory::Factory(int pos[2], Player* player,vector<vector<int>> *DC,Map *PTM,Map *PUM):Building (pos, player)
 {
     type = 35;
     this->DC = DC;
     this->PTM=PTM;
+    this->PUM=PUM;
 }
 
-Factory::Factory(int pos[2],vector<vector<int>> *DC,Map *PTM):Building (pos){
+Factory::Factory(int pos[2],vector<vector<int>> *DC,Map *PTM,Map *PUM):Building (pos){
     type = 35;
     this->DC = DC;
     this->PTM=PTM;
+    this->PUM=PUM;
 }
 
 Unit* Factory::createUnit(int typeUnit){
@@ -28,28 +30,28 @@ Unit* Factory::createUnit(int typeUnit){
     switch (typeUnit)
     {
         case 1:{
-            unit = new infantery(this->position,this->color,0,DC,PTM);      //c'est quoi l'attribut round?
+            unit = new infantery(this->position,this->color,0,DC,PTM,PUM);      //c'est quoi l'attribut round?
             break;}
         case 2:{
-            unit = new Bazooka(this->position,this->color,0,DC,PTM);
+            unit = new Bazooka(this->position,this->color,0,DC,PTM,PUM);
             break;}
         case 3:{
-            unit = new Recon(this->position,this->color,0,DC,PTM);
+            unit = new Recon(this->position,this->color,0,DC,PTM,PUM);
             break;}
         case 4:{
-            unit = new AntiAir(this->position,this->color,0,DC,PTM);
+            unit = new AntiAir(this->position,this->color,0,DC,PTM,PUM);
             break;}
         case 5:{
-            unit = new Tank(this->position,this->color,0,DC,PTM);
+            unit = new Tank(this->position,this->color,0,DC,PTM,PUM);
             break;}
         case 6:{
-            unit = new mdtank(this->position,this->color,0,DC,PTM);
+            unit = new mdtank(this->position,this->color,0,DC,PTM,PUM);
             break;}
         case 7:{
-            unit = new megatank(this->position,this->color,0,DC,PTM);
+            unit = new megatank(this->position,this->color,0,DC,PTM,PUM);
             break;}
         case 8:{
-            unit = new neotank(this->position,this->color,0,DC,PTM);
+            unit = new neotank(this->position,this->color,0,DC,PTM,PUM);
             break;}
     }
     this->player->set_money(unit->getcost(),'d');
