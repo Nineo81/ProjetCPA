@@ -102,3 +102,11 @@ int Player::hasBuilding(int X,int Y)
     }
     return type;
 }
+
+bool Player::lost(){
+    bool b = false;
+    if (listBuilding.size() == 0 && listUnit.size() == 0){
+        b = true;
+    }
+    return b;
+}
