@@ -44,12 +44,12 @@ public:
     int getMP() const;                    //fait
     int get_D_TR();                       //fait
     int get_MPLoss(int x, int y);         //fait
-    int get_absMP();
+    int get_absMP();                      //fait
     vector<vector<int>> getDefenseChart() const; //fait
     Map getTerrainMap() const;            //fait
-    Map getUnitMap() const;
+    Map getUnitMap() const;               //fait
     void movePossib_recusif(vector<vector<int>> l1, vector<vector<int>> l2);   //a est la position qui a été vérifiée avant
-    vector<vector<int>> movePossib(int x,int y);   //(x,y) la position actuelle de l'unité
+    vector<vector<int>> movePossib(int x,int y); //fait   //(x,y) la position actuelle de l'unité
     int move();
     void join_unit(Unit Unit2); 
     void setMP(int newMP);                //fait
@@ -58,6 +58,8 @@ public:
     int find_B(Unit defender);            //fait
     void attack(Unit defender);           //fait
     bool terrain_avail(int x, int y);     //fait
+    bool compare_listPos_2(vector<int> a, vector<int> b);
+    void sort_listPos(vector<vector<int>>);
 };
 
 #endif // UNIT_H

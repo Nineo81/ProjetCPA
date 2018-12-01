@@ -1,6 +1,7 @@
 #include "unit.h"
 #include <string>
 #include <iostream>
+#include<algorithm>
 #include "game.h"
 
 
@@ -211,6 +212,22 @@ bool Unit::terrain_avail(int x,int y)
         res=false;
     return res;
 }
+
+bool Unit::compare_listPos_2(vector<int> a, vector<int> b)
+{
+    return a[2]<b[2];
+}
+
+//void Unit::sort_listPos(vector<vector<int>> l4)
+//{
+//    std::sort(l4.begin(),l4.end(),compare_listPos_2);
+//}
+//
+
+
+
+
+
 
 
 
