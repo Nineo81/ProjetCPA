@@ -15,10 +15,12 @@ public:
     void add_unit(Unit *unit);
     void delete_unit(Unit *unit);
     void add_building(Building* building);
+    Building* getBuilding(int X, int Y);
     void delete_building(Building* building);
     int get_money();
     void set_money(int diff,char sign);
     bool hasUnit(int X, int Y);
+    int hasBuilding(int X,int Y);
 private:
     int money;
     vector<Unit*> listUnit;

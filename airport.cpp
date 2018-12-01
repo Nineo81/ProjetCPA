@@ -16,8 +16,8 @@ Airport::Airport(int pos[2],vector<vector<int>> *DC,Map *PTM):Building(pos){
     this->PTM=PTM;
 }
 
-AirUnit* Airport::createUnit(int typeUnit){
-    AirUnit* unit = NULL;
+void Airport::createUnit(int typeUnit){
+    AirUnit* unit = nullptr;
     switch (typeUnit)
     {
         case 1:{
@@ -34,9 +34,7 @@ AirUnit* Airport::createUnit(int typeUnit){
     if (this->player->get_money()<0){
         this->player->set_money(unit->getcost(),'a');
         delete unit;
-        return NULL;
     }
-    else{return unit;}
 }
 
 void Airport::setLife(int damage, Player* attacker){
@@ -48,3 +46,5 @@ void Airport::setLife(int damage, Player* attacker){
     }
     else {life = temp;}
 }
+
+Airport::~Airport(){}

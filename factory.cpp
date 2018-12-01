@@ -23,8 +23,8 @@ Factory::Factory(int pos[2],vector<vector<int>> *DC,Map *PTM):Building (pos){
     this->PTM=PTM;
 }
 
-Unit* Factory::createUnit(int typeUnit){
-    Unit *unit = NULL;
+void Factory::createUnit(int typeUnit){
+    Unit *unit = nullptr;
     switch (typeUnit)
     {
         case 1:{
@@ -56,9 +56,7 @@ Unit* Factory::createUnit(int typeUnit){
     if (this->player->get_money()<0){
         this->player->set_money(unit->getcost(),'a');
         delete unit;
-        return NULL;
     }
-    else{return unit;}
 }
 
 void Factory::setLife(int damage, Player* attacker){
@@ -70,3 +68,5 @@ void Factory::setLife(int damage, Player* attacker){
     }
     else {life = temp;}
 }
+
+Factory::~Factory(){}

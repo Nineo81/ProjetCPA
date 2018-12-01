@@ -32,6 +32,19 @@ int Cursor::getRealY()
 {
     return sizePicture*posY;
 }
+Player* Cursor::getPlayer()
+{
+    Player* player= nullptr;
+    if(playerState==1)
+    {
+        player=playerOS;
+    }
+    else
+    {
+        player=playerBM;
+    }
+    return player;
+}
 
 void Cursor::switchPlayerState()
 {
@@ -60,13 +73,29 @@ void Cursor::setPlayer(Player* player,int type)
 bool Cursor::unitOfPlayer()
 {
     bool state = false;
-    if(unitMap->getElement(static_cast<unsigned int>(posX),static_cast<unsigned int>(posY))!=0)
+    if(playerState == 1)
     {
-        if(playerState == 1)
-        {
-            state=playerOS->hasUnit(posX,posY);
-        }
+        state=playerOS->hasUnit(posX,posY);
     }
+    else
+    {
+        state=playerBM->hasUnit(posX,posY);
+    }
+    return state;
+}
+
+int Cursor::buildOfPlayer()
+{
+    int state = 0;
+    if(playerState == 1)
+    {
+        state=playerOS->hasBuilding(posX,posY);
+    }
+    else
+    {
+        state=playerBM->hasBuilding(posX,posY);
+    }
+    cout<<state<<endl;
     return state;
 }
 
