@@ -40,18 +40,18 @@ public:
     int getround() const;                 //fait
     void setround();                      //fait
     int gettype() const;                  //fait
-    int getMoveType() const;                     //fait
+    int getMoveType() const;              //fait
     int getMP() const;                    //fait
-    int get_D_TR();                       //fait
+    int get_D_TR() ;                       //fait
     int get_MPLoss(int x, int y);         //fait
-    int get_absMP();                      //fait
+    int get_absMP() const;                      //fait
     vector<vector<int>> getDefenseChart() const; //fait
     Map getTerrainMap() const;            //fait
     Map getUnitMap() const;               //fait
     void movePossib_recusif(vector<vector<int>> l1, vector<vector<int>> l2);   //a est la position qui a été vérifiée avant
     vector<vector<int>> movePossib(int x,int y); //fait   //(x,y) la position actuelle de l'unité
-    int move();
-    void join_unit(Unit Unit2); 
+    void move(int x, int y);              //fait
+    void join_unit(Unit Unit2);           //fait
     void setMP(int newMP);                //fait
     void resetMP();                       //fait
     bool can_attack(Unit defender);       //fait

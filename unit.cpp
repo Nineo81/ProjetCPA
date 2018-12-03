@@ -104,7 +104,7 @@ int Unit::getMoveType() const
     return this->move_type;
 }
 
-int Unit::get_absMP()
+int Unit::get_absMP() const
 {
     return this->absMP;
 }
@@ -360,3 +360,16 @@ vector<vector<int>> Unit::movePossib(int x,int y)
     this->movePossib_recusif(l1,l1);
     return l1;
 }
+
+
+void Unit::move(int x, int y)
+{
+    Map unitMap=this->getUnitMap();
+    int oldX=this->get_X();
+    int oldY=this->get_Y();
+    unitMap.replace(oldX,oldY,x,y);
+    int newposition[2]={x,y};
+    this->setposition(newposition);
+    this->resetMP();
+}
+
