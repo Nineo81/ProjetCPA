@@ -6,6 +6,7 @@ using namespace std;
 #include "map.h"
 
 
+
 class Unit : public GameObject
 {
 private:
@@ -42,9 +43,9 @@ public:
     int gettype() const;                  //fait
     int getMoveType() const;              //fait
     int getMP() const;                    //fait
-    int get_D_TR() const;                       //fait
+    int get_D_TR() const;                 //fait
     int get_MPLoss(int x, int y);         //fait
-    int get_absMP() const;                      //fait
+    int get_absMP() const;                //fait
     vector<vector<int>> getDefenseChart() const; //fait
     Map getTerrainMap() const;            //fait
     Map getUnitMap() const;               //fait
@@ -59,8 +60,8 @@ public:
     int find_B(Unit defender);            //fait
     void attack(Unit defender);           //fait
     bool terrain_avail(int x, int y);     //fait
-    vector<vector<int>> fusion(vector<vector<int>> l4,vector<vector<int>> vLeft, vector<vector<int>> vRight);
-    void mergesort_ListPos(vector<vector<int>> l4,int left,int mid,int right);
+    vector<vector<int>> fusion(vector<vector<int>> A); //fait
+
 };
 
 #endif // UNIT_H

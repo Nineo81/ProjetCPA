@@ -28,6 +28,7 @@ int Building::getLife() const{
     return life;
 }
 
+
 void Building::setPlayer(Player* player){
     this->player = player;
 }

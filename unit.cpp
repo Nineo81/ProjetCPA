@@ -1,4 +1,4 @@
-#include "unit.h"
+ #include "unit.h"
 #include <string>
 #include <iostream>
 //#include<algorithm>
@@ -228,45 +228,49 @@ bool Unit::terrain_avail(int x,int y)
 }
 
 
-/*vector<vector<int>> Unit::fusion(vector<vector<int>> l4, vector<vector<int>> vLeft, vector<vector<int>> vRight)
+vector<vector<int>> Unit::fusion(vector<vector<int>> A)
 {
-    int iL=0;
-    int iR=0;
-    vLeft.push_back({0,0,100});
-    vRight.push_back({0,0,100});
-    for (int i=0;i<l4.size()-1;i++)
+    int l =A.size();
+    if (l>1)
     {
-        if (vLeft[iL][2]<vRight[iR][2])
+        int mid=int(std::round(l/2.0));
+        vector<vector<int>> vLeft;
+        vector<vector<int>> vRight;
+        int left=0;
+        int right=l-1;
+        for (int i=left;i<mid-1;i++)
         {
-            l4[i]=vLeft[iL];
-            iL++;
+            vLeft.push_back(A[i]);
         }
-        else
+        for(int i=mid;i<right;i++)
         {
-            l4[i]=vRight[iR];
-            iR++;
+            vRight.push_back(A[i]);
         }
+        vLeft=this->fusion(vLeft);
+        vRight=this->fusion(vRight);
+        int iL=0;
+        int iR=0;
+        vLeft.push_back({0,0,100});
+        vRight.push_back({0,0,100});
+        for (int i=left;i<right;i++)
+        {
+            if (vLeft[iL][2]<vRight[iR][2])
+            {
+                A[i]=vLeft[iL];
+                iL++;
+            }
+            else
+            {
+                A[i]=vRight[iR];
+                iR++;
+            }
+        }
+        return A;
     }
-    if
-    return l4;
+    else
+        return A;
 }
 
-void Unit::mergesort_ListPos(vector<vector<int>> l4,int left,int mid, int right)
-{
-    int nl=mid-left; int nr=right-mid+1;
-    vector<vector<int>> vLeft;
-    vector<vector<int>> vRight;
-    for (int i=left;i<mid-1;i++)
-    {
-        vLeft.push_back(l4[i]);
-    }
-    for(int i=mid;i<right;i++)
-    {
-        vRight.push_back(l4[i]);
-    }
-    if (vLeft.size()!=1)
-
-}*/
 
 
 
@@ -345,7 +349,7 @@ void Unit::movePossib_recusif(vector<vector<int>> l1,vector<vector<int>> l2)
         }
 
     }
-    //IL FAUT TRIER L4!!!!
+    l4=this->fusion(l4);
     if (rest_MP==true)
     {
         this->movePossib_recusif(l1,l4);
