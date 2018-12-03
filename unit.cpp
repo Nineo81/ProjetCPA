@@ -136,7 +136,7 @@ bool Unit::can_attack(Unit defender)
         return false;
 }
 
-int Unit::get_D_TR()
+int Unit::get_D_TR() const
 {
     int X=this->get_X();
     int Y=this->get_Y();

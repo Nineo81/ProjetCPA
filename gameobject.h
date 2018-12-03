@@ -9,8 +9,8 @@ protected:
     int position[2];
 public:
     GameObject(int pos[2]);
-    int get_X();
-    int get_Y();
+    int get_X() const;
+    int get_Y() const;
     void setposition(int newposition[2]);
 };
 

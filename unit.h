@@ -42,7 +42,7 @@ public:
     int gettype() const;                  //fait
     int getMoveType() const;              //fait
     int getMP() const;                    //fait
-    int get_D_TR() ;                       //fait
+    int get_D_TR() const;                       //fait
     int get_MPLoss(int x, int y);         //fait
     int get_absMP() const;                      //fait
     vector<vector<int>> getDefenseChart() const; //fait
