@@ -61,6 +61,7 @@ public:
     void attack(Unit defender);           //fait
     bool terrain_avail(int x, int y);     //fait
     vector<vector<int>> fusion(vector<vector<int>> A); //fait
+    //void capture(Building building);
 
 };
 

@@ -41,6 +41,8 @@ void Building::setposition(int newposition[2]){
     std::cout<<"La position d'un bâtiment ne peut être changée";
 }
 
+void Building::setLife(int damage, Player* attacker){}
+
 void Building::createUnit(int typeUnit){}
 
 Building::~Building(){}

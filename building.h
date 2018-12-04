@@ -22,6 +22,7 @@ public:
     int get_X();
     int get_Y();
     void setposition(int newposition[2]);
+    virtual void setLife(int damage, Player* attacker);
     virtual void createUnit(int typeUnit);
     virtual ~Building();
 };
