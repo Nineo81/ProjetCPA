@@ -29,18 +29,26 @@ GameWindow::GameWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) :terrainMap(
 void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
-    int sizePicture = static_cast<int>(height/(terrainMap->getSize('m')+1));
+    int sizePicture = static_cast<int>(height/(terrainMap->getSize('y')+1));
 
-    for(unsigned int i=0;i<=terrainMap->getSize('m')-1;i++)
+    for(unsigned int y=0;y<=terrainMap->getSize('y')-1;y++)
     {
-        for(unsigned int j=0;j<=terrainMap->getSize('p')-1;j++)
+        for(unsigned int x=0;x<=terrainMap->getSize('x')-1;x++)
         {
-            painter.drawImage(QRect(sizePicture*(static_cast<int>(j)+1),sizePicture*(static_cast<int>(i)+1),sizePicture,sizePicture),listImage[static_cast<unsigned int>(terrainMap->getElement(i,j)-1)]);
-            if(unitMap->getElement(i,j) != 0)
+            painter.drawImage(QRect(sizePicture*(static_cast<int>(x)+1),sizePicture*(static_cast<int>(y)+1),sizePicture,sizePicture),listImage[static_cast<unsigned int>(terrainMap->getElement(x,y)-1)]);
+        }
+
+    }
+    for(unsigned int y=0;y<=terrainMap->getSize('y')-1;y++)
+    {
+        for(unsigned int x=0;x<=terrainMap->getSize('x')-1;x++)
+        {
+            if(unitMap->getElement(x,y) != 0)
             {
-                painter.drawImage(QRect(sizePicture*(static_cast<int>(j)+1),sizePicture*(static_cast<int>(i)+1),sizePicture,sizePicture),listImage[static_cast<unsigned int>(49)]);
+                painter.drawImage(QRect(sizePicture*(static_cast<int>(x)+1),sizePicture*(static_cast<int>(y)+1),sizePicture,sizePicture),listImage[static_cast<unsigned int>(49)]);
             }
         }
+
     }
     painter.setPen(Qt::red);
     painter.drawRect(sizePicture*cursor->getPosX(),sizePicture*cursor->getPosY(),sizePicture,sizePicture);

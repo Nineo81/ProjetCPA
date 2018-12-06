@@ -5,8 +5,8 @@
 #include "airport.h"
 
 Game::Game():terrainMap("Map1V1.txt"),
-            unitMap(terrainMap.getSize('m'),
-            terrainMap.getSize('p')),cursor(5,5,&terrainMap,&unitMap),
+            unitMap(terrainMap.getSize('x'),
+            terrainMap.getSize('y')),cursor(5,5,&terrainMap,&unitMap),
             w(&terrainMap,&unitMap,&cursor)
 {
     unitMap.setWindow(w.getWidget());
@@ -18,11 +18,11 @@ Game::Game():terrainMap("Map1V1.txt"),
 
     //defenseChart = initDefense(terrainMap);
     std::vector<std::vector<int>> defenseChart;
-    defenseChart.resize(terrainMap.getSize('m'));
-    for (unsigned int i = 0; i<terrainMap.getSize('m');i++){
-        defenseChart[i].resize(terrainMap.getSize('p'));
-        for (unsigned int j = 0; j<terrainMap.getSize('p');j++){
-            int n =terrainMap.getElement(i,j);
+    defenseChart.resize(terrainMap.getSize('y'));
+    for (unsigned int i = 0; i<terrainMap.getSize('y');i++){
+        defenseChart[i].resize(terrainMap.getSize('x'));
+        for (unsigned int j = 0; j<terrainMap.getSize('x');j++){
+            int n =terrainMap.getElement(j,i);
             if ((n >= 4 && n <= 32)||n >= 101){
               defenseChart[i][j] = 0;
             }
@@ -46,9 +46,9 @@ Game::Game():terrainMap("Map1V1.txt"),
 
     /*ajout des batimentst*/
 
-    for (unsigned int i = 0; i<terrainMap.getSize('m');i++){
-        for (unsigned int j = 0; j<terrainMap.getSize('p');j++){
-            int temp =terrainMap.getElement(i,j);
+    for (unsigned int i = 0; i<terrainMap.getSize('y');i++){
+        for (unsigned int j = 0; j<terrainMap.getSize('x');j++){
+            int temp =terrainMap.getElement(j,i);
             int pos[2];
             pos[0] = j+1;
             pos[1] = i+1;

@@ -13,9 +13,9 @@ Map::Map(const char* fileName)
 
 Map::Map(unsigned int sizeX,unsigned int sizeY)
 {
-    for(unsigned int i=0;i<sizeX;i++)
+    for(unsigned int i=0;i<sizeY;i++)
     {
-        map.push_back(vector<int>(sizeY,0));
+        map.push_back(vector<int>(sizeX,0));
     }
 }
 
@@ -28,7 +28,7 @@ void Map::readFile(const char* fileName)
     {
         string line; //stockage des lignes du fichier (on travail ligne par ligne)
         string bit="";  //stockage de partie de ligne
-        unsigned int k=0,j=0; //compteur ligne et compteur colonne de la matrice map
+        unsigned int y=0,x=0; //compteur ligne et compteur colonne de la matrice map
         while(getline(file,line))
         {
             map.push_back(vector<int>()); //on crée une ligne vide dans la matrice
@@ -36,13 +36,13 @@ void Map::readFile(const char* fileName)
             {
                 if(line[i]==',') //Dès qu'on croise une virgule
                 {
-                    map[k].push_back(stoi(bit)); //stockage de la partie de ligne créé dans la map (stoi converti un string en int)
-                    j++; //update du compteur de colonne
+                    map[y].push_back(stoi(bit)); //stockage de la partie de ligne créé dans la map (stoi converti un string en int)
+                    x++; //update du compteur de colonne
                     bit=""; //reset du stockage de partie de ligne
                 }
                 else if(line[i]=='.')
                 {
-                    map[k].push_back(stoi(bit));
+                    map[y].push_back(stoi(bit));
                     break;
                 }
                 else //Dans les autres cas
@@ -50,7 +50,7 @@ void Map::readFile(const char* fileName)
                     bit+=line[i]; //on ajoute dans le stockage partie de ligne le charactère lu de la ligne
                 }
             }
-            k++; //update du compteur ligne
+            y++; //update du compteur ligne
         }
     }
     else
@@ -63,7 +63,7 @@ void Map::readFile(const char* fileName)
 unsigned int Map::getSize(char a)
 {
     unsigned int size;
-    if(a=='m')
+    if(a=='y')
     {
         size = map.size();
     }
@@ -76,20 +76,20 @@ unsigned int Map::getSize(char a)
 
 void Map::replace(unsigned int oldX,unsigned int oldY,unsigned int newX,unsigned int newY)
 {
-    int element = map[oldX][oldY];
-    map[oldX][oldY]=0;
-    map[newX][newY]=element;
+    int element = map[oldY][oldX];
+    map[oldY][oldX]=0;
+    map[newY][newX]=element;
     window->updateMap();
 }
 
 int Map::getElement(unsigned int posX, unsigned int posY)
 {
-    return map[posX][posY];
+    return map[posY][posX];
 }
 
 void Map::setElement(int element, unsigned int posX, unsigned int posY)
 {
-    map[posX][posY]=element;
+    map[posY][posX]=element;
     window->updateMap();
 }
 

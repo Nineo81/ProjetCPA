@@ -25,15 +25,15 @@ Unit::Unit(int pos[2], int color, int round,Game *game) : GameObject(pos)
     this->color=color;
     this->round=round;
     this->HP=10;
+    this->type=5;
     this->PDC=game->getDefenseChart();
     this->PTM=game->getPTM();
     this->PUM=game->getPUM();
     this->canPlay=false;
-    Map *unitMap=PUM;
     if (color==1)
-        unitMap->setElement(this->type,position[0],position[1]);
+        PUM->setElement(this->type,static_cast<unsigned int>(position[0]),static_cast<unsigned int>(position[1]));
     else
-        unitMap->setElement(this->type+10,position[0],position[1]);      //il faudra peut être changer le +10
+        PUM->setElement(this->type+10,static_cast<unsigned int>(position[0]),static_cast<unsigned int>(position[1]));      //il faudra peut être changer le +10
 }
 
 
@@ -245,7 +245,7 @@ bool Unit::terrain_avail(int x,int y)
     Map terrainMap=this->getTerrainMap();
     Map unitMap=this->getUnitMap();
     bool res=true;
-    if (x<0 || y<0 || x>=(terrainMap.getSize('m')+1) || y>=(terrainMap.getSize('p')-1) || this->type!=unitMap.getElement(x,y))
+    if (x<0 || y<0 || x>=(terrainMap.getSize('x')+1) || y>=(terrainMap.getSize('y')-1) || this->type!=unitMap.getElement(x,y))
         res=false;
     return res;
 }
