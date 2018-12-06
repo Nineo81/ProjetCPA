@@ -30,34 +30,38 @@ void Factory::createUnit(int typeUnit){
     switch (typeUnit)
     {
         case 1:{
-            unit = new infantery(this->position,this->color,0,DC,PTM,PUM);      //c'est quoi l'attribut round?
+            unit = new infantery(this->position,player->getPlayerNumber(),0,DC,PTM,PUM);      //c'est quoi l'attribut round?
             break;}
         case 2:{
-            unit = new Bazooka(this->position,this->color,0,DC,PTM,PUM);
+            unit = new Bazooka(this->position,player->getPlayerNumber(),0,DC,PTM,PUM);
             break;}
         case 3:{
-            unit = new Recon(this->position,this->color,0,DC,PTM,PUM);
+            unit = new Recon(this->position,player->getPlayerNumber(),0,DC,PTM,PUM);
             break;}
         case 4:{
-            unit = new AntiAir(this->position,this->color,0,DC,PTM,PUM);
+            unit = new AntiAir(this->position,player->getPlayerNumber(),0,DC,PTM,PUM);
             break;}
         case 5:{
-            unit = new Tank(this->position,this->color,0,DC,PTM,PUM);
+            unit = new Tank(this->position,player->getPlayerNumber(),0,DC,PTM,PUM);
             break;}
         case 6:{
-            unit = new mdtank(this->position,this->color,0,DC,PTM,PUM);
+            unit = new mdtank(this->position,player->getPlayerNumber(),0,DC,PTM,PUM);
             break;}
         case 7:{
-            unit = new megatank(this->position,this->color,0,DC,PTM,PUM);
+            unit = new megatank(this->position,player->getPlayerNumber(),0,DC,PTM,PUM);
             break;}
         case 8:{
-            unit = new neotank(this->position,this->color,0,DC,PTM,PUM);
+            unit = new neotank(this->position,player->getPlayerNumber(),0,DC,PTM,PUM);
             break;}
     }
     this->player->set_money(unit->getcost(),'d');
     if (this->player->get_money()<0){
         this->player->set_money(unit->getcost(),'a');
         delete unit;
+    }
+    else
+    {
+        player->add_unit(unit);
     }
 }
 

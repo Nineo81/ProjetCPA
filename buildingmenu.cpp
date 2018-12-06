@@ -6,7 +6,7 @@ BuildingMenu::BuildingMenu(int posX,int posY,Building* building):building(buildi
 {
     QPushButton *button1 = new QPushButton("Infantry");
     button1->setAutoDefault(true);
-    QObject::connect(button1,SIGNAL(clicked()),this,SLOT(create(1)));
+    QObject::connect(button1,SIGNAL(clicked()),this,SLOT(create1()));
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(button1);
@@ -23,7 +23,7 @@ void BuildingMenu::keyPressEvent(QKeyEvent* event)
     }
 }
 
-void BuildingMenu::create(int typeUnit)
+void BuildingMenu::create1()
 {
-    building->createUnit(typeUnit);
+    building->createUnit(1);
 }

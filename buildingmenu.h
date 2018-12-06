@@ -16,7 +16,7 @@ private:
 signals:
 
 public slots:
-    void create(int typeUnit);
+    void create1();
 };
 
 #endif // BUILDINGMENU_H
