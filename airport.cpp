@@ -7,16 +7,11 @@ Airport::Airport(int pos[2], Player* player,Game *game):Building (pos, player)
 {
     this->game=game;
     type = 36;
-    this->DC =game->getDefenseChart();
-    this->PTM=game->getPTM();
-    this->PUM=game->getPUM();
 }
 
 Airport::Airport(int pos[2],Game *game):Building(pos){
     type = 36;
-    this->DC = DC;
-    this->PTM=PTM;
-    this->PUM=PUM;
+    this->game=game;
 }
 
 void Airport::createUnit(int typeUnit){
