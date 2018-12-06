@@ -16,11 +16,11 @@ Unit::Unit(int pos[2], int color, int round, vector<vector<int>> *PDC, Map *PTM,
     this->PDC=PDC;
     this->PTM=PTM;
     this->PUM=PUM;
-    Map unitMap=*PUM;
+    Map *unitMap=PUM;
     if (color==1)
-        unitMap.setElement(this->type,position[0],position[1]);
+        unitMap->setElement(this->type,position[0],position[1]);
     else
-        unitMap.setElement(this->type+10,position[0],position[1]);      //il faudra peut être changer le +10
+        unitMap->setElement(this->type+10,position[0],position[1]);      //il faudra peut être changer le +10
 }
 
 
@@ -274,14 +274,6 @@ vector<vector<int>> Unit::fusion(vector<vector<int>> A)
 
 
 
-
-
-
-
-
-
-
-
 void Unit::movePossib_recusif(vector<vector<int>> l1,vector<vector<int>> l2)
 {
     vector<vector<int>> l4;                       /*cette liste nous donnera les prochaines positions
@@ -377,3 +369,20 @@ void Unit::move(int x, int y)
     this->resetMP();
 }
 
+void Unit::capture()
+{
+    Map terrainMap=Game->getTerrainMap();
+    int build=terrainMap.getElement(position[0],position[1]);
+    if (build>=34 && build<=36)
+    {
+        Game->getBuilding(position[0],position[1])->setLife(HP,Game->getPlayer(color));
+    }
+    else if(color==1 && build>=43 && build<=45)
+    {
+        Game->getPlayer(2)->getBuilding(position[0],position[1])->setLife(HP,Game->getPlayer(color));
+    }
+    else if(color==2 && build>=38 && build<=40)
+    {
+        Game->getPlayer(1)->getBuilding(position[0],position[1])->setLife(HP,Game->getPlayer(color));
+    }
+}

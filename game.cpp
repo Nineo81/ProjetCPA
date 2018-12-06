@@ -94,7 +94,7 @@ Game::Game():terrainMap("Map1V1.txt"),
     }
     Player *playerOS = new Player(1,buildingsOS,&terrainMap,&unitMap);
     Player *playerBM = new Player(2,buildingsBM,&terrainMap,&unitMap);
-    listPlayer = {*playerOS, *playerBM};
+    listPlayer = {playerOS, playerBM};
     cursor.setPlayer(playerBM,2);
     cursor.setPlayer(playerOS,1);
 }
@@ -114,6 +114,31 @@ Cursor* Game::getCursor()
 
 int Game::getDefense(unsigned int X, unsigned int Y) const{
     return defenseChart[X][Y];
+}
+
+Building* Game::getBuilding(int X, int Y)
+{
+    Building* build = nullptr;
+    for (Building* b:neutralBuildings){
+        if (b->get_X() == X && b->get_Y() == Y){
+            build = b;
+        }
+    }
+    return build;
+}
+
+Player* Game::getPlayer(int color)
+{
+    Player* P=NULL;
+    if (color==1)
+    {
+        P=listPlayer[0];
+    }
+    else if(color==2)
+    {
+        P=listPlayer[1];
+    }
+    return P;
 }
 
 void Game::updateWindow()

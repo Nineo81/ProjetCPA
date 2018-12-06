@@ -7,6 +7,7 @@ using namespace std;
 
 
 
+class Game;
 class Unit : public GameObject
 {
 private:
@@ -15,6 +16,7 @@ private:
     vector<vector<int>> *PDC; //pointeur vers defenseChart
     Map *PTM;                 //pointeur vers terrainMap
     Map *PUM;                 //pointeur vers unitMap
+    Game *Game;
 
 
 
@@ -61,7 +63,7 @@ public:
     void attack(Unit defender);           //fait
     bool terrain_avail(int x, int y);     //fait
     vector<vector<int>> fusion(vector<vector<int>> A); //fait
-    //void capture(Building building);
+    void capture();
 
 };
 

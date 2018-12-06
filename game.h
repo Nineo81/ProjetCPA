@@ -17,17 +17,19 @@ private:
    MainWindow w;
    std::vector<std::vector<int>> defenseChart;
    std::vector<Building*> neutralBuildings;
-   std::vector<Player> listPlayer;
+   std::vector<Player*> listPlayer;
 public:
     Game();
    // ~Game();        //allocation dynamique pour les joueurs, normalement il faut un destructeur?
     Map getTerrainMap() const;
     Map getUnitMap() const;
     Cursor* getCursor();
+    Player* getPlayer(int color);
     int getDefense(unsigned int X, unsigned int Y) const;
     void start();
     std::vector<std::vector<int>> initDefense(Map terrainMap);
     void updateWindow();
+    Building* getBuilding(int x, int y);
 };
 
 #endif // GAME_H
