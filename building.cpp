@@ -28,6 +28,9 @@ int Building::getLife() const{
     return life;
 }
 
+void Building::resetLife(){
+    life=20;
+}
 
 void Building::setPlayer(Player* player){
     this->player = player;
@@ -35,10 +38,6 @@ void Building::setPlayer(Player* player){
 
 int Building::getType() const{
     return type;
-}
-
-void Building::setposition(int newposition[2]){
-    std::cout<<"La position d'un bâtiment ne peut être changée";
 }
 
 void Building::setLife(int damage, Player* attacker){}
