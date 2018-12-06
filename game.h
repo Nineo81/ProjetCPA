@@ -22,14 +22,18 @@ public:
     Game();
    // ~Game();        //allocation dynamique pour les joueurs, normalement il faut un destructeur?
     Map getTerrainMap() const;
+    Map* getPTM();
+    Map* getPUM();
     Map getUnitMap() const;
     Cursor* getCursor();
     Player* getPlayer(int color);
     int getDefense(unsigned int X, unsigned int Y) const;
+    std::vector<std::vector<int>>* getDefenseChart();
     void start();
     std::vector<std::vector<int>> initDefense(Map terrainMap);
     void updateWindow();
     Building* getBuilding(int x, int y);
+    void play(Player player);
 };
 
 #endif // GAME_H

@@ -141,9 +141,30 @@ Player* Game::getPlayer(int color)
     return P;
 }
 
+std::vector<std::vector<int>>* Game::getDefenseChart(){
+    return &defenseChart;
+}
+
+Map* Game::getPTM() {
+    return &terrainMap;
+}
+
+Map* Game::getPUM() {
+    return &unitMap;
+}
+
 void Game::updateWindow()
 {
     w.updateWidget();
+}
+
+void Game::play(Player player)
+{
+    while (player.getTurn())
+    {
+
+    }
+    cursor.switchPlayerState();
 }
 
 /*Game::~Game(){

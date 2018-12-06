@@ -2,20 +2,22 @@
 #include <string>
 #include <iostream>
 //#include<algorithm>
+#include<cmath>
 #include "game.h"
 
 
 using namespace std;
 
 
-Unit::Unit(int pos[2], int color, int round, vector<vector<int>> *PDC, Map *PTM, Map *PUM) : GameObject(pos)
+Unit::Unit(int pos[2], int color, int round,Game *game) : GameObject(pos)
 {
+    this->game=game;
     this->color=color;
     this->round=round;
     this->HP=10;
-    this->PDC=PDC;
-    this->PTM=PTM;
-    this->PUM=PUM;
+    this->PDC=game->getDefenseChart();
+    this->PTM=game->getPTM();
+    this->PUM=game->getPUM();
     Map *unitMap=PUM;
     if (color==1)
         unitMap->setElement(this->type,position[0],position[1]);
@@ -367,33 +369,33 @@ void Unit::move(int x, int y)
     int newposition[2]={x,y};
     this->setposition(newposition);
     this->resetMP();
-    int T=Game->getTerrainMap().getElement(oldX,oldY);
+    int T=game->getTerrainMap().getElement(oldX,oldY);
     if (T>=34 && T<=36)
     {
-        Game->getBuilding(oldX,oldY)->resetLife();
+        game->getBuilding(oldX,oldY)->resetLife();
     }
     else if(T>=43 && T<=45){
-        Game->getPlayer(2)->getBuilding(oldX,oldY)->resetLife();
+        game->getPlayer(2)->getBuilding(oldX,oldY)->resetLife();
     }
     else if(T>=38 && T<=40){
-        Game->getPlayer(1)->getBuilding(oldX,oldY)->resetLife();
+        game->getPlayer(1)->getBuilding(oldX,oldY)->resetLife();
     }
 }
 
 void Unit::capture()
 {
-    Map terrainMap=Game->getTerrainMap();
+    Map terrainMap=game->getTerrainMap();
     int build=terrainMap.getElement(position[0],position[1]);
     if (build>=34 && build<=36)
     {
-        Game->getBuilding(position[0],position[1])->setLife(HP,Game->getPlayer(color));
+        game->getBuilding(position[0],position[1])->setLife(HP,game->getPlayer(color));
     }
     else if(color==1 && build>=43 && build<=45)
     {
-        Game->getPlayer(2)->getBuilding(position[0],position[1])->setLife(HP,Game->getPlayer(color));
+        game->getPlayer(2)->getBuilding(position[0],position[1])->setLife(HP,game->getPlayer(color));
     }
     else if(color==2 && build>=38 && build<=40)
     {
-        Game->getPlayer(1)->getBuilding(position[0],position[1])->setLife(HP,Game->getPlayer(color));
+        game->getPlayer(1)->getBuilding(position[0],position[1])->setLife(HP,game->getPlayer(color));
     }
 }

@@ -10,6 +10,7 @@ Player::Player(int playerNumber, vector<Building*> firstBuildings,Map* terrainMa
     for (Building* b : listBuilding) {
         b->setPlayer(this);
     }
+    turn=false;
 }
 
 int Player::get_money(){
@@ -113,4 +114,13 @@ bool Player::lost(){
 
 int Player::getPlayerNumber(){
     return playerNumber;
+}
+
+bool Player::getTurn(){
+    return turn;
+}
+
+
+void Player::setTurn(bool turn){
+    this->turn=turn;
 }

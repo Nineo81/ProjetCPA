@@ -51,10 +51,12 @@ void Cursor::switchPlayerState()
     if(playerState==1)
     {
         playerState=2;
+        playerBM->setTurn(true);
     }
     else
     {
         playerState=1;
+        playerOS->setTurn(true);
     }
 }
 

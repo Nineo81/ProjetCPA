@@ -23,7 +23,10 @@ public:
     int hasBuilding(int X,int Y);
     bool lost();
     int getPlayerNumber();
+    bool getTurn();
+    void setTurn(bool turn);
 private:
+    bool turn;
     int money;
     vector<Unit*> listUnit;
     vector<Building*> listBuilding;

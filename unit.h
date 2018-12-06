@@ -6,7 +6,6 @@ using namespace std;
 #include "map.h"
 
 
-
 class Game;
 class Unit : public GameObject
 {
@@ -16,7 +15,7 @@ private:
     vector<vector<int>> *PDC; //pointeur vers defenseChart
     Map *PTM;                 //pointeur vers terrainMap
     Map *PUM;                 //pointeur vers unitMap
-    Game *Game;
+    Game *game;
 
 
 
@@ -34,7 +33,7 @@ protected:
 
 
 public:
-    Unit(int pos[2], int color, int round, vector<vector<int>> *PDC, Map *PTM, Map *PUM);
+    Unit(int pos[2], int color, int round,Game *game);
     int getHP() const;                    //fait
     void setHP(int newHP,char sign);      //fait
     void setHP();                         //fait
