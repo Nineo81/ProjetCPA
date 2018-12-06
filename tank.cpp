@@ -1,6 +1,6 @@
 #include "tank.h"
 
-Tank::Tank(int pos[2],int color, int round,vector<vector<int>> *TDC,Map *PTM,Map *PUM):Unit(pos, color, round,TDC,PTM,PUM)
+Tank::Tank(int pos[2],int color, int round,Game *game):Unit(pos, color, round,game)
 {
     this->type=55;
     this->absMP=6;
