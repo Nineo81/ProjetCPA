@@ -367,6 +367,17 @@ void Unit::move(int x, int y)
     int newposition[2]={x,y};
     this->setposition(newposition);
     this->resetMP();
+    int T=Game->getTerrainMap().getElement(oldX,oldY);
+    if (T>=34 && T<=36)
+    {
+        Game->getBuilding(oldX,oldY)->resetLife();
+    }
+    else if(T>=43 && T<=45){
+        Game->getPlayer(2)->getBuilding(oldX,oldY)->resetLife();
+    }
+    else if(T>=38 && T<=40){
+        Game->getPlayer(1)->getBuilding(oldX,oldY)->resetLife();
+    }
 }
 
 void Unit::capture()

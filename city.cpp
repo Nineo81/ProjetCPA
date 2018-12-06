@@ -15,6 +15,14 @@ void City::setLife(int damage, Player* attacker){
         this->player->delete_building(this);
         attacker->add_building(this);
         this->life = 20;
+        if (attacker==Game->getPlayer(1))
+        {
+            Game->getTerrainMap().setElement(38,position[0],position[1]);
+        }
+        else if (attacker==Game->getPlayer(2))
+        {
+            Game->getTerrainMap().setElement(43,position[0],position[1]);
+        }
     }
     else {life = temp;}
 }

@@ -4,6 +4,7 @@
 #include "player.h"
 #include "unit.h"
 #include "map.h"
+#include "game.h"
 
 class Factory:public Building
 {
@@ -17,6 +18,7 @@ public:
     void setLife(int damage, Player* attacker);
     virtual ~Factory();
 private:
+    Game* Game;
     vector<vector<int>> *DC;
     Map *PTM;
     Map *PUM;
