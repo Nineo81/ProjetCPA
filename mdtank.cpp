@@ -1,6 +1,6 @@
 #include "mdtank.h"
 
-mdtank::mdtank(int pos[2],int color, int round,Game *game):Unit(pos, color, round,game)
+mdtank::mdtank(vector<unsigned int> pos,int color, int round,Game *game):Unit(pos, color, round,game)
 {
     this->type=51;
     this->absMP=5;

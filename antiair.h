@@ -5,7 +5,7 @@
 class AntiAir : public Unit
 {
 public:
-    AntiAir(int pos[2],int color, int round, Game *game);
+    AntiAir(vector<unsigned int> pos,int color, int round, Game *game);
 };
 
 #endif // ANTIAIR_H

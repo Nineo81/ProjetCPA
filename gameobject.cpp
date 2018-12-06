@@ -1,21 +1,21 @@
 #include "gameobject.h"
 
-GameObject::GameObject(int pos[2])
+GameObject::GameObject(std::vector<unsigned int> pos)
 {
-    position[0]=pos[0];
-    position[1]=pos[1];
+    position.push_back(pos[0]);
+    position.push_back(pos[1]);
 }
-int GameObject::get_X() const
+unsigned int GameObject::get_X() const
 {
     return position[0];
 }
 
-int GameObject::get_Y() const
+unsigned int GameObject::get_Y() const
 {
     return position[1];
 }
- void GameObject::setposition(int newposition[2])
+ void GameObject::setposition(std::vector<unsigned int> newPos)
  {
-     position[0]=newposition[0];
-     position[1]=newposition[1];
+     position[0]=newPos[0];
+     position[1]=newPos[1];
  }

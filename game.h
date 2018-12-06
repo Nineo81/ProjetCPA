@@ -25,6 +25,7 @@ public:
     Map* getPTM();
     Map* getPUM();
     Map getUnitMap() const;
+    void updateMap(int type,unsigned int x,unsigned int y);
     Cursor* getCursor();
     Player* getPlayer(int color);
     int getDefense(unsigned int X, unsigned int Y) const;
@@ -32,7 +33,7 @@ public:
     void start();
     std::vector<std::vector<int>> initDefense(Map terrainMap);
     void updateWindow();
-    Building* getBuilding(int x, int y);
+    Building* getBuilding(unsigned int x,unsigned int y);
     void play(Player player);
 };
 

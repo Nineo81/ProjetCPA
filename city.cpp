@@ -1,11 +1,11 @@
 #include "city.h"
 
-City::City(int pos[2],Player* player):Building(pos, player)  //changer l'apparence
+City::City(vector<unsigned int> pos,Player* player):Building(pos, player)  //changer l'apparence
 {
     type = 34;
 }
 
-City::City(int pos[2]):Building (pos){
+City::City(vector<unsigned int> pos):Building (pos){
     type = 34;
 }
 

@@ -5,7 +5,7 @@
 class AirUnit : public Unit
 {
 public:
-    AirUnit(int pos[2],int color, int round,Game *game);
+    AirUnit(vector<unsigned int> pos,int color, int round,Game *game);
 };
 
 #endif // AIRUNIT_H

@@ -6,7 +6,7 @@
 class megatank : public Unit
 {
 public:
-    megatank(int pos[2],int color, int round,Game *game);
+    megatank(vector<unsigned int> pos,int color, int round,Game *game);
 };
 
 #endif // MEGATANK_H

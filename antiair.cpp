@@ -1,6 +1,6 @@
 #include "antiair.h"
 
-AntiAir::AntiAir(int pos[2],int color, int round, Game* game):Unit(pos, color, round, game)
+AntiAir::AntiAir(vector<unsigned int> pos,int color, int round, Game* game):Unit(pos, color, round, game)
 {
     this->type=60;
     this->absMP=6;

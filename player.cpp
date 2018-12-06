@@ -6,7 +6,7 @@ Player::Player(int playerNumber, vector<Building*> firstBuildings,Map* terrainMa
     this->terrainMap=terrainMap;
     this->unitMap=unitMap;
     this->listBuilding=firstBuildings;
-    this->money=0;
+    this->money=1000*listBuilding.size();
     for (Building* b : listBuilding) {
         b->setPlayer(this);
     }
@@ -35,7 +35,7 @@ void Player::add_building(Building* building){
     }
 }
 
-Building* Player::getBuilding(int X, int Y)
+Building* Player::getBuilding(unsigned int X,unsigned int Y)
 {
     Building* build = nullptr;
     for (Building* b:listBuilding){
@@ -83,7 +83,7 @@ vector<Unit*> Player::get_listUnit(){
     return listUnit;
 }
 
-bool Player::hasUnit(int X, int Y){
+bool Player::hasUnit(unsigned int X,unsigned int Y){
     bool b = false;
     for (Unit* u : listUnit){
         if (u->get_X() == X && u->get_Y() == Y){
@@ -93,7 +93,7 @@ bool Player::hasUnit(int X, int Y){
     return b;
 }
 
-int Player::hasBuilding(int X,int Y)
+int Player::hasBuilding(unsigned int X,unsigned int Y)
 {
     int type = 0;
     for (Building* b:listBuilding){

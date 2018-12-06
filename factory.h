@@ -10,8 +10,8 @@ class Factory:public Building
 {
 public:
 
-    Factory(int pos[2], Player* player,Game *game);
-    Factory(int pos[2],Game *game);
+    Factory(vector<unsigned int> pos, Player* player,Game *game);
+    Factory(vector<unsigned int> pos,Game *game);
 
     void createUnit(int typeUnit);   //changer le nom du type selon
 

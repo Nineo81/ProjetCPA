@@ -6,7 +6,7 @@
 class neotank : public Unit
 {
 public:
-    neotank(int pos[2],int color, int round,Game *game);
+    neotank(vector<unsigned int> pos,int color, int round,Game *game);
 };
 
 #endif // NEATANK_H

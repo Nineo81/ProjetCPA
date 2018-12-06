@@ -5,7 +5,7 @@
 class Tank :public Unit
 {
 public:
-    Tank(int pos[2],int color, int round,Game *game);
+    Tank(vector<unsigned int> pos,int color, int round,Game *game);
 };
 
 #endif // TANK_H

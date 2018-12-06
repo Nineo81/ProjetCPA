@@ -1,17 +1,17 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 #include <iostream>
-
+#include <vector>
 
 class GameObject
 {
 protected:
-    int position[2];
+    std::vector<unsigned int> position;
 public:
-    GameObject(int pos[2]);
-    int get_X() const;
-    int get_Y() const;
-    void setposition(int newposition[2]);
+    GameObject(std::vector<unsigned int> pos);
+    unsigned int get_X() const;
+    unsigned int get_Y() const;
+    void setposition(std::vector<unsigned int> newPos);
 };
 
 #endif // GAMEOBJECT_H

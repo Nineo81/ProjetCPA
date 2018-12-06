@@ -3,13 +3,13 @@
 #include "bomber.h"
 #include "fighter.h"
 
-Airport::Airport(int pos[2], Player* player,Game *game):Building (pos, player)
+Airport::Airport(vector<unsigned int> pos, Player* player,Game *game):Building (pos, player)
 {
     this->game=game;
     type = 36;
 }
 
-Airport::Airport(int pos[2],Game *game):Building(pos){
+Airport::Airport(vector<unsigned int> pos,Game *game):Building(pos){
     type = 36;
     this->game=game;
 }

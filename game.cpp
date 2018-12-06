@@ -49,9 +49,9 @@ Game::Game():terrainMap("Map1V1.txt"),
     for (unsigned int i = 0; i<terrainMap.getSize('y');i++){
         for (unsigned int j = 0; j<terrainMap.getSize('x');j++){
             int temp =terrainMap.getElement(j,i);
-            int pos[2];
-            pos[0] = j+1;
-            pos[1] = i+1;
+            vector<unsigned int> pos;
+            pos.push_back(j+1);
+            pos.push_back(i+1);
             switch(temp){
                 case 34:{
                     neutralBuildings.push_back(new City(pos));
@@ -99,6 +99,11 @@ Game::Game():terrainMap("Map1V1.txt"),
     cursor.setPlayer(playerOS,1);
 }
 
+void Game::updateMap(int type,unsigned int x,unsigned int y)
+{
+    unitMap.setElement(type,x,y);
+}
+
 Map Game::getTerrainMap() const{
     return terrainMap;
 }
@@ -116,7 +121,7 @@ int Game::getDefense(unsigned int X, unsigned int Y) const{
     return defenseChart[X][Y];
 }
 
-Building* Game::getBuilding(int X, int Y)
+Building* Game::getBuilding(unsigned int X,unsigned int Y)
 {
     Building* build = nullptr;
     for (Building* b:neutralBuildings){
@@ -129,7 +134,7 @@ Building* Game::getBuilding(int X, int Y)
 
 Player* Game::getPlayer(int color)
 {
-    Player* P=NULL;
+    Player* P=nullptr;
     if (color==1)
     {
         P=listPlayer[0];
@@ -166,7 +171,7 @@ void Game::play(Player player)
         unit->setHP(2,'a');
     }
 
-    player.set_money(1000*player.get_listBuilding().size(),'a');
+    player.set_money(1000*static_cast<int>(player.get_listBuilding().size()),'a');
 
     while (player.getTurn())
     {

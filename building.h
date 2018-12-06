@@ -3,7 +3,6 @@
 #include "gameobject.h"
 #include "unit.h"
 
-
 class Player;
 class Building
 {
@@ -12,15 +11,15 @@ protected:
     int color;
     Player* player;
     int type;
-    int position[2];
+    vector<unsigned int> position;
 public:
-    Building(int pos[2], Player* player);
-    Building(int pos[2]);
+    Building(vector<unsigned int> pos, Player* player);
+    Building(vector<unsigned int> pos);
     int getLife() const;
     void setPlayer(Player* player);
     int getType() const;
-    int get_X();
-    int get_Y();
+    unsigned int get_X();
+    unsigned int get_Y();
     void resetLife();
     virtual void setLife(int damage, Player* attacker);
     virtual void createUnit(int typeUnit);

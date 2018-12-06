@@ -45,7 +45,7 @@ void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
         {
             if(unitMap->getElement(x,y) != 0)
             {
-                painter.drawImage(QRect(sizePicture*(static_cast<int>(x)+1),sizePicture*(static_cast<int>(y)+1),sizePicture,sizePicture),listImage[static_cast<unsigned int>(49)]);
+                painter.drawImage(QRect(sizePicture*(static_cast<int>(x)+1),sizePicture*(static_cast<int>(y)+1),sizePicture,sizePicture),listImage[static_cast<unsigned int>(unitMap->getElement(x,y)-1)]);
             }
         }
 

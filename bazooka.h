@@ -5,7 +5,7 @@
 class Bazooka : public Unit
 {
 public:
-    Bazooka(int pos[2],int color, int round,Game *game);
+    Bazooka(vector<unsigned int> pos,int color, int round,Game *game);
 };
 
 #endif // BAZOOKA_H

@@ -5,13 +5,15 @@
 #include "player.h"
 #include "map.h"
 #include "game.h"
+#include <vector>
+using namespace std;
 
 class Airport:public Building
 {
 public:
 
-    Airport(int pos[2], Player* player,Game *game);
-    Airport(int pos[2],Game *game);
+    Airport(vector<unsigned int> pos, Player* player,Game *game);
+    Airport(vector<unsigned int> pos,Game *game);
 
 
     void createUnit(int typeUnit);

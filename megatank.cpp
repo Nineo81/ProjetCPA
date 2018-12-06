@@ -1,6 +1,6 @@
 #include "megatank.h"
 
-megatank::megatank(int pos[2],int color, int round,Game *game):Unit(pos, color, round,game)
+megatank::megatank(vector<unsigned int> pos,int color, int round,Game *game):Unit(pos, color, round,game)
 {
     this->type=52;
     this->absMP=4;

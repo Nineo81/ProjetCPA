@@ -6,7 +6,7 @@
 class Recon : public Unit
 {
 public:
-    Recon(int pos[2],int color, int round,Game *game);
+    Recon(vector<unsigned int> pos,int color, int round,Game *game);
 };
 
 #endif // RECON_H

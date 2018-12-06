@@ -15,12 +15,12 @@ public:
     void add_unit(Unit *unit);
     void delete_unit(Unit *unit);
     void add_building(Building* building);
-    Building* getBuilding(int X, int Y);
+    Building* getBuilding(unsigned int X,unsigned int Y);
     void delete_building(Building* building);
     int get_money();
     void set_money(int diff,char sign);
-    bool hasUnit(int X, int Y);
-    int hasBuilding(int X,int Y);
+    bool hasUnit(unsigned int X,unsigned int Y);
+    int hasBuilding(unsigned int X,unsigned int Y);
     bool lost();
     int getPlayerNumber();
     bool getTurn();

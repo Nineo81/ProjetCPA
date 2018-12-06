@@ -6,7 +6,7 @@
 class mdtank : public Unit
 {
 public:
-    mdtank(int pos[2],int color, int round,Game *game);
+    mdtank(vector<unsigned int> pos,int color, int round,Game *game);
 };
 
 #endif // MDTANK_H

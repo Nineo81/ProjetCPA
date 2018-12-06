@@ -34,7 +34,7 @@ protected:
 
 
 public:
-    Unit(int pos[2], int color, int round,Game *game);
+    Unit(std::vector<unsigned int> pos, int color, int round,Game *game);
     int getHP() const;                    //fait
     void setHP(int newHP,char sign);      //fait
     void setHP();                         //fait
@@ -46,14 +46,14 @@ public:
     int getMoveType() const;              //fait
     int getMP() const;                    //fait
     int get_D_TR() const;                 //fait
-    int get_MPLoss(int x, int y);         //fait
+    int get_MPLoss(unsigned int x,unsigned int y);         //fait
     int get_absMP() const;                //fait
     vector<vector<int>> getDefenseChart() const; //fait
     Map getTerrainMap() const;            //fait
     Map getUnitMap() const;               //fait
     void movePossib_recusif(vector<vector<int>> l1, vector<vector<int>> l2);   //a est la position qui a été vérifiée avant
     vector<vector<int>> movePossib(int x,int y); //fait   //(x,y) la position actuelle de l'unité
-    void move(int x, int y);              //fait
+    void move(unsigned int x,unsigned int y);              //fait
     void join_unit(Unit Unit2);           //fait
     void setMP(int newMP);                //fait
     void resetMP();                       //fait
@@ -61,9 +61,10 @@ public:
     int damage(Unit defender);            //fait
     int find_B(Unit defender);            //fait
     void attack(Unit defender);           //fait
-    bool terrain_avail(int x, int y);     //fait
+    bool terrain_avail(unsigned int x,unsigned int y);     //fait
     vector<vector<int>> fusion(vector<vector<int>> A); //fait
     void capture();
+    void setUnit();
 
     bool getCanPlay() const;
     void setCanPlay(bool value);

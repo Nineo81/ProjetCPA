@@ -10,14 +10,15 @@
 
 
 
-Factory::Factory(int pos[2], Player* player,Game *game):Building (pos, player)
+Factory::Factory(vector<unsigned int> pos, Player* player,Game *game):Building (pos, player)
 {
     type = 35;
     this->game = game;
 }
 
-Factory::Factory(int pos[2],Game *game):Building (pos){
+Factory::Factory(vector<unsigned int> pos,Game *game):Building (pos){
     type = 35;
+    this->game = game;
 }
 
 void Factory::createUnit(int typeUnit){

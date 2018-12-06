@@ -7,8 +7,8 @@
 class City:public Building
 {
 public:
-    City(int pos[2], Player* player);
-    City(int pos[2]);
+    City(vector<unsigned int> pos, Player* player);
+    City(vector<unsigned int> pos);
     void setLife(int damage, Player* attacker);
     void createUnit(int typeUnit);
 private:
