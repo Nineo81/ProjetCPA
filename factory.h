@@ -10,18 +10,15 @@ class Factory:public Building
 {
 public:
 
-    Factory(int pos[2], Player* player,vector<vector<int>> *DC,Map *PTM,Map *PUM);
-    Factory(int pos[2],vector<vector<int>> *DC,Map *PTM,Map *PUM);
+    Factory(int pos[2], Player* player,Game *game);
+    Factory(int pos[2],Game *game);
 
     void createUnit(int typeUnit);   //changer le nom du type selon
 
     void setLife(int damage, Player* attacker);
     virtual ~Factory();
 private:
-    Game* Game;
-    vector<vector<int>> *DC;
-    Map *PTM;
-    Map *PUM;
+    Game* game;
 };
 
 #endif // FACTORY_H
