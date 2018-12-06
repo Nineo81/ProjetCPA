@@ -58,11 +58,11 @@ Game::Game():terrainMap("Map1V1.txt"),
                     break;
                 }
                 case 35:{
-                    neutralBuildings.push_back(new Factory(pos, &this->defenseChart,&terrainMap,&unitMap));
+                    neutralBuildings.push_back(new Factory(pos,this));
                     break;
                 }
                 case 36:{
-                    neutralBuildings.push_back(new Airport(pos,&this->defenseChart,&terrainMap,&unitMap));
+                    neutralBuildings.push_back(new Airport(pos,this));
                     break;
                 }
                 case 38:{
@@ -70,11 +70,11 @@ Game::Game():terrainMap("Map1V1.txt"),
                     break;
                 }
                 case 39:{
-                    buildingsOS.push_back(new Factory(pos,&this->defenseChart,&terrainMap,&unitMap));
+                    buildingsOS.push_back(new Factory(pos,this));
                     break;
                 }
                 case 40:{
-                    buildingsOS.push_back(new Airport(pos,&this->defenseChart,&terrainMap,&unitMap));
+                    buildingsOS.push_back(new Airport(pos,this));
                     break;
                 }
                 case 42:{
@@ -82,11 +82,11 @@ Game::Game():terrainMap("Map1V1.txt"),
                     break;
                 }
                 case 43:{
-                    buildingsBM.push_back(new Factory(pos,&this->defenseChart,&terrainMap,&unitMap));
+                    buildingsBM.push_back(new Factory(pos,this));
                     break;
                 }
                 case 44:{
-                    buildingsBM.push_back(new Airport(pos,&this->defenseChart,&terrainMap,&unitMap));
+                    buildingsBM.push_back(new Airport(pos,this));
                     break;
                 }
             }
