@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QKeyEvent>
+#include <QCloseEvent>
 #include "building.h"
 
 class BuildingMenu : public QWidget
@@ -11,9 +12,11 @@ class BuildingMenu : public QWidget
 public:
     explicit BuildingMenu(int posX, int posY,Building* building);
     void keyPressEvent(QKeyEvent * event);
+    void isCLosing(QCloseEvent *event);
 private:
     Building* building;
 signals:
+    void qMenuClose();
 
 public slots:
     void create1();

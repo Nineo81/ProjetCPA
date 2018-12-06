@@ -33,6 +33,7 @@ private:
 signals:
 
 public slots:
+    void updateWin();
 };
 
 #endif // MAINWINDOW_H

@@ -36,6 +36,10 @@ void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
         for(unsigned int j=0;j<=terrainMap->getSize('p')-1;j++)
         {
             painter.drawImage(QRect(sizePicture*(static_cast<int>(j)+1),sizePicture*(static_cast<int>(i)+1),sizePicture,sizePicture),listImage[static_cast<unsigned int>(terrainMap->getElement(i,j)-1)]);
+            if(unitMap->getElement(i,j) != 0)
+            {
+                painter.drawImage(QRect(sizePicture*(static_cast<int>(j)+1),sizePicture*(static_cast<int>(i)+1),sizePicture,sizePicture),listImage[static_cast<unsigned int>(49)]);
+            }
         }
     }
     painter.setPen(Qt::red);

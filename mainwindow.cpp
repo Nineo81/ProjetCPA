@@ -120,6 +120,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         else if(cursor->buildOfPlayer() == 35)
         {
             BuildingMenu *menu = new BuildingMenu(cursor->getRealX(),cursor->getRealY(),cursor->getPlayer()->getBuilding(cursor->getPosX(),cursor->getPosY()));
+            QObject::connect(menu,SIGNAL(qMenuClose()),this,SLOT(updateWin()));
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
         }
@@ -140,4 +141,7 @@ void MainWindow::updateWidget()
     centerZone.updateMap();
 }
 
-
+void MainWindow::updateWin()
+{
+    updateWidget();
+}

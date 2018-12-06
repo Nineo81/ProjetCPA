@@ -26,4 +26,13 @@ void BuildingMenu::keyPressEvent(QKeyEvent* event)
 void BuildingMenu::create1()
 {
     building->createUnit(1);
+    this->close();
+}
+
+void BuildingMenu::isCLosing(QCloseEvent *event)
+{
+    if(event->isAccepted())
+    {
+        emit qMenuClose();
+    }
 }
