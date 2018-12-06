@@ -2,20 +2,33 @@
 #include <string>
 #include <iostream>
 //#include<algorithm>
+#include<cmath>
 #include "game.h"
 
 
 using namespace std;
 
 
-Unit::Unit(int pos[2], int color, int round, vector<vector<int>> *PDC, Map *PTM, Map *PUM) : GameObject(pos)
+bool Unit::getCanPlay() const
 {
+    return canPlay;
+}
+
+void Unit::setCanPlay(bool value)
+{
+    canPlay = value;
+}
+
+Unit::Unit(int pos[2], int color, int round,Game *game) : GameObject(pos)
+{
+    this->game=game;
     this->color=color;
     this->round=round;
     this->HP=10;
-    this->PDC=PDC;
-    this->PTM=PTM;
-    this->PUM=PUM;
+    this->PDC=game->getDefenseChart();
+    this->PTM=game->getPTM();
+    this->PUM=game->getPUM();
+    this->canPlay=false;
     Map *unitMap=PUM;
     if (color==1)
         unitMap->setElement(this->type,position[0],position[1]);
@@ -37,7 +50,13 @@ void Unit::setHP()
 void Unit::setHP(int newHP,char sign)
 {
     if (sign=='a')
+    {
         this->HP+=newHP;
+        if (HP>10)
+        {
+            setHP();
+        }
+     }
     else if (sign=='d')
         this->HP-=newHP;
     else
@@ -160,8 +179,12 @@ int Unit::damage(Unit defender)
 
 void Unit::attack(Unit defender)
 {
-    int damage=this->damage(defender);
-    defender.setHP(damage,'d');
+    if(canPlay==true)
+    {
+        int damage=this->damage(defender);
+        defender.setHP(damage,'d');
+        canPlay=false;
+    }
 }
 
 void Unit::join_unit(Unit unit2)
@@ -360,40 +383,54 @@ vector<vector<int>> Unit::movePossib(int x,int y)
 
 void Unit::move(int x, int y)
 {
-    Map unitMap=this->getUnitMap();
-    int oldX=this->get_X();
-    int oldY=this->get_Y();
-    unitMap.replace(oldX,oldY,x,y);
-    int newposition[2]={x,y};
-    this->setposition(newposition);
-    this->resetMP();
-    int T=Game->getTerrainMap().getElement(oldX,oldY);
-    if (T>=34 && T<=36)
+    if(canPlay==true)
     {
-        Game->getBuilding(oldX,oldY)->resetLife();
-    }
-    else if(T>=43 && T<=45){
-        Game->getPlayer(2)->getBuilding(oldX,oldY)->resetLife();
-    }
-    else if(T>=38 && T<=40){
-        Game->getPlayer(1)->getBuilding(oldX,oldY)->resetLife();
+        Map unitMap=this->getUnitMap();
+        int oldX=this->get_X();
+        int oldY=this->get_Y();
+        unitMap.replace(oldX,oldY,x,y);
+        int newposition[2]={x,y};
+        this->setposition(newposition);
+        this->resetMP();
+        int T=game->getTerrainMap().getElement(oldX,oldY);
+        if (T>=34 && T<=36)
+        {
+            game->getBuilding(oldX,oldY)->resetLife();
+        }
+        else if(T>=43 && T<=45){
+            game->getPlayer(2)->getBuilding(oldX,oldY)->resetLife();
+        }
+        else if(T>=38 && T<=40){
+            game->getPlayer(1)->getBuilding(oldX,oldY)->resetLife();
+        }
     }
 }
 
 void Unit::capture()
 {
-    Map terrainMap=Game->getTerrainMap();
-    int build=terrainMap.getElement(position[0],position[1]);
-    if (build>=34 && build<=36)
+    if ((type==58 || type==50) && canPlay==true)
     {
-        Game->getBuilding(position[0],position[1])->setLife(HP,Game->getPlayer(color));
+
+
+        Map terrainMap=game->getTerrainMap();
+        int build=terrainMap.getElement(position[0],position[1]);
+        if (build>=34 && build<=36)
+        {
+            game->getBuilding(position[0],position[1])->setLife(HP,game->getPlayer(color));
+        }
+        else if(color==1 && build>=43 && build<=45)
+        {
+            game->getPlayer(2)->getBuilding(position[0],position[1])->setLife(HP,game->getPlayer(color));
+        }
+        else if(color==2 && build>=38 && build<=40)
+        {
+            game->getPlayer(1)->getBuilding(position[0],position[1])->setLife(HP,game->getPlayer(color));
+        }
+        canPlay=false;
     }
-    else if(color==1 && build>=43 && build<=45)
-    {
-        Game->getPlayer(2)->getBuilding(position[0],position[1])->setLife(HP,Game->getPlayer(color));
-    }
-    else if(color==2 && build>=38 && build<=40)
-    {
-        Game->getPlayer(1)->getBuilding(position[0],position[1])->setLife(HP,Game->getPlayer(color));
-    }
+
+}
+
+void Unit::wait(){
+    canPlay=false;
 }
