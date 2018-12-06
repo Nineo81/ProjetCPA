@@ -160,6 +160,14 @@ void Game::updateWindow()
 
 void Game::play(Player player)
 {
+    for (Unit *unit:player.get_listUnit())
+    {
+        unit->setCanPlay(true);
+        unit->setHP(2,'a');
+    }
+
+    player.set_money(1000*player.get_listBuilding().size(),'a');
+
     while (player.getTurn())
     {
 

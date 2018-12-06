@@ -28,6 +28,7 @@ protected:
     int absMP;
     int MP;
     int type;
+    bool canPlay;
 
 
 
@@ -64,6 +65,9 @@ public:
     vector<vector<int>> fusion(vector<vector<int>> A); //fait
     void capture();
 
+    bool getCanPlay() const;
+    void setCanPlay(bool value);
+    void wait();
 };
 
 #endif // UNIT_H
