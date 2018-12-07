@@ -149,5 +149,5 @@ void MainWindow::updateWin()
 
 void MainWindow::movingUnit()
 {
-    centerZone.setMovements(cursor->getPlayer()->getUnit(cursor->getRealX(),cursor->getRealY())->movePossib(cursor->getRealX(),cursor->getRealY()));
+    centerZone.setMovements(cursor->getPlayer()->getUnit(cursor->getPosX(),cursor->getPosY())->movePossib(cursor->getPosX(),cursor->getPosY()));
 }
