@@ -24,6 +24,7 @@ GameWindow::GameWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) :terrainMap(
             listImage.push_back(QImage());
         }
     }
+    movements.push_back(vector<int>(2,-1));
 }
 
 void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
@@ -50,6 +51,13 @@ void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
         }
 
     }
+    for(std::vector<int> pos : movements)
+    {
+        if(pos[0]>=0&&pos[1]>=0)
+        {
+            painter.fillRect(QRect(sizePicture*pos[0],sizePicture*pos[1],sizePicture,sizePicture), QBrush(QColor(128, 128, 255, 128)));
+        }
+    }
     painter.setPen(Qt::red);
     painter.drawRect(sizePicture*cursor->getPosX(),sizePicture*cursor->getPosY(),sizePicture,sizePicture);
     cursor->setSizePicture(sizePicture);
@@ -65,4 +73,17 @@ void GameWindow::setSize(double width,double height)
     this->width=static_cast<unsigned int>(width);
     this->height=static_cast<unsigned int>(height);
     setFixedSize(static_cast<int>(this->width),static_cast<int>(this->height));
+}
+
+void GameWindow::setMovements(vector<vector<int>> movements)
+{
+    this->movements=movements;
+    update();
+}
+
+void GameWindow::movementsReset()
+{
+    movements.clear();
+    movements.push_back(vector<int>(2,-1));
+    update();
 }

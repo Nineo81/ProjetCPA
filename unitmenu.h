@@ -11,8 +11,10 @@ public:
     explicit UnitMenu(int posX, int posY);
     void keyPressEvent(QKeyEvent * event);
 signals:
+    void moveUnit();
 
 public slots:
+    void movement();
 };
 
 #endif // UNITMENU_H

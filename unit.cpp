@@ -71,14 +71,14 @@ vector<vector<int>> Unit::getDefenseChart() const
     return *PDC;
 }
 
-Map Unit::getTerrainMap() const
+Map* Unit::getTerrainMap() const
 {
-    return *PTM;
+    return PTM;
 }
 
-Map Unit::getUnitMap() const
+Map* Unit::getUnitMap() const
 {
-    return *PUM;
+    return PUM;
 }
 
 int Unit::getcolor() const
@@ -211,8 +211,8 @@ int Unit::get_MPLoss(unsigned int x,unsigned int y)
                              {1,1,1,1,1},
                              {1,1,1,1,1},
                              {10,10,10,10,10}};
-    Map terrainMap=this->getTerrainMap();
-    int temp=terrainMap.getElement(x,y);
+    Map* terrainMap=this->getTerrainMap();
+    int temp=terrainMap->getElement(x,y);
     int terrainType=0;
     if (temp==1)
         terrainType=0;
@@ -245,10 +245,10 @@ int Unit::get_MPLoss(unsigned int x,unsigned int y)
 
 bool Unit::terrain_avail(unsigned int x,unsigned int y)
 {
-    Map terrainMap=this->getTerrainMap();
-    Map unitMap=this->getUnitMap();
+    //Map* terrainMap=this->getTerrainMap();
+    //Map* unitMap=this->getUnitMap();
     bool res=true;
-    if (x>=static_cast<unsigned int>(terrainMap.getSize('x')+1) || y>=static_cast<unsigned int>(terrainMap.getSize('y')-1) || this->type!=unitMap.getElement(x,y))
+    if (x>=static_cast<unsigned int>(PTM->getSize('x')+1) || y>=static_cast<unsigned int>(PTM->getSize('y')-1) || this->type!=PUM->getElement(x,y))
         res=false;
     return res;
 }
@@ -388,10 +388,10 @@ void Unit::move(unsigned int x,unsigned int y)
 {
     if(canPlay==true)
     {
-        Map unitMap=this->getUnitMap();
+        Map* unitMap=this->getUnitMap();
         unsigned int oldX=this->get_X();
         unsigned int oldY=this->get_Y();
-        unitMap.replace(oldX,oldY,x,y);
+        unitMap->replace(oldX,oldY,x,y);
         vector<unsigned int> newposition={x,y};
         this->setposition(newposition);
         this->resetMP();

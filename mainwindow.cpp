@@ -114,6 +114,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         if(cursor->unitOfPlayer())
         {
             UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY());
+            QObject::connect(menu,SIGNAL(moveUnit()),this,SLOT(movingUnit()));
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
         }
@@ -144,4 +145,9 @@ void MainWindow::updateWidget()
 void MainWindow::updateWin()
 {
     updateWidget();
+}
+
+void MainWindow::movingUnit()
+{
+    centerZone.setMovements(cursor->getPlayer()->getUnit(cursor->getRealX(),cursor->getRealY())->movePossib(cursor->getRealX(),cursor->getRealY()));
 }

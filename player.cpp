@@ -124,3 +124,14 @@ bool Player::getTurn(){
 void Player::setTurn(bool turn){
     this->turn=turn;
 }
+
+Unit* Player::getUnit(unsigned X,unsigned int Y)
+{
+    Unit* b=nullptr;
+    for (Unit* u : listUnit){
+        if (u->get_X() == X && u->get_Y() == Y){
+            b = u;
+        }
+     }
+    return b;
+}

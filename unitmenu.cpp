@@ -4,9 +4,9 @@
 
 UnitMenu::UnitMenu(int posX,int posY)
 {
-    QPushButton *button1 = new QPushButton("Deplacement");
+    QPushButton *button1 = new QPushButton("Move");
     button1->setAutoDefault(true);
-    QObject::connect(button1, SIGNAL(clicked()),this,SLOT(close()));
+    QObject::connect(button1, SIGNAL(clicked()),this,SLOT(movement()));
     QPushButton *button2 = new QPushButton("Attack");
     button1->setAutoDefault(true);
     QObject::connect(button2, SIGNAL(clicked()),this,SLOT(close()));
@@ -25,4 +25,10 @@ void UnitMenu::keyPressEvent(QKeyEvent* event)
     //retour == bouton B
         close();
     }
+}
+
+void UnitMenu::movement()
+{
+    emit moveUnit();
+    close();
 }

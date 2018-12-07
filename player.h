@@ -25,6 +25,7 @@ public:
     int getPlayerNumber();
     bool getTurn();
     void setTurn(bool turn);
+    Unit* getUnit(unsigned x,unsigned int y);
 private:
     bool turn;
     int money;

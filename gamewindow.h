@@ -15,6 +15,8 @@ public:
     void paintEvent(QPaintEvent *event);
     void setSize(double width,double height);
     void updateMap();
+    void movementsReset();
+    void setMovements(vector<vector<int>> movements);
 private:
     unsigned int height;
     unsigned int width;
@@ -22,6 +24,7 @@ private:
     Map *unitMap;
     Cursor* cursor;
     std::vector<QImage> listImage;
+    std::vector<vector<int>> movements;
 signals:
 
 public slots:
