@@ -280,7 +280,7 @@ vector<vector<int>> Unit::fusion(vector<vector<int>> A)
         vRight.push_back({0,0,100});
         for (unsigned int i=left;i<right;i++)
         {
-            if (vLeft[iL][2]<vRight[iR][2]) //Probleme les tailles sont differentes
+            if (vLeft[iL][2]<vRight[iR][2])
             {
                 A[i]=vLeft[iL];
                 iL++;
@@ -300,7 +300,7 @@ vector<vector<int>> Unit::fusion(vector<vector<int>> A)
 
 
 
-vector<vector<int>> Unit::movePossib_recusif(vector<vector<int>> l1,vector<vector<int>> l2)
+void Unit::movePossib_recusif(vector<vector<int>>* l1,vector<vector<int>> l2)
 {
     vector<vector<int>> l4;                       /*cette liste nous donnera les prochaines positions
                                                               *sur lesquelles il faudra appliquer la fonction récursive*/
@@ -322,13 +322,13 @@ vector<vector<int>> Unit::movePossib_recusif(vector<vector<int>> l1,vector<vecto
                 if (e<= this->get_absMP())                   //si le nbre de points de déplacement n'est pas trop élevé
                 {
                     bool inList1=false;
-                    for (unsigned int k=0;k<l1.size();k++)
+                    for (unsigned int k=0;k<l1->size();k++)
                     {
-                        if (l1[k][0]==X[0] && l1[k][1]==X[1])       //si la position qu'on regarde est déjà dans la liste des positions possibles
+                        if ((*l1)[k][0]==X[0] && (*l1)[k][1]==X[1])       //si la position qu'on regarde est déjà dans la liste des positions possibles
                         {
-                            if (l1[k][3]>e)                             //et que le chemin qu'on regarde consomme moins de MP
+                            if ((*l1)[k][3]>e)                             //et que le chemin qu'on regarde consomme moins de MP
                             {
-                                l1[k][3]=e;                                //changer le nombre de MP perdus au minimum
+                                (*l1)[k][3]=e;                                //changer le nombre de MP perdus au minimum
                             }
                             inList1=true;
                             break;//quitter la boucle
@@ -336,7 +336,7 @@ vector<vector<int>> Unit::movePossib_recusif(vector<vector<int>> l1,vector<vecto
                     }
                     if (inList1==false)
                     {
-                        l1.push_back({X[0],X[1],e});          //ajouter la position à la liste si elle n'y était pas
+                        l1->push_back({X[0],X[1],e});          //ajouter la position à la liste si elle n'y était pas
                     }
                     if (e<this->get_absMP())                  //s'il est encore possible à l'unité de se déplacer au-delà de X...
                     {
@@ -365,12 +365,11 @@ vector<vector<int>> Unit::movePossib_recusif(vector<vector<int>> l1,vector<vecto
         }
 
     }
-    //l4=this->fusion(l4); j'ignore car bugger
+    //l4=this->fusion(l4);
     if (rest_MP==true)
     {
         this->movePossib_recusif(l1,l4);
     }
-    return l1;
 }
 
 vector<vector<int>> Unit::movePossib(int x,int y)
@@ -378,7 +377,8 @@ vector<vector<int>> Unit::movePossib(int x,int y)
     vector<vector<int>> l1;
     int e=0;
     l1.push_back({x,y,e});
-    return movePossib_recusif(l1,l1);
+    movePossib_recusif(&l1,l1);
+    return l1;
 }
 
 
