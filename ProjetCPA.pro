@@ -149,4 +149,26 @@ DISTFILES += \
     114.png \
     115.png \
     116.png \
-    50.png
+    50.png \
+    50.png \
+    51.png \
+    52.png \
+    53.png \
+    54.png \
+    55.png \
+    56.png \
+    57.png \
+    58.png \
+    59.png \
+    60.png \
+    61.png \
+    62.png \
+    63.png \
+    64.png \
+    65.png \
+    66.png \
+    67.png \
+    68.png \
+    69.png \
+    70.png \
+    71.png

@@ -39,7 +39,7 @@ void Unit::setUnit()
     if (color==1)
         game->updateMap(this->type,this->position[0],this->position[1]);
     else
-        game->updateMap(this->type+10,this->position[0],this->position[1]);
+        game->updateMap(this->type+11,this->position[0],this->position[1]);
 }
 
 int Unit::getHP() const
@@ -239,7 +239,6 @@ int Unit::get_MPLoss(unsigned int x,unsigned int y)
         terrainType=9;
     else if(temp>=101 && temp<=110)
         terrainType=10;
-    cout<<"         prix du déplacement sur ce terrain: "<<terrainChart[terrainType][this->getMoveType()]<<endl;
     return terrainChart[terrainType][this->getMoveType()];
 }
 
@@ -314,10 +313,18 @@ void Unit::movePossib_recusif(vector<vector<int>>* l1,vector<vector<int>> l2)
         for (unsigned int j=0;j<4;j++)                         //pour les 4 positions autour de b:
         {
             int e=l2[i][2];
+<<<<<<< HEAD
             if (terrain_avail(l3[j][0],l3[j][1])==true)  //si on peut se déplacer sur ce terrain
             {
                 vector<int> X={l3[j][0],l3[j][1]};
                 e+=this->get_MPLoss(static_cast<unsigned int>(X[0]),static_cast<unsigned int>(X[1]));              //on calcul le nbe de MP restants si on va sur ce terrain
+=======
+            if (terrain_avail(static_cast<unsigned int>(l3[j][0]),static_cast<unsigned int>(l3[j][1]))==true)  //si on peut se déplacer sur ce terrain
+            {
+                vector<int> X={l3[j][0],l3[j][1]};
+                cout<<X[0]<<", "<<X[1]<<endl;
+                e+=this->get_MPLoss(static_cast<unsigned int>(X[0])-1,static_cast<unsigned int>(X[1])-1);              //on calcul le nbe de MP restants si on va sur ce terrain
+>>>>>>> 96eaf82641d4da6315087d23894db0b256e03f47
                 if (e<= this->get_absMP())                   //si le nbre de points de déplacement n'est pas trop élevé
                 {
                     bool inList1=false;
@@ -359,11 +366,21 @@ void Unit::movePossib_recusif(vector<vector<int>>* l1,vector<vector<int>> l2)
                         {
                             l4.push_back({X[0],X[1],e});         //... ajouter X à la liste des positions pour la prochaine fonction récursive
                         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 96eaf82641d4da6315087d23894db0b256e03f47
                     }                
                 }             
             }          
         }
+<<<<<<< HEAD
     }
+=======
+
+    }
+
+>>>>>>> 96eaf82641d4da6315087d23894db0b256e03f47
     //l4=this->fusion(l4);
     if (rest_MP==true)
     {
