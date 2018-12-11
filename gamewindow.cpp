@@ -46,7 +46,7 @@ void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
         {
             if(unitMap->getElement(x,y) != 0)
             {
-                painter.drawImage(QRect(sizePicture*(static_cast<int>(x)),sizePicture*(static_cast<int>(y)),sizePicture,sizePicture),listImage[static_cast<unsigned int>(unitMap->getElement(x,y)-1)]);
+                painter.drawImage(QRect(sizePicture*(static_cast<int>(x)+1),sizePicture*(static_cast<int>(y)+1),sizePicture,sizePicture),listImage[static_cast<unsigned int>(unitMap->getElement(x,y)-1)]);
             }
         }
 
@@ -55,11 +55,11 @@ void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
     {
         if(pos[0]>=0&&pos[1]>=0)
         {
-            painter.fillRect(QRect(sizePicture*pos[0],sizePicture*pos[1],sizePicture,sizePicture), QBrush(QColor(128, 128, 255, 128)));
+            painter.fillRect(QRect(sizePicture*(pos[0]+1),sizePicture*(pos[1]+1),sizePicture,sizePicture), QBrush(QColor(128, 128, 255, 128)));
         }
     }
     painter.setPen(Qt::red);
-    painter.drawRect(sizePicture*cursor->getPosX(),sizePicture*cursor->getPosY(),sizePicture,sizePicture);
+    painter.drawRect(sizePicture*(cursor->getPosX()+1),sizePicture*(cursor->getPosY()+1),sizePicture,sizePicture);
     cursor->setSizePicture(sizePicture);
 }
 
