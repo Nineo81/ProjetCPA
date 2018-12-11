@@ -52,11 +52,23 @@ void Cursor::switchPlayerState()
     {
         playerState=2;
         playerBM->setTurn(true);
+        for (Unit *unit:playerBM->get_listUnit())
+        {
+            unit->setCanPlay(true);
+            unit->setHP(2,'a');
+        }
+        playerBM->set_money(1000*static_cast<int>(playerBM->get_listBuilding().size()),'a');
     }
     else
     {
         playerState=1;
         playerOS->setTurn(true);
+        for (Unit *unit:playerOS->get_listUnit())
+        {
+            unit->setCanPlay(true);
+            unit->setHP(2,'a');
+        }
+        playerOS->set_money(1000*static_cast<int>(playerOS->get_listBuilding().size()),'a');
     }
 }
 
@@ -104,4 +116,9 @@ int Cursor::buildOfPlayer()
 void Cursor::setSizePicture(int sizePicture)
 {
     this->sizePicture=sizePicture;
+}
+
+int Cursor::getPlayerState() const
+{
+    return playerState;
 }

@@ -43,7 +43,7 @@ void MainWindow::onNewConnection() {
     config["income"] = 1000;
     config["map"] = 25087;
     config["firstplayer"] = 5;
-    config["firstplayer"] = 10;
+    config["secondplayer"] = 10;
     config["youplay"] = "firstPlayer";
     QJsonObject unit1;
     unit1["country"] = 10;
@@ -128,7 +128,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
     }
     if (event->key() == Qt::Key_Escape || event->key() == Qt::Key_Backspace){
     //retour == bouton B
-
+        cursor->switchPlayerState();
     }
 }
 

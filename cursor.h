@@ -20,6 +20,8 @@ public:
     int buildOfPlayer();
     void switchPlayerState();
     void setSizePicture(int sizePicture);
+    int getPlayerState() const;
+
 private:
     int sizePicture;
     int posX;
