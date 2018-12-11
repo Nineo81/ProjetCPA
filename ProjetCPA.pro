@@ -51,7 +51,8 @@ SOURCES += \
     b_copter.cpp \
     cursor.cpp \
     unitmenu.cpp \
-    buildingmenu.cpp
+    buildingmenu.cpp \
+    pausemenu.cpp
 
 HEADERS += \
     game.h \
@@ -79,7 +80,8 @@ HEADERS += \
     b_copter.h \
     cursor.h \
     unitmenu.h \
-    buildingmenu.h
+    buildingmenu.h \
+    pausemenu.h
 
 FORMS +=
 

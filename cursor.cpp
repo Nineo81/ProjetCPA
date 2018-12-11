@@ -21,6 +21,7 @@ void Cursor::moveAlt(int up,int left,int down,int right)
         {
             this->posX=pos[0];
             this->posY=pos[1];
+            break;
         }
     }
 }
