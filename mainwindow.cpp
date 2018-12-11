@@ -8,6 +8,7 @@
 #include <QMouseEvent>
 #include "unitmenu.h"
 #include "buildingmenu.h"
+#include "pausemenu.h"
 
 MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) : cursor(cursor),centerZone(terrainMap,unitMap,cursor)
 {
@@ -157,6 +158,12 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
             centerZone.movementsReset();
             cursorState=0;
         }
+        else if(cursorState==0){
+            PauseMenu *menu = new PauseMenu();
+            QObject::connect(menu,SIGNAL(nextPlayer()),this,SLOT(switchPlayer()));
+            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+            menu->show();
+        }
     }
 }
 
@@ -183,4 +190,9 @@ void MainWindow::movingUnit()
     centerZone.setMovements(possibPos);
     cursor->updateMovements(possibPos);
     cursorState=1;
+}
+
+void MainWindow::switchPlayer()
+{
+    cursor->switchPlayerState();
 }

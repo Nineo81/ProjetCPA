@@ -35,6 +35,7 @@ private:
 signals:
 
 public slots:
+    void switchPlayer();
     void updateWin();
     void movingUnit();
 };
