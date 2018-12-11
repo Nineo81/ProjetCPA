@@ -12,6 +12,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor);
     void keyPressEvent(QKeyEvent * event);
+    int typeOfUnitMenu(int moveState);
     GameWindow* getWidget();
     void updateWidget();
 
@@ -38,6 +39,7 @@ public slots:
     void switchPlayer();
     void updateWin();
     void movingUnit();
+    void setUnitWainting();
 };
 
 #endif // MAINWINDOW_H

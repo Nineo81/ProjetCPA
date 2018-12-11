@@ -135,7 +135,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
     //confirmer la selection == bouton A
         if(cursor->unitOfPlayer() && cursorState==0)
         {
-            UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY());
+            UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY(),typeOfUnitMenu(0));
             QObject::connect(menu,SIGNAL(moveUnit()),this,SLOT(movingUnit()));
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
@@ -150,6 +150,12 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         else if(cursorState==1)
         {
             cursor->getPlayer()->getUnit(unitPosX,unitPosY)->move(cursor->getPosX(),cursor->getPosY());
+            centerZone.movementsReset();
+            cursorState=0;
+            UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY(),typeOfUnitMenu(1));
+            QObject::connect(menu,SIGNAL(waiting()),this,SLOT(setUnitWainting()));
+            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+            menu->show();
         }
     }
     if (event->key() == Qt::Key_Escape || event->key() == Qt::Key_Backspace){
@@ -195,4 +201,53 @@ void MainWindow::movingUnit()
 void MainWindow::switchPlayer()
 {
     cursor->switchPlayerState();
+}
+
+void MainWindow::setUnitWainting()
+{
+    cursor->getPlayer()->getUnit(static_cast<unsigned int>(cursor->getPosX()),static_cast<unsigned int>(cursor->getPosY()))->wait();
+}
+
+int MainWindow::typeOfUnitMenu(int moveState)
+{
+    int state=0;
+    if(moveState==0)
+    {
+        if(cursor->onABuilding() && cursor->opponnentUnit())
+        {
+            state=1;
+        }
+        else if(cursor->onABuilding())
+        {
+            state=2;
+        }
+        else if(cursor->opponnentUnit())
+        {
+            state=3;
+        }
+        else
+        {
+            state=4;
+        }
+    }
+    else
+    {
+        if(cursor->onABuilding() && cursor->opponnentUnit())
+        {
+            state=5;
+        }
+        else if(cursor->onABuilding())
+        {
+            state=6;
+        }
+        else if(cursor->opponnentUnit())
+        {
+            state=7;
+        }
+        else
+        {
+            state=8;
+        }
+    }
+    return state;
 }

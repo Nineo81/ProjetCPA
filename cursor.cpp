@@ -38,12 +38,12 @@ int Cursor::getPosY()
 
 int Cursor::getRealX()
 {
-    return sizePicture*posX;
+    return sizePicture*(posX+1);
 }
 
 int Cursor::getRealY()
 {
-    return sizePicture*posY;
+    return sizePicture*(posY+1);
 }
 Player* Cursor::getPlayer()
 {
@@ -111,6 +111,20 @@ bool Cursor::unitOfPlayer()
     return state;
 }
 
+bool Cursor::opponnentUnit()
+{
+    bool rep=false;
+    std::vector<vector<int>> position={{posX-1,posY},{posX+1,posY},{posX,posY-1},{posX,posY+1}};
+    for(std::vector<int> pos : position)
+    {
+        if(unitMap->getElement(pos[0],pos[1])!=0 && unitOfPlayer()==false)
+        {
+            rep=true;
+        }
+    }
+    return rep;
+}
+
 int Cursor::buildOfPlayer()
 {
     int state = 0;
@@ -122,8 +136,25 @@ int Cursor::buildOfPlayer()
     {
         state=playerBM->hasBuilding(posX,posY);
     }
-    cout<<state<<endl;
     return state;
+}
+
+bool Cursor::onABuilding()
+{
+    bool rep=false;
+    int element = terrainMap->getElement(posX,posY);
+    if(element<=45 && element>=34)
+    {
+        if(playerState==1 && element != 38 && element != 39 && element != 40)
+        {
+            rep=true;
+        }
+        else if(playerState==2 && element != 43 && element != 44 && element != 45)
+        {
+            rep=true;
+        }
+    }
+    return rep;
 }
 
 void Cursor::setSizePicture(int sizePicture)
