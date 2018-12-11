@@ -30,7 +30,7 @@ GameWindow::GameWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) :terrainMap(
 void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
-    int sizePicture = static_cast<int>(height/(terrainMap->getSize('y')+1));
+    sizePicture = static_cast<int>(height/(terrainMap->getSize('y')+1));
 
     for(unsigned int y=0;y<=terrainMap->getSize('y')-1;y++)
     {
@@ -86,4 +86,9 @@ void GameWindow::movementsReset()
     movements.clear();
     movements.push_back(vector<int>(2,-1));
     update();
+}
+
+int GameWindow::getSizePicture()
+{
+    return sizePicture;
 }

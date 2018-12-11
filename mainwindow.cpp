@@ -11,6 +11,7 @@
 
 MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) : cursor(cursor),centerZone(terrainMap,unitMap,cursor)
 {
+    cursorState=0;
     setCentralWidget(&centerZone);
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect  screenGeometry = screen->geometry();
@@ -93,42 +94,69 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
      /* ça depend de comment on fait notre truc il me semble.*/
     if (event->key() == Qt::Key_Left){
     //faire bouger la case selectionnee vers la gauche
-        cursor->move(0,1,0,0);
+        if(cursorState==0){
+            cursor->move(0,1,0,0);
+        }
+        else if(cursorState==1){
+            cursor->moveAlt(0,1,0,0);
+        }
         centerZone.updateMap();
     }
     if (event->key() == Qt::Key_Right){
-        cursor->move(0,0,0,1);
+        if(cursorState==0){
+            cursor->move(0,0,0,1);
+        }
+        else if(cursorState==1){
+            cursor->moveAlt(0,0,0,1);
+        }
         centerZone.updateMap();
     }
     if (event->key() == Qt::Key_Up){
     //faire bouger la case ou l'option (dans un menu) selectionee
-        cursor->move(1,0,0,0);
+        if(cursorState==0){
+            cursor->move(1,0,0,0);
+        }
+        else if(cursorState==1){
+            cursor->moveAlt(1,0,0,0);
+        }
         centerZone.updateMap();
     }
     if (event->key() == Qt::Key_Down){
-        cursor->move(0,0,1,0);
+        if(cursorState==0){
+            cursor->move(0,0,1,0);
+        }
+        else if(cursorState==1){
+            cursor->moveAlt(0,0,1,0);
+        }
         centerZone.updateMap();
     }
     if (event->key() == Qt::Key_Space || event->key() == Qt::Key_Enter){
     //confirmer la selection == bouton A
-        if(cursor->unitOfPlayer())
+        if(cursor->unitOfPlayer() && cursorState==0)
         {
             UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY());
             QObject::connect(menu,SIGNAL(moveUnit()),this,SLOT(movingUnit()));
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
         }
-        else if(cursor->buildOfPlayer() == 35)
+        else if(cursor->buildOfPlayer() == 35 && cursorState==0)
         {
             BuildingMenu *menu = new BuildingMenu(cursor->getRealX(),cursor->getRealY(),cursor->getPlayer()->getBuilding(cursor->getPosX(),cursor->getPosY()));
             QObject::connect(menu,SIGNAL(qMenuClose()),this,SLOT(updateWin()));
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
         }
+        else if(cursorState==1)
+        {
+            cursor->getPlayer()->getUnit(unitPosX,unitPosY)->move(cursor->getPosX(),cursor->getPosY());
+        }
     }
     if (event->key() == Qt::Key_Escape || event->key() == Qt::Key_Backspace){
     //retour == bouton B
-
+        if(cursorState==1){
+            centerZone.movementsReset();
+            cursorState=0;
+        }
     }
 }
 
@@ -149,5 +177,10 @@ void MainWindow::updateWin()
 
 void MainWindow::movingUnit()
 {
-    centerZone.setMovements(cursor->getPlayer()->getUnit(cursor->getPosX(),cursor->getPosY())->movePossib(cursor->getPosX(),cursor->getPosY()));
+    unitPosX=cursor->getPosX();
+    unitPosY=cursor->getPosY();
+    vector<vector<int>> possibPos=cursor->getPlayer()->getUnit(static_cast<unsigned int>(unitPosX),static_cast<unsigned int>(unitPosY))->movePossib(cursor->getPosX(),cursor->getPosY());
+    centerZone.setMovements(possibPos);
+    cursor->updateMovements(possibPos);
+    cursorState=1;
 }

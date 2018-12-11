@@ -13,6 +13,18 @@ void Cursor::move(int up,int left,int down,int right)
     if(posY+down<static_cast<int>(terrainMap->getSize('y'))+1){this->posY=posY+down;}
 }
 
+void Cursor::moveAlt(int up,int left,int down,int right)
+{
+    for(std::vector<int> pos : movements)
+    {
+        if(pos[0]==posX-left+right && pos[1]==posY-up+down)
+        {
+            this->posX=pos[0];
+            this->posY=pos[1];
+        }
+    }
+}
+
 int Cursor::getPosX()
 {
     return posX;
@@ -104,4 +116,10 @@ int Cursor::buildOfPlayer()
 void Cursor::setSizePicture(int sizePicture)
 {
     this->sizePicture=sizePicture;
+}
+
+void Cursor::updateMovements(vector<vector<int>> movements)
+{
+    this->movements.clear();
+    this->movements=movements;
 }

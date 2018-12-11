@@ -17,7 +17,9 @@ public:
     void updateMap();
     void movementsReset();
     void setMovements(vector<vector<int>> movements);
+    int getSizePicture();
 private:
+    int sizePicture;
     unsigned int height;
     unsigned int width;
     Map *terrainMap;

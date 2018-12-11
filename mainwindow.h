@@ -22,9 +22,11 @@ public slots:
     void onData();
 
 private:
+    int unitPosX;
+    int unitPosY;
     Cursor* cursor;
     GameWindow centerZone;
-
+    int cursorState;
     QTcpServer* server = nullptr;
     QTcpSocket* other = nullptr;
     quint32 currentSize = 0;
