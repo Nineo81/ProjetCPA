@@ -23,6 +23,7 @@ public:
     void switchPlayerState();
     void setSizePicture(int sizePicture);
     void updateMovements(vector<vector<int>> movements);
+    int getPlayerState() const;
 private:
     vector<vector<int>> movements;
     int sizePicture;

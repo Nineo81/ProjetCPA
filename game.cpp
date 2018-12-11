@@ -77,15 +77,15 @@ Game::Game():terrainMap("Map1V1.txt"),
                     buildingsOS.push_back(new Airport(pos,this));
                     break;
                 }
-                case 42:{
+                case 43:{
                     buildingsBM.push_back(new City(pos));
                     break;
                 }
-                case 43:{
+                case 44:{
                     buildingsBM.push_back(new Factory(pos,this));
                     break;
                 }
-                case 44:{
+                case 45:{
                     buildingsBM.push_back(new Airport(pos,this));
                     break;
                 }
@@ -97,6 +97,7 @@ Game::Game():terrainMap("Map1V1.txt"),
     listPlayer = {playerOS, playerBM};
     cursor.setPlayer(playerBM,2);
     cursor.setPlayer(playerOS,1);
+
 }
 
 void Game::updateMap(int type,unsigned int x,unsigned int y)

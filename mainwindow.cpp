@@ -44,7 +44,7 @@ void MainWindow::onNewConnection() {
     config["income"] = 1000;
     config["map"] = 25087;
     config["firstplayer"] = 5;
-    config["firstplayer"] = 10;
+    config["secondplayer"] = 10;
     config["youplay"] = "firstPlayer";
     QJsonObject unit1;
     unit1["country"] = 10;
