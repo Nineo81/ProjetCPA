@@ -203,18 +203,19 @@ void Unit::join_unit(Unit unit2)
 int Unit::get_MPLoss(unsigned int x,unsigned int y)
 {
     int terrainChart[11][5]={{1,1,1,2,1},
-                             {2,1,0,0,1},
+                             {2,1,10,10,1},
                              {1,1,2,3,1},
-                             {2,1,0,0,1},
+                             {2,1,10,10,1},
                              {1,1,1,1,1},
-                             {0,0,0,0,1},
+                             {10,10,10,10,1},
                              {1,1,1,1,1},
-                             {0,0,0,0,1},
+                             {10,10,10,10,1},
                              {1,1,1,1,1},
                              {1,1,1,1,1},
                              {10,10,10,10,10}};
-    Map* terrainMap=this->getTerrainMap();
-    int temp=terrainMap->getElement(x,y);
+
+    //solution pour avoir le bon terrain, vu que ca commence à zero!
+    int temp=game->getTerrainMap().getElement(x-1,y-1);
     int terrainType=0;
     if (temp==1)
         terrainType=0;
@@ -222,16 +223,13 @@ int Unit::get_MPLoss(unsigned int x,unsigned int y)
         terrainType=1;
     else if(temp==3)
         terrainType=2;
-    else if(temp==10 || temp==11 || temp==12 || temp==4 || temp==5 ||
-            temp==6 || temp==7 || temp==8 || temp==9 || temp==13 || temp==14)
+    else if(temp>=4 && temp<=14)
         terrainType=3;
-    else if(temp==15 || temp==16 || temp==17 || temp==18 || temp==19 ||
-            temp==20 || temp==21 || temp==22 || temp==23 || temp==24 ||
-            temp==25)
+    else if(temp>=15 && temp<=24)
         terrainType=4;
     else if(temp==28)
         terrainType=5;
-    else if(temp==29 || temp==30 || temp==31 || temp==32)
+    else if(temp>=29 && temp<=32)
         terrainType=6;
     else if(temp==33)
         terrainType=7;
@@ -239,7 +237,7 @@ int Unit::get_MPLoss(unsigned int x,unsigned int y)
         terrainType=8;
     else if(temp==35 || temp==39 || temp==44)
         terrainType=9;
-    else if(temp==101 || temp==102 || temp==103 || temp==104 || temp==105 || temp==106 || temp==107 || temp==108 || temp==109 || temp==110)
+    else if(temp>=101 && temp<=110)
         terrainType=10;
     cout<<"         prix du déplacement sur ce terrain: "<<terrainChart[terrainType][this->getMoveType()]<<endl;
     return terrainChart[terrainType][this->getMoveType()];
@@ -248,10 +246,8 @@ int Unit::get_MPLoss(unsigned int x,unsigned int y)
 
 bool Unit::terrain_avail(unsigned int x,unsigned int y)
 {
-    //Map* terrainMap=this->getTerrainMap();
-    //Map* unitMap=this->getUnitMap();
     bool res=true;
-    if (x>=static_cast<unsigned int>(PTM->getSize('x')+1) || y>=static_cast<unsigned int>(PTM->getSize('y')-1) || (this->type!=PUM->getElement(x,y) && PUM->getElement(x,y)!=0))
+    if (x>=static_cast<unsigned int>(game->getTerrainMap().getSize('x')+1) || y>=static_cast<unsigned int>(game->getTerrainMap().getSize('y')-1) || (this->type!=game->getUnitMap().getElement(x,y) && game->getUnitMap().getElement(x,y)!=0))
         res=false;
     return res;
 }
