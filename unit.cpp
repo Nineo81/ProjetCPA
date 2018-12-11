@@ -244,10 +244,10 @@ int Unit::get_MPLoss(unsigned int x,unsigned int y)
 }
 
 
-bool Unit::terrain_avail(unsigned int x,unsigned int y)
+bool Unit::terrain_avail(int x,int y)
 {
     bool res=true;
-    if (x>=static_cast<unsigned int>(game->getTerrainMap().getSize('x')+1) || y>=static_cast<unsigned int>(game->getTerrainMap().getSize('y')-1) || (this->type!=game->getUnitMap().getElement(x,y) && game->getUnitMap().getElement(x,y)!=0))
+    if (x<1 || y<1 || x>=game->getTerrainMap().getSize('x') || y>=game->getTerrainMap().getSize('y') || (this->type!=game->getUnitMap().getElement(x,y) && game->getUnitMap().getElement(x,y)!=0))
         res=false;
     return res;
 }
@@ -315,10 +315,8 @@ void Unit::movePossib_recusif(vector<vector<int>>* l1,vector<vector<int>> l2)
         l3.push_back({l2[i][0]-1, l2[i][1]   });              //on ajoute toutes les positions autour de b à l3
         for (unsigned int j=0;j<4;j++)                         //pour les 4 positions autour de b:
         {
-            cout<<"     est-ce possible pour la position {"<<l3[j][0]<<","<<l3[j][1]<<"}?"<<endl;
             int e=l2[i][2];
-            cout<<"         prix initial de la position précédente: "<<e<<endl;
-            if (terrain_avail(static_cast<unsigned int>(l3[j][0]),static_cast<unsigned int>(l3[j][1]))==true)  //si on peut se déplacer sur ce terrain
+            if (terrain_avail(l3[j][0],l3[j][1])==true)  //si on peut se déplacer sur ce terrain
             {
                 cout<<"         le terrain est possible"<<endl;
                 vector<int> X={l3[j][0],l3[j][1]};
@@ -375,29 +373,6 @@ void Unit::movePossib_recusif(vector<vector<int>>* l1,vector<vector<int>> l2)
         }
 
     }
-    cout<<"Nouvelles liste l1:";
-    for (int i=0;i<(*l1).size();i++)
-    {
-        cout<<"{";
-        for (int j=0;j<3;j++)
-        {
-            cout<<(*l1)[i][j]<<",";
-        }
-        cout<<"}, ";
-    }
-    cout<<endl;
-    cout<<"Nouvelles liste l4:";
-    for (int i=0;i<l4.size();i++)
-    {
-        cout<<"{";
-        for (int j=0;j<3;j++)
-        {
-            cout<<l4[i][j]<<",";
-        }
-        cout<<"}, ";
-    }
-    cout<<endl;
-    cout<<"size l4: "<<l4.size()<<endl;
     //l4=this->fusion(l4);
     if (rest_MP==true)
     {
