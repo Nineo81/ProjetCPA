@@ -4,6 +4,8 @@
 //#include<algorithm>
 #include<cmath>
 #include "game.h"
+using std::cout;
+using std::endl;
 
 
 using namespace std;
@@ -239,6 +241,7 @@ int Unit::get_MPLoss(unsigned int x,unsigned int y)
         terrainType=9;
     else if(temp==101 || temp==102 || temp==103 || temp==104 || temp==105 || temp==106 || temp==107 || temp==108 || temp==109 || temp==110)
         terrainType=10;
+    cout<<"         prix du déplacement sur ce terrain: "<<terrainChart[terrainType][this->getMoveType()]<<endl;
     return terrainChart[terrainType][this->getMoveType()];
 }
 
@@ -302,23 +305,29 @@ vector<vector<int>> Unit::fusion(vector<vector<int>> A)
 
 void Unit::movePossib_recusif(vector<vector<int>>* l1,vector<vector<int>> l2)
 {
+    cout<<"lancement récursivité"<<endl;
     vector<vector<int>> l4;                       /*cette liste nous donnera les prochaines positions
-                                                              *sur lesquelles il faudra appliquer la fonction récursive*/
+                                                     *sur lesquelles il faudra appliquer la fonction récursive*/
     bool rest_MP=false;
     for (unsigned int i=0;i<l2.size();++i)                 //pour tous les éléments de la sous-liste à traiter
     {
+        cout<<" traitement pour {"<<l2[i][0]<<","<<l2[i][1]<<"}"<<endl;
         vector<vector<int>> l3;
         l3.push_back({l2[i][0],   l2[i][1]+1 });
         l3.push_back({l2[i][0]+1, l2[i][1]   });
         l3.push_back({l2[i][0],   l2[i][1]-1 });
         l3.push_back({l2[i][0]-1, l2[i][1]   });              //on ajoute toutes les positions autour de b à l3
-        for (unsigned int j=0;j<3;j++)                         //pour les 4 positions autour de b:
+        for (unsigned int j=0;j<4;j++)                         //pour les 4 positions autour de b:
         {
+            cout<<"     est-ce possible pour la position {"<<l3[j][0]<<","<<l3[j][1]<<"}?"<<endl;
             int e=l2[i][2];
+            cout<<"         prix initial de la position précédente: "<<e<<endl;
             if (terrain_avail(static_cast<unsigned int>(l3[j][0]),static_cast<unsigned int>(l3[j][1]))==true)  //si on peut se déplacer sur ce terrain
             {
+                cout<<"         le terrain est possible"<<endl;
                 vector<int> X={l3[j][0],l3[j][1]};
                 e+=this->get_MPLoss(static_cast<unsigned int>(X[0]),static_cast<unsigned int>(X[1]));              //on calcul le nbe de MP restants si on va sur ce terrain
+                cout<<"         le prix du déplacement total serait: "<<e<<endl;
                 if (e<= this->get_absMP())                   //si le nbre de points de déplacement n'est pas trop élevé
                 {
                     bool inList1=false;
@@ -336,8 +345,11 @@ void Unit::movePossib_recusif(vector<vector<int>>* l1,vector<vector<int>> l2)
                     }
                     if (inList1==false)
                     {
+                        cout<<"         ajout de la positon dans l1"<<endl;
                         l1->push_back({X[0],X[1],e});          //ajouter la position à la liste si elle n'y était pas
                     }
+                    cout<<"         size l1: "<<(*l1).size()<<endl;
+
                     if (e<this->get_absMP())                  //s'il est encore possible à l'unité de se déplacer au-delà de X...
                     {
                         rest_MP=true;
@@ -356,24 +368,51 @@ void Unit::movePossib_recusif(vector<vector<int>>* l1,vector<vector<int>> l2)
                         }
                         if (inList4==false)
                         {
+                            cout<<"         ajout de la position dans l4"<<endl;
                             l4.push_back({X[0],X[1],e});         //... ajouter X à la liste des positions pour la prochaine fonction récursive
                         }
+                        cout<<"size l4: "<<l4.size()<<endl;
 
-                    }
-                }
-            }
+                    }                
+                }             
+            }          
         }
 
     }
+    cout<<"Nouvelles liste l1:";
+    for (int i=0;i<(*l1).size();i++)
+    {
+        cout<<"{";
+        for (int j=0;j<3;j++)
+        {
+            cout<<(*l1)[i][j]<<",";
+        }
+        cout<<"}, ";
+    }
+    cout<<endl;
+    cout<<"Nouvelles liste l4:";
+    for (int i=0;i<l4.size();i++)
+    {
+        cout<<"{";
+        for (int j=0;j<3;j++)
+        {
+            cout<<l4[i][j]<<",";
+        }
+        cout<<"}, ";
+    }
+    cout<<endl;
+    cout<<"size l4: "<<l4.size()<<endl;
     //l4=this->fusion(l4);
     if (rest_MP==true)
     {
         this->movePossib_recusif(l1,l4);
     }
+
 }
 
 vector<vector<int>> Unit::movePossib(int x,int y)
 {
+    cout<<"lancement movePossib, position: "<<x<<","<<y<<endl;
     vector<vector<int>> l1;
     int e=0;
     l1.push_back({x,y,e});
