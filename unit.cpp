@@ -39,7 +39,7 @@ void Unit::setUnit()
     if (color==1)
         game->updateMap(this->type,this->position[0],this->position[1]);
     else
-        game->updateMap(this->type+10,this->position[0],this->position[1]);
+        game->updateMap(this->type+11,this->position[0],this->position[1]);
 }
 
 int Unit::getHP() const
