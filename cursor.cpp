@@ -83,6 +83,7 @@ void Cursor::switchPlayerState()
         }
         playerOS->set_money(1000*static_cast<int>(playerOS->get_listBuilding().size()),'a');
     }
+    cout<<playerOS->get_money()<<endl<<playerBM->get_money()<<endl;
 }
 
 void Cursor::setPlayer(Player* player,int type)
@@ -175,4 +176,9 @@ void Cursor::updateMovements(vector<vector<int>> movements)
 int Cursor::getPlayerState() const
 {
     return playerState;
+}
+
+Map *Cursor::getUnitMap() const
+{
+    return unitMap;
 }

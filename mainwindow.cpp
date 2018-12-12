@@ -89,6 +89,23 @@ void MainWindow::onData() {
     }
     else {
 
+        //Mouvement
+        if ( json.contains("xM") || json.contains("yM") || json.contains("oldXM") || json.contains("oldYM") )
+        {
+            int oldX = json["xM"].toInt();
+            int oldY = json["yM"].toInt();
+            int newX = json["newXM"].toInt();
+            int newY = json["newYM"].toInt();
+            std::cout<<oldX<<" "<<oldY<<endl<<newX<<" "<<newY<<endl;
+            cursor->getPlayer()->getUnit(oldX,oldY)->move(newX,newY);
+            cursor->getUnitMap()->replace(oldX,oldY,newX,newY);
+        }
+        //Fin de tour
+        if ( json.contains("endofturn") )
+        {
+            bool fin = json["endofturn"].toBool();
+            if (fin){ cursor->switchPlayerState();}
+        }
     }
 }
 
@@ -164,6 +181,14 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
             cursor->getPlayer()->getUnit(unitPosX,unitPosY)->move(cursor->getPosX(),cursor->getPosY());
             centerZone.movementsReset();
             cursorState=0;
+
+            QJsonObject action;
+            action["xM"] = unitPosX;
+            action["yM"] = unitPosY;
+            action["newXM"] = cursor->getPosX();
+            action["newYM"] = cursor->getPosY();
+            sendJson(action);
+
             UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY(),typeOfUnitMenu(1));
             QObject::connect(menu,SIGNAL(waiting()),this,SLOT(setUnitWainting()));
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
@@ -213,6 +238,10 @@ void MainWindow::movingUnit()
 void MainWindow::switchPlayer()
 {
     cursor->switchPlayerState();
+
+    QJsonObject action;
+    action["endofturn"] = true;
+    sendJson(action);
 }
 
 void MainWindow::setUnitWainting()

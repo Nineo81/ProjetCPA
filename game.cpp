@@ -99,11 +99,11 @@ Game::Game():terrainMap("Map1V1.txt"),
     cursor.setPlayer(playerBM,2);
     cursor.setPlayer(playerOS,1);
 
+    cursor.getPlayer()->set_money(3000,'a');
     //création de l'unité de base de OS
     Unit* firstUnit = new infantery({15,3},1,0,this);
     firstUnit->setCanPlay(true);
     listPlayer[0]->add_unit(firstUnit);
-
 
 
 }
@@ -211,7 +211,6 @@ void Game::play(Player player)
     for (Player p : listPlayer){
         delete &p;
     }
-    delete this;
 }*/
 
 /*std::vector<std::vector<int>> initDefense(Map terrainMap){
