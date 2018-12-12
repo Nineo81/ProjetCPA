@@ -171,4 +171,5 @@ DISTFILES += \
     68.png \
     69.png \
     70.png \
-    71.png
+    71.png \
+    cursor.png
