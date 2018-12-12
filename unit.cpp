@@ -63,7 +63,13 @@ void Unit::setHP(int newHP,char sign)
         }
      }
     else if (sign=='d')
+    {
         this->HP-=newHP;
+        if (HP<=0)
+        {
+            delete this;
+        }
+    }
     else
         cout<<"Erreur caractère dans setHP non incorrect."<<endl;
 }
@@ -151,14 +157,6 @@ int Unit::find_B(Unit* defender)
     return B;
 }
 
-bool Unit::can_attack(Unit* defender)
-{
-    int B=this->find_B(defender);
-    if (B!=0)
-        return true;
-    else
-        return false;
-}
 
 int Unit::get_D_TR() const
 {
@@ -192,11 +190,11 @@ void Unit::attack(Unit* defender)
     }
 }
 
-void Unit::join_unit(Unit unit2)
+void Unit::join_unit(Unit* unit2)
 {
-    unit2.setHP(this->getHP(),'a');
-    if (unit2.getHP()>10)
-        unit2.setHP();               //si HP de unit2 >10 : on arrondi son HP à 10
+    unit2->setHP(this->getHP(),'a');
+    if (unit2->getHP()>10)
+        unit2->setHP();               //si HP de unit2 >10 : on arrondi son HP à 10
     delete this;                     //auto-destruction de l'unité pour que les 2 unités deviennent un
 }
 

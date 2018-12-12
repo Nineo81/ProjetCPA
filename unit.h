@@ -54,10 +54,9 @@ public:
     void movePossib_recusif(vector<vector<int>>* l1, vector<vector<int>> l2);   //a est la position qui a été vérifiée avant
     vector<vector<int>> movePossib(int x,int y); //fait   //(x,y) la position actuelle de l'unité
     void move(unsigned int x,unsigned int y);              //fait
-    void join_unit(Unit Unit2);           //fait
+    void join_unit(Unit* Unit2);           //fait
     void setMP(int newMP);                //fait
     void resetMP();                       //fait
-    bool can_attack(Unit* defender);       //fait
     int damage(Unit* defender);            //fait
     int find_B(Unit* defender);            //fait
     void attack(Unit* defender);           //fait
