@@ -98,7 +98,6 @@ void MainWindow::onData() {
             int newY = json["newYM"].toInt();
             std::cout<<oldX<<" "<<oldY<<endl<<newX<<" "<<newY<<endl;
             cursor->getPlayer()->getUnit(oldX,oldY)->move(newX,newY);
-            cursor->getUnitMap()->replace(oldX,oldY,newX,newY);
         }
         //Fin de tour
         if ( json.contains("endofturn") )
