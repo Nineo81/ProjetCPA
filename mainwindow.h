@@ -16,12 +16,6 @@ public:
     GameWindow* getWidget();
     void updateWidget();
 
-public slots:
-    void onNewConnection();
-    void onConnected();
-    void onDisconnected();
-    void onData();
-
 private:
     int unitPosX;
     int unitPosY;
@@ -41,6 +35,12 @@ public slots:
     void updateWin();
     void movingUnit();
     void setUnitWainting();
+    void unitAttack();
+    void unitCapture();
+    void onNewConnection();
+    void onConnected();
+    void onDisconnected();
+    void onData();
 };
 
 #endif // MAINWINDOW_H

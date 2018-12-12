@@ -9,9 +9,10 @@ UnitMenu::UnitMenu(int posX,int posY,int type)
     QObject::connect(button1, SIGNAL(clicked()),this,SLOT(movement()));
     QPushButton *button2 = new QPushButton("Attack");
     button2->setAutoDefault(true);
-    QObject::connect(button2, SIGNAL(clicked()),this,SLOT(close()));
+    QObject::connect(button2, SIGNAL(clicked()),this,SLOT(attack()));
     QPushButton *button3 = new QPushButton("Capture");
     button3->setAutoDefault(true);
+    QObject::connect(button2, SIGNAL(clicked()),this,SLOT(capture()));
     QPushButton *button4 = new QPushButton("Wait");
     button4->setAutoDefault(true);
     QObject::connect(button4,SIGNAL(clicked()),this,SLOT(unitWait()));
@@ -76,5 +77,17 @@ void UnitMenu::movement()
 void UnitMenu::unitWait()
 {
     emit waiting();
+    close();
+}
+
+void UnitMenu::capture()
+{
+    emit capturing();
+    close();
+}
+
+void UnitMenu::attack()
+{
+    emit attacking();
     close();
 }

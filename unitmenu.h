@@ -13,9 +13,13 @@ public:
 signals:
     void moveUnit();
     void waiting();
+    void capturing();
+    void attacking();
 public slots:
     void movement();
     void unitWait();
+    void capture();
+    void attack();
 };
 
 #endif // UNITMENU_H

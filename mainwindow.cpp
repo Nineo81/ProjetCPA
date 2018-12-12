@@ -146,6 +146,9 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         {
             UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY(),typeOfUnitMenu(0));
             QObject::connect(menu,SIGNAL(moveUnit()),this,SLOT(movingUnit()));
+            QObject::connect(menu,SIGNAL(attacking()),this,SLOT(unitAttack()));
+            QObject::connect(menu,SIGNAL(capturing()),this,SLOT(unitCapture()));
+            QObject::connect(menu,SIGNAL(waiting()),this,SLOT(setUnitWainting()));
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
         }
@@ -215,6 +218,16 @@ void MainWindow::switchPlayer()
 void MainWindow::setUnitWainting()
 {
     cursor->getPlayer()->getUnit(static_cast<unsigned int>(cursor->getPosX()),static_cast<unsigned int>(cursor->getPosY()))->wait();
+}
+
+void MainWindow::unitAttack()
+{
+
+}
+
+void MainWindow::unitCapture()
+{
+    cursor->getPlayer()->getUnit(static_cast<unsigned int>(cursor->getPosX()),static_cast<unsigned int>(cursor->getPosY()))->capture();
 }
 
 int MainWindow::typeOfUnitMenu(int moveState)
