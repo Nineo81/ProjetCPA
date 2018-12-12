@@ -51,8 +51,8 @@ Game::Game():terrainMap("Map1V1.txt"),
         for (unsigned int j = 0; j<terrainMap.getSize('x');j++){
             int temp =terrainMap.getElement(j,i);
             vector<unsigned int> pos;
-            pos.push_back(j+1);
-            pos.push_back(i+1);
+            pos.push_back(j);
+            pos.push_back(i);
             switch(temp){
                 case 34:{
                     neutralBuildings.push_back(new City(pos));

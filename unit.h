@@ -61,7 +61,7 @@ public:
     int damage(Unit defender);            //fait
     int find_B(Unit defender);            //fait
     void attack(Unit defender);           //fait
-    bool terrain_avail(unsigned int x,unsigned int y);     //fait
+    bool terrain_avail(int x,int y);     //fait
     vector<vector<int>> fusion(vector<vector<int>> A); //fait
     void capture();
     void setUnit();

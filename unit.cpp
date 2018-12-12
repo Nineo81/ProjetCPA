@@ -1,4 +1,4 @@
-#include "unit.h"
+﻿#include "unit.h"
 #include <string>
 #include <iostream>
 //#include<algorithm>
@@ -243,10 +243,10 @@ int Unit::get_MPLoss(unsigned int x,unsigned int y)
 }
 
 
-bool Unit::terrain_avail(unsigned int x,unsigned int y)
+bool Unit::terrain_avail(int x,int y)
 {
     bool res=true;
-    if (x>=static_cast<unsigned int>(game->getTerrainMap().getSize('x')+1) || y>=static_cast<unsigned int>(game->getTerrainMap().getSize('y')-1) || (this->type!=game->getUnitMap().getElement(x,y) && game->getUnitMap().getElement(x,y)!=0))
+    if (x<0 || y<0 || x>=game->getTerrainMap().getSize('x') || y>=game->getTerrainMap().getSize('y') || (this->type!=game->getUnitMap().getElement(x,y) && game->getUnitMap().getElement(x,y)!=0))
         res=false;
     return res;
 }
@@ -313,11 +313,18 @@ void Unit::movePossib_recusif(vector<vector<int>>* l1,vector<vector<int>> l2)
         for (unsigned int j=0;j<4;j++)                         //pour les 4 positions autour de b:
         {
             int e=l2[i][2];
+<<<<<<< HEAD
+            if (terrain_avail(l3[j][0],l3[j][1])==true)  //si on peut se déplacer sur ce terrain
+            {
+                vector<int> X={l3[j][0],l3[j][1]};
+                e+=this->get_MPLoss(static_cast<unsigned int>(X[0]),static_cast<unsigned int>(X[1]));              //on calcul le nbe de MP restants si on va sur ce terrain
+=======
             if (terrain_avail(static_cast<unsigned int>(l3[j][0]),static_cast<unsigned int>(l3[j][1]))==true)  //si on peut se déplacer sur ce terrain
             {
                 vector<int> X={l3[j][0],l3[j][1]};
                 cout<<X[0]<<", "<<X[1]<<endl;
                 e+=this->get_MPLoss(static_cast<unsigned int>(X[0])-1,static_cast<unsigned int>(X[1])-1);              //on calcul le nbe de MP restants si on va sur ce terrain
+>>>>>>> 96eaf82641d4da6315087d23894db0b256e03f47
                 if (e<= this->get_absMP())                   //si le nbre de points de déplacement n'est pas trop élevé
                 {
                     bool inList1=false;
@@ -333,6 +340,7 @@ void Unit::movePossib_recusif(vector<vector<int>>* l1,vector<vector<int>> l2)
                             break;//quitter la boucle
                         }
                     }
+
                     if (inList1==false)
                     {
                         l1->push_back({X[0],X[1],e});          //ajouter la position à la liste si elle n'y était pas
@@ -358,14 +366,21 @@ void Unit::movePossib_recusif(vector<vector<int>>* l1,vector<vector<int>> l2)
                         {
                             l4.push_back({X[0],X[1],e});         //... ajouter X à la liste des positions pour la prochaine fonction récursive
                         }
+<<<<<<< HEAD
+=======
 
+>>>>>>> 96eaf82641d4da6315087d23894db0b256e03f47
                     }                
                 }             
             }          
         }
+<<<<<<< HEAD
+    }
+=======
 
     }
 
+>>>>>>> 96eaf82641d4da6315087d23894db0b256e03f47
     //l4=this->fusion(l4);
     if (rest_MP==true)
     {

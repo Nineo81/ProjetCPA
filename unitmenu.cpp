@@ -2,19 +2,59 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 
-UnitMenu::UnitMenu(int posX,int posY)
+UnitMenu::UnitMenu(int posX,int posY,int type)
 {
     QPushButton *button1 = new QPushButton("Move");
     button1->setAutoDefault(true);
     QObject::connect(button1, SIGNAL(clicked()),this,SLOT(movement()));
     QPushButton *button2 = new QPushButton("Attack");
-    button1->setAutoDefault(true);
+    button2->setAutoDefault(true);
     QObject::connect(button2, SIGNAL(clicked()),this,SLOT(close()));
+    QPushButton *button3 = new QPushButton("Capture");
+    button3->setAutoDefault(true);
+    QPushButton *button4 = new QPushButton("Wait");
+    button4->setAutoDefault(true);
+    QObject::connect(button4,SIGNAL(clicked()),this,SLOT(unitWait()));
 
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(button1);
-    layout->addWidget(button2);
-
+    switch(type){
+        case 1:
+            layout->addWidget(button1);
+            layout->addWidget(button2);
+            layout->addWidget(button3);
+            layout->addWidget(button4);
+        break;
+        case 2:
+            layout->addWidget(button1);
+            layout->addWidget(button3);
+            layout->addWidget(button4);
+        break;
+        case 3:
+            layout->addWidget(button1);
+            layout->addWidget(button2);
+            layout->addWidget(button4);
+        break;
+        case 4:
+            layout->addWidget(button1);
+            layout->addWidget(button4);
+        break;
+        case 5:
+            layout->addWidget(button2);
+            layout->addWidget(button3);
+            layout->addWidget(button4);
+        break;
+        case 6:
+            layout->addWidget(button3);
+            layout->addWidget(button4);
+        break;
+        case 7:
+            layout->addWidget(button2);
+            layout->addWidget(button4);
+        break;
+        case 8:
+            layout->addWidget(button4);
+        break;
+    }
     setLayout(layout);
     move(posX,posY);
 }
@@ -30,5 +70,11 @@ void UnitMenu::keyPressEvent(QKeyEvent* event)
 void UnitMenu::movement()
 {
     emit moveUnit();
+    close();
+}
+
+void UnitMenu::unitWait()
+{
+    emit waiting();
     close();
 }

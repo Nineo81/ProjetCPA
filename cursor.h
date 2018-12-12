@@ -19,7 +19,9 @@ public:
     Player* getPlayer();
     void setPlayer(Player* player,int type);
     bool unitOfPlayer();
+    bool opponnentUnit();
     int buildOfPlayer();
+    bool onABuilding();
     void switchPlayerState();
     void setSizePicture(int sizePicture);
     void updateMovements(vector<vector<int>> movements);
