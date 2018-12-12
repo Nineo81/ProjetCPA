@@ -65,6 +65,7 @@ void Unit::setHP(int newHP,char sign)
     else if (sign=='d')
     {
         this->HP-=newHP;
+        cout<<HP<<endl;
         if (HP<=0)
         {
             delete this;
@@ -182,12 +183,9 @@ int Unit::damage(Unit* defender)
 
 void Unit::attack(Unit* defender)
 {
-    if(canPlay==true)
-    {
-        int damage=this->damage(defender);
-        defender->setHP(damage,'d');
-        canPlay=false;
-    }
+    int damage=this->damage(defender);
+    defender->setHP(damage,'d');
+    canPlay=false;
 }
 
 void Unit::join_unit(Unit* unit2)

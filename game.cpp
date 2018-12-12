@@ -7,7 +7,7 @@
 
 Game::Game():terrainMap("Map1V1.txt"),
             unitMap(terrainMap.getSize('x'),
-            terrainMap.getSize('y')),cursor(5,5,&terrainMap,&unitMap),
+            terrainMap.getSize('y')),cursor(5,5,&unitMap,&terrainMap),
             w(&terrainMap,&unitMap,&cursor)
 {
     unitMap.setWindow(w.getWidget());
@@ -103,9 +103,9 @@ Game::Game():terrainMap("Map1V1.txt"),
     Unit* firstUnit = new infantery({15,3},1,0,this);
     firstUnit->setCanPlay(true);
     listPlayer[0]->add_unit(firstUnit);
-
-
-
+    Unit* secondUnit =new infantery({15,4},2,0,this);
+    secondUnit->setCanPlay(true);
+    listPlayer[1]->add_unit(secondUnit);
 }
 
 void Game::otherTurn(){

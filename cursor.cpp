@@ -133,7 +133,7 @@ vector<vector<int>> Cursor::opponnentUnit()
     {
         if (pos[0]>0 && pos[1]>0 && pos[0]<unitMap->getSize('x') && pos[1]<unitMap->getSize('y'))
         {
-            if(unitMap->getElement(pos[0],pos[1])!=0 && unitOfPlayer()==false)
+            if(unitMap->getElement(pos[0],pos[1])!=0 && !getPlayer()->hasUnit(pos[0],pos[1]))
             {
                 opponnent.push_back(pos);
             }
