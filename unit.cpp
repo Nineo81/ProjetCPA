@@ -172,9 +172,13 @@ int Unit::damage(Unit* defender)
 {
 
     int A_HP=this->HP;
+    cout<<"A_HP="<<A_HP<<endl;
     int D_HP=defender->getHP();
+    cout<<"D_HP="<<D_HP<<endl;
     int B=find_B(defender);
+    cout<<"B="<<B<<endl;
     int D_TR=this->get_D_TR();
+    cout<<"D_TR="<<D_TR<<endl;
     int damage=static_cast<int>((B*A_HP/10*(100-D_TR*D_HP)/100)+0.5); /*ajout de 0,5 pour être sûr que
                                                       *damage est arrondi aux bonnes valeurs
                                                       * c++ arrondi tjs en-dessous*/
@@ -186,6 +190,7 @@ void Unit::attack(Unit* defender)
     int damage=this->damage(defender);
     defender->setHP(damage,'d');
     canPlay=false;
+
 }
 
 void Unit::join_unit(Unit* unit2)
