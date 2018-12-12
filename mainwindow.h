@@ -31,6 +31,7 @@ private:
     QTcpSocket* other = nullptr;
     quint32 currentSize = 0;
     void sendJson(QJsonObject obj);
+    bool isConfigured=false;
 
 signals:
 

@@ -3,6 +3,7 @@
 #include "city.h"
 #include "factory.h"
 #include "airport.h"
+#include "infantery.h"
 
 Game::Game():terrainMap("Map1V1.txt"),
             unitMap(terrainMap.getSize('x'),
@@ -98,6 +99,17 @@ Game::Game():terrainMap("Map1V1.txt"),
     cursor.setPlayer(playerBM,2);
     cursor.setPlayer(playerOS,1);
 
+    //création de l'unité de base de OS
+    Unit* firstUnit = new infantery({16,4},1,0,this);
+    firstUnit->setCanPlay(true);
+    listPlayer[0]->add_unit(firstUnit);
+
+
+
+}
+
+void Game::otherTurn(){
+    while
 }
 
 void Game::updateMap(int type,unsigned int x,unsigned int y)

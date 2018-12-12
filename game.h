@@ -35,6 +35,7 @@ public:
     void updateWindow();
     Building* getBuilding(unsigned int x,unsigned int y);
     void play(Player player);
+    void otherTurn();
 };
 
 #endif // GAME_H

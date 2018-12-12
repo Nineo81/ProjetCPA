@@ -54,6 +54,7 @@ void MainWindow::onNewConnection() {
     unit1["y"] = 3;
     config["units"] = unit1;
     sendJson(config);
+    isConfigured = true;
 }
 
 void MainWindow::onDisconnected() {
@@ -81,6 +82,14 @@ void MainWindow::onData() {
     //conversion en QJsonObject
     QJsonDocument doc = QJsonDocument::fromJson(data);
     QJsonObject json = doc.object();
+
+    if (!isConfigured){
+        //les configuration sont comment on crée notre jeu de base, donc pour l'instant inutile
+        isConfigured = true;
+    }
+    else {
+
+    }
 }
 
 void MainWindow::sendJson(QJsonObject obj) {
