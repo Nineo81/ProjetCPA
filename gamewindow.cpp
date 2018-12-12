@@ -58,6 +58,13 @@ void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
             painter.fillRect(QRect(sizePicture*(pos[0]+1),sizePicture*(pos[1]+1),sizePicture,sizePicture), QBrush(QColor(128, 128, 255, 128)));
         }
     }
+    for(std::vector<int> pos : attack)
+    {
+        if(pos[0]>=0&&pos[1]>=0)
+        {
+            painter.fillRect(QRect(sizePicture*(pos[0]+1),sizePicture*(pos[1]+1),sizePicture,sizePicture), QBrush(QColor(128, 128, 255, 128)));
+        }
+    }
     painter.setPen(Qt::red);
     painter.drawRect(sizePicture*(cursor->getPosX()+1),sizePicture*(cursor->getPosY()+1),sizePicture,sizePicture);
     cursor->setSizePicture(sizePicture);
@@ -85,6 +92,19 @@ void GameWindow::movementsReset()
 {
     movements.clear();
     movements.push_back(vector<int>(2,-1));
+    update();
+}
+
+void GameWindow::setAttack(vector<vector<int>> attack)
+{
+    this->attack=attack;
+    update();
+}
+
+void GameWindow::attackReset()
+{
+    attack.clear();
+    attack.push_back(vector<int>(2,-1));
     update();
 }
 

@@ -59,6 +59,20 @@ Player* Cursor::getPlayer()
     return player;
 }
 
+Player* Cursor::getOpponent()
+{
+    Player* opponent= nullptr;
+    if(playerState==2)
+    {
+        opponent=playerOS;
+    }
+    else
+    {
+        opponent=playerBM;
+    }
+    return opponent;
+}
+
 void Cursor::switchPlayerState()
 {
     if(playerState==1)
@@ -111,21 +125,21 @@ bool Cursor::unitOfPlayer()
     return state;
 }
 
-bool Cursor::opponnentUnit()
+vector<vector<int>> Cursor::opponnentUnit()
 {
-    bool rep=false;
-    std::vector<vector<int>> position={{posX-1,posY},{posX+1,posY},{posX,posY-1},{posX,posY+1}};
-    for(std::vector<int> pos : position)
+    vector<vector<int>> opponnent;
+    vector<vector<int>> position={{posX-1,posY},{posX+1,posY},{posX,posY-1},{posX,posY+1}};
+    for(vector<int> pos : position)
     {
         if (pos[0]>0 && pos[1]>0 && pos[0]<unitMap->getSize('x') && pos[1]<unitMap->getSize('y'))
         {
             if(unitMap->getElement(pos[0],pos[1])!=0 && unitOfPlayer()==false)
             {
-                rep=true;
+                opponnent.push_back(pos);
             }
         }
     }
-    return rep;
+    return opponnent;
 }
 
 int Cursor::buildOfPlayer()

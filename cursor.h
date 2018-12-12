@@ -17,9 +17,10 @@ public:
     int getRealX();
     int getRealY();
     Player* getPlayer();
+    Player* getOpponent();
     void setPlayer(Player* player,int type);
     bool unitOfPlayer();
-    bool opponnentUnit();
+    vector<vector<int>> opponnentUnit();
     int buildOfPlayer();
     bool onABuilding();
     void switchPlayerState();

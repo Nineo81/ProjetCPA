@@ -17,6 +17,8 @@ public:
     void updateMap();
     void movementsReset();
     void setMovements(vector<vector<int>> movements);
+    void attackReset();
+    void setAttack(vector<vector<int>> attack);
     int getSizePicture();
 private:
     int sizePicture;
@@ -25,8 +27,9 @@ private:
     Map *terrainMap;
     Map *unitMap;
     Cursor* cursor;
-    std::vector<QImage> listImage;
-    std::vector<vector<int>> movements;
+    vector<QImage> listImage;
+    vector<vector<int>> movements;
+    vector<vector<int>> attack;
 signals:
 
 public slots:
