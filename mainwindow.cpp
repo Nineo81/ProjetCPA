@@ -165,6 +165,8 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
             centerZone.movementsReset();
             cursorState=0;
             UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY(),typeOfUnitMenu(1));
+            QObject::connect(menu,SIGNAL(attacking()),this,SLOT(unitAttack()));
+            QObject::connect(menu,SIGNAL(capturing()),this,SLOT(unitCapture()));
             QObject::connect(menu,SIGNAL(waiting()),this,SLOT(setUnitWainting()));
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();

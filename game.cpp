@@ -11,6 +11,7 @@ Game::Game():terrainMap("Map1V1.txt"),
             w(&terrainMap,&unitMap,&cursor)
 {
     unitMap.setWindow(w.getWidget());
+    terrainMap.setWindow(w.getWidget());
     w.show();
 
     /*Initialisation du tableau de défense
