@@ -97,7 +97,6 @@ void Cursor::switchPlayerState()
         }
         playerOS->set_money(1000*static_cast<int>(playerOS->get_listBuilding().size()),'a');
     }
-    cout<<playerOS->get_money()<<endl<<playerBM->get_money()<<endl;
 }
 
 void Cursor::setPlayer(Player* player,int type)

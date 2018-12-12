@@ -21,19 +21,21 @@ MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) : cursor(cur
     move(screen->availableGeometry().center()-this->rect().center());
 
     /*création du serveur? */
-    server = new QTcpServer();
-    if(! server->listen(QHostAddress::Any, 8123)) {
-        std::cout << "I am a client" << std::endl;
-        other = new QTcpSocket();
-        connect(other, SIGNAL(connected()), this, SLOT(onConnected()));
-        other->connectToHost("127.0.0.1", 8123);
-        connect(other, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
+    if (reseau){
+        server = new QTcpServer();
+        if(! server->listen(QHostAddress::Any, 8123)) {
+            std::cout << "I am a client" << std::endl;
+            other = new QTcpSocket();
+            connect(other, SIGNAL(connected()), this, SLOT(onConnected()));
+            other->connectToHost("127.0.0.1", 8123);
+            connect(other, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
         }
-    else {
-        std::cout << "I am the server" << std::endl;
-        other = nullptr;
+        else {
+            std::cout << "I am the server" << std::endl;
+            other = nullptr;
         }
-    connect(server, SIGNAL(newConnection()), this, SLOT(onNewConnection()));
+        connect(server, SIGNAL(newConnection()), this, SLOT(onNewConnection()));
+    }
 }
 
 void MainWindow::onNewConnection() {
@@ -181,12 +183,14 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
             centerZone.movementsReset();
             cursorState=0;
 
-            QJsonObject action;
-            action["xM"] = unitPosX;
-            action["yM"] = unitPosY;
-            action["newXM"] = cursor->getPosX();
-            action["newYM"] = cursor->getPosY();
-            sendJson(action);
+            if (reseau){
+                QJsonObject action;
+                action["xM"] = unitPosX;
+                action["yM"] = unitPosY;
+                action["newXM"] = cursor->getPosX();
+                action["newYM"] = cursor->getPosY();
+                sendJson(action);
+            }
 
             UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY(),typeOfUnitMenu(1));
             QObject::connect(menu,SIGNAL(attacking()),this,SLOT(unitAttack()));
@@ -251,9 +255,11 @@ void MainWindow::switchPlayer()
 {
     cursor->switchPlayerState();
 
-    QJsonObject action;
-    action["endofturn"] = true;
-    sendJson(action);
+    if (reseau){
+        QJsonObject action;
+        action["endofturn"] = true;
+        sendJson(action);
+    }
 }
 
 void MainWindow::setUnitWainting()
