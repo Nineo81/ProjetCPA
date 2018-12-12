@@ -63,7 +63,13 @@ void Unit::setHP(int newHP,char sign)
         }
      }
     else if (sign=='d')
+    {
         this->HP-=newHP;
+        if (HP<=0)
+        {
+            delete this;
+        }
+    }
     else
         cout<<"Erreur caractère dans setHP non incorrect."<<endl;
 }
@@ -128,12 +134,17 @@ int Unit::getMoveType() const
     return this->move_type;
 }
 
+int Unit::getAttackType() const
+{
+    return this->attack_type;
+}
+
 int Unit::get_absMP() const
 {
     return this->absMP;
 }
 
-int Unit::find_B(Unit defender)
+int Unit::find_B(Unit* defender)
 {
     int damage_chart[11][11]={{45,120,105,75,65,105,10,1,5,60,25},  //Lignes:attaquant
                            {25,65,75,0,0,75,25,10,20,55,55},    //Colonnes:défense
@@ -147,56 +158,60 @@ int Unit::find_B(Unit defender)
                            {4,12,65,0,0,70,1,1,1,35,6},
                            {65,10,70,0,0,75,15,10,15,85,55}};
 
-    int B=damage_chart[this->gettype()][defender.gettype()];
+    int B=damage_chart[this->getAttackType()][defender->getAttackType()];
     return B;
 }
 
-bool Unit::can_attack(Unit defender)
-{
-    int B=this->find_B(defender);
-    if (B!=0)
-        return true;
-    else
-        return false;
-}
 
 int Unit::get_D_TR() const
 {
     unsigned int X=this->get_X();
     unsigned int Y=this->get_Y();
     vector<vector<int>> defenseChart=this->getDefenseChart();
-    int D_TR=defenseChart[X][Y];
+    int D_TR;
+    if (this->gettype()==56 || this->gettype()==57 || this->gettype()==59)
+    {
+        D_TR=0;
+    }
+    else
+    {
+        D_TR=defenseChart[X][Y];
+    }
     return D_TR;
 }
 
-int Unit::damage(Unit defender)
+int Unit::damage(Unit* defender)
 {
 
     int A_HP=this->HP;
-    int D_HP=defender.getHP();
+    int D_HP=defender->getHP();
     int B=find_B(defender);
     int D_TR=this->get_D_TR();
-    int damage=static_cast<int>((B*A_HP/10*(100-D_TR*D_HP)/100)+0.5); /*ajout de 0,5 pour être sûr que
+    int damage=static_cast<int>(((B*A_HP/10*(100-D_TR*D_HP)/100)/10)+0.5); /*ajout de 0,5 pour être sûr que
                                                       *damage est arrondi aux bonnes valeurs
                                                       * c++ arrondi tjs en-dessous*/
     return damage;
 }
 
-void Unit::attack(Unit defender)
+void Unit::attack(Unit* defender)
 {
-    if(canPlay==true)
+    unsigned int posX_D=defender->get_X();
+    unsigned int posY_D=defender->get_Y();
+    int damage=this->damage(defender);
+    defender->setHP(damage,'d');
+    if(this->getUnitMap()->getElement(posX_D,posY_D)!=0)
     {
-        int damage=this->damage(defender);
-        defender.setHP(damage,'d');
+        int damage2=defender->damage(this);
+        this->setHP(damage2,'d');
         canPlay=false;
     }
 }
 
-void Unit::join_unit(Unit unit2)
+void Unit::join_unit(Unit* unit2)
 {
-    unit2.setHP(this->getHP(),'a');
-    if (unit2.getHP()>10)
-        unit2.setHP();               //si HP de unit2 >10 : on arrondi son HP à 10
+    unit2->setHP(this->getHP(),'a');
+    if (unit2->getHP()>10)
+        unit2->setHP();               //si HP de unit2 >10 : on arrondi son HP à 10
     delete this;                     //auto-destruction de l'unité pour que les 2 unités deviennent un
 }
 
@@ -434,4 +449,9 @@ void Unit::capture()
 
 void Unit::wait(){
     canPlay=false;
+}
+
+Unit::~Unit()
+{
+   PUM->setElement(0,position[0],position[1]);
 }

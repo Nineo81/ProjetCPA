@@ -124,7 +124,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         if(cursorState==0){
             cursor->move(0,1,0,0);
         }
-        else if(cursorState==1){
+        else if(cursorState==1 || cursorState==2){
             cursor->moveAlt(0,1,0,0);
         }
         centerZone.updateMap();
@@ -133,7 +133,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         if(cursorState==0){
             cursor->move(0,0,0,1);
         }
-        else if(cursorState==1){
+        else if(cursorState==1 || cursorState==2){
             cursor->moveAlt(0,0,0,1);
         }
         centerZone.updateMap();
@@ -143,7 +143,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         if(cursorState==0){
             cursor->move(1,0,0,0);
         }
-        else if(cursorState==1){
+        else if(cursorState==1 || cursorState==2){
             cursor->moveAlt(1,0,0,0);
         }
         centerZone.updateMap();
@@ -152,14 +152,14 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         if(cursorState==0){
             cursor->move(0,0,1,0);
         }
-        else if(cursorState==1){
+        else if(cursorState==1 || cursorState==2){
             cursor->moveAlt(0,0,1,0);
         }
         centerZone.updateMap();
     }
     if (event->key() == Qt::Key_Space || event->key() == Qt::Key_Enter){
     //confirmer la selection == bouton A
-        if(cursor->unitOfPlayer() && cursorState==0)
+        if(cursor->unitOfPlayer() && cursorState==0 && cursor->getPlayer()->getUnit(cursor->getPosX(),cursor->getPosY())->getCanPlay())
         {
             UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY(),typeOfUnitMenu(0));
             QObject::connect(menu,SIGNAL(moveUnit()),this,SLOT(movingUnit()));
@@ -169,7 +169,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
         }
-        else if(cursor->buildOfPlayer() == 35 && cursorState==0)
+        else if(cursor->buildOfPlayer() == 35 && cursorState==0 && !cursor->unitOfPlayer())
         {
             BuildingMenu *menu = new BuildingMenu(cursor->getRealX(),cursor->getRealY(),cursor->getPlayer()->getBuilding(cursor->getPosX(),cursor->getPosY()));
             QObject::connect(menu,SIGNAL(qMenuClose()),this,SLOT(updateWin()));
@@ -190,15 +190,28 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
             sendJson(action);
 
             UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY(),typeOfUnitMenu(1));
+            QObject::connect(menu,SIGNAL(attacking()),this,SLOT(unitAttack()));
+            QObject::connect(menu,SIGNAL(capturing()),this,SLOT(unitCapture()));
             QObject::connect(menu,SIGNAL(waiting()),this,SLOT(setUnitWainting()));
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
+        }
+        else if(cursorState==2)
+        {
+            cursor->getPlayer()->getUnit(unitPosX,unitPosY)->attack(cursor->getOpponent()->getUnit(cursor->getPosX(),cursor->getPosY()));
+            centerZone.attackReset();
+            cursorState=0;
         }
     }
     if (event->key() == Qt::Key_Escape || event->key() == Qt::Key_Backspace){
     //retour == bouton B
         if(cursorState==1){
             centerZone.movementsReset();
+            cursorState=0;
+        }
+        else if(cursorState==2)
+        {
+            centerZone.attackReset();
             cursorState=0;
         }
         else if(cursorState==0){
@@ -251,7 +264,13 @@ void MainWindow::setUnitWainting()
 
 void MainWindow::unitAttack()
 {
-
+    vector<vector<int>> possibPos = cursor->opponnentUnit();
+    unitPosX=cursor->getPosX();
+    unitPosY=cursor->getPosY();
+    possibPos.push_back({unitPosX,unitPosY});
+    centerZone.setAttack(possibPos);
+    cursor->updateMovements(possibPos);
+    cursorState=2;
 }
 
 void MainWindow::unitCapture()
@@ -264,7 +283,7 @@ int MainWindow::typeOfUnitMenu(int moveState)
     int state=0;
     if(moveState==0)
     {
-        if(cursor->onABuilding() && cursor->opponnentUnit())
+        if(cursor->onABuilding() && !cursor->opponnentUnit().empty())
         {
             state=1;
         }
@@ -272,7 +291,7 @@ int MainWindow::typeOfUnitMenu(int moveState)
         {
             state=2;
         }
-        else if(cursor->opponnentUnit())
+        else if(!cursor->opponnentUnit().empty())
         {
             state=3;
         }
@@ -283,7 +302,7 @@ int MainWindow::typeOfUnitMenu(int moveState)
     }
     else
     {
-        if(cursor->onABuilding() && cursor->opponnentUnit())
+        if(cursor->onABuilding() && !cursor->opponnentUnit().empty())
         {
             state=5;
         }
@@ -291,7 +310,7 @@ int MainWindow::typeOfUnitMenu(int moveState)
         {
             state=6;
         }
-        else if(cursor->opponnentUnit())
+        else if(!cursor->opponnentUnit().empty())
         {
             state=7;
         }

@@ -11,6 +11,6 @@ infantery::infantery(vector<unsigned int> pos,int color, int round, Game* game):
     this->MP=this->absMP;
     this->cost=1000;
     this->move_type=0;
+    this->attack_type=5;
     setUnit();
-    cout<<"move type= "<<move_type<<endl;
 }

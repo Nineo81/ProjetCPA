@@ -29,6 +29,7 @@ protected:
     int MP;
     int type;
     bool canPlay;
+    int attack_type;
 
 
 
@@ -44,6 +45,7 @@ public:
     void setround();                      //fait
     int gettype() const;                  //fait
     int getMoveType() const;              //fait
+    int getAttackType() const;
     int getMP() const;                    //fait
     int get_D_TR() const;                 //fait
     int get_MPLoss(unsigned int x,unsigned int y);         //fait
@@ -54,13 +56,12 @@ public:
     void movePossib_recusif(vector<vector<int>>* l1, vector<vector<int>> l2);   //a est la position qui a été vérifiée avant
     vector<vector<int>> movePossib(int x,int y); //fait   //(x,y) la position actuelle de l'unité
     void move(unsigned int x,unsigned int y);              //fait
-    void join_unit(Unit Unit2);           //fait
+    void join_unit(Unit* Unit2);           //fait
     void setMP(int newMP);                //fait
     void resetMP();                       //fait
-    bool can_attack(Unit defender);       //fait
-    int damage(Unit defender);            //fait
-    int find_B(Unit defender);            //fait
-    void attack(Unit defender);           //fait
+    int damage(Unit* defender);            //fait
+    int find_B(Unit* defender);            //fait
+    void attack(Unit* defender);           //fait
     bool terrain_avail(int x,int y);     //fait
     vector<vector<int>> fusion(vector<vector<int>> A); //fait
     void capture();
@@ -69,6 +70,7 @@ public:
     bool getCanPlay() const;
     void setCanPlay(bool value);
     void wait();
+    ~Unit();
 };
 
 #endif // UNIT_H

@@ -7,10 +7,11 @@
 
 Game::Game():terrainMap("Map1V1.txt"),
             unitMap(terrainMap.getSize('x'),
-            terrainMap.getSize('y')),cursor(5,5,&terrainMap,&unitMap),
+            terrainMap.getSize('y')),cursor(5,5,&unitMap,&terrainMap),
             w(&terrainMap,&unitMap,&cursor)
 {
     unitMap.setWindow(w.getWidget());
+    terrainMap.setWindow(w.getWidget());
     w.show();
 
     /*Initialisation du tableau de défense
@@ -104,8 +105,6 @@ Game::Game():terrainMap("Map1V1.txt"),
     Unit* firstUnit = new infantery({15,3},1,0,this);
     firstUnit->setCanPlay(true);
     listPlayer[0]->add_unit(firstUnit);
-
-
 }
 
 void Game::otherTurn(){

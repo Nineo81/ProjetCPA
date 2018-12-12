@@ -40,6 +40,7 @@ void Airport::setLife(int damage, Player* attacker){
     if (temp <= 0){
         this->player->delete_building(this);
         attacker->add_building(this);
+        this->setPlayer(attacker);
         this->life = 20;
         if (attacker==game->getPlayer(1))
         {

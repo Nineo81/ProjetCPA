@@ -7,5 +7,6 @@ neotank::neotank(vector<unsigned int> pos,int color, int round,Game *game):Unit(
     this->MP=this->absMP;
     this->cost=22000;
     this->move_type=2;
+    this->attack_type=8;
 
 }

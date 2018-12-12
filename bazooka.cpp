@@ -4,4 +4,5 @@ Bazooka::Bazooka(vector<unsigned int> pos,int color, int round,Game * game):Unit
 {
     this->type=58;
     this->move_type=1;
+    this->attack_type=2;
 }

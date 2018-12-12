@@ -12,7 +12,7 @@ UnitMenu::UnitMenu(int posX,int posY,int type)
     QObject::connect(button2, SIGNAL(clicked()),this,SLOT(attack()));
     QPushButton *button3 = new QPushButton("Capture");
     button3->setAutoDefault(true);
-    QObject::connect(button2, SIGNAL(clicked()),this,SLOT(capture()));
+    QObject::connect(button3, SIGNAL(clicked()),this,SLOT(capture()));
     QPushButton *button4 = new QPushButton("Wait");
     button4->setAutoDefault(true);
     QObject::connect(button4,SIGNAL(clicked()),this,SLOT(unitWait()));
