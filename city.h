@@ -7,12 +7,12 @@
 class City:public Building
 {
 public:
-    City(vector<unsigned int> pos, Player* player);
-    City(vector<unsigned int> pos);
+    City(vector<unsigned int> pos, Player* player, Game *game);
+    City(vector<unsigned int> pos, Game *game);
     void setLife(int damage, Player* attacker);
     void createUnit(int typeUnit);
 private:
-    Game* Game;
+    Game* game;
 };
 
 #endif // CITY_H
