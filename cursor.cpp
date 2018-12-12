@@ -117,9 +117,12 @@ bool Cursor::opponnentUnit()
     std::vector<vector<int>> position={{posX-1,posY},{posX+1,posY},{posX,posY-1},{posX,posY+1}};
     for(std::vector<int> pos : position)
     {
-        if(unitMap->getElement(pos[0],pos[1])!=0 && unitOfPlayer()==false)
+        if (pos[0]>0 && pos[1]>0 && pos[0]<unitMap->getSize('x') && pos[1]<unitMap->getSize('y'))
         {
-            rep=true;
+            if(unitMap->getElement(pos[0],pos[1])!=0 && unitOfPlayer()==false)
+            {
+                rep=true;
+            }
         }
     }
     return rep;

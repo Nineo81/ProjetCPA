@@ -100,7 +100,7 @@ Game::Game():terrainMap("Map1V1.txt"),
     cursor.setPlayer(playerOS,1);
 
     //création de l'unité de base de OS
-    Unit* firstUnit = new infantery({16,4},1,0,this);
+    Unit* firstUnit = new infantery({15,3},1,0,this);
     firstUnit->setCanPlay(true);
     listPlayer[0]->add_unit(firstUnit);
 
@@ -109,7 +109,6 @@ Game::Game():terrainMap("Map1V1.txt"),
 }
 
 void Game::otherTurn(){
-    while
 }
 
 void Game::updateMap(int type,unsigned int x,unsigned int y)
