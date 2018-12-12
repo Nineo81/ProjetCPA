@@ -19,7 +19,7 @@ signals:
     void qMenuClose();
 
 public slots:
-    void create1();
+    void create(int type);
 };
 
 #endif // BUILDINGMENU_H

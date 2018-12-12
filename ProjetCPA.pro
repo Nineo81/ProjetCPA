@@ -52,7 +52,8 @@ SOURCES += \
     cursor.cpp \
     unitmenu.cpp \
     buildingmenu.cpp \
-    pausemenu.cpp
+    pausemenu.cpp \
+    custombutton.cpp
 
 HEADERS += \
     game.h \
@@ -81,7 +82,8 @@ HEADERS += \
     cursor.h \
     unitmenu.h \
     buildingmenu.h \
-    pausemenu.h
+    pausemenu.h \
+    custombutton.h
 
 FORMS +=
 
