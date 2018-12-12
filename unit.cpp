@@ -65,7 +65,6 @@ void Unit::setHP(int newHP,char sign)
     else if (sign=='d')
     {
         this->HP-=newHP;
-        cout<<HP<<endl;
         if (HP<=0)
         {
             delete this;
@@ -135,6 +134,11 @@ int Unit::getMoveType() const
     return this->move_type;
 }
 
+int Unit::getAttackType() const
+{
+    return this->attack_type;
+}
+
 int Unit::get_absMP() const
 {
     return this->absMP;
@@ -154,7 +158,7 @@ int Unit::find_B(Unit* defender)
                            {4,12,65,0,0,70,1,1,1,35,6},
                            {65,10,70,0,0,75,15,10,15,85,55}};
 
-    int B=damage_chart[this->gettype()][defender->gettype()];
+    int B=damage_chart[this->getAttackType()][defender->getAttackType()];
     return B;
 }
 
@@ -164,7 +168,15 @@ int Unit::get_D_TR() const
     unsigned int X=this->get_X();
     unsigned int Y=this->get_Y();
     vector<vector<int>> defenseChart=this->getDefenseChart();
-    int D_TR=defenseChart[X][Y];
+    int D_TR;
+    if (this->gettype()==56 || this->gettype()==57 || this->gettype()==59)
+    {
+        D_TR=0;
+    }
+    else
+    {
+        D_TR=defenseChart[X][Y];
+    }
     return D_TR;
 }
 
@@ -172,14 +184,10 @@ int Unit::damage(Unit* defender)
 {
 
     int A_HP=this->HP;
-    cout<<"A_HP="<<A_HP<<endl;
     int D_HP=defender->getHP();
-    cout<<"D_HP="<<D_HP<<endl;
     int B=find_B(defender);
-    cout<<"B="<<B<<endl;
     int D_TR=this->get_D_TR();
-    cout<<"D_TR="<<D_TR<<endl;
-    int damage=static_cast<int>((B*A_HP/10*(100-D_TR*D_HP)/100)+0.5); /*ajout de 0,5 pour être sûr que
+    int damage=static_cast<int>(((B*A_HP/10*(100-D_TR*D_HP)/100)/10)+0.5); /*ajout de 0,5 pour être sûr que
                                                       *damage est arrondi aux bonnes valeurs
                                                       * c++ arrondi tjs en-dessous*/
     return damage;
@@ -187,10 +195,16 @@ int Unit::damage(Unit* defender)
 
 void Unit::attack(Unit* defender)
 {
+    unsigned int posX_D=defender->get_X();
+    unsigned int posY_D=defender->get_Y();
     int damage=this->damage(defender);
     defender->setHP(damage,'d');
-    canPlay=false;
-
+    if(this->getUnitMap()->getElement(posX_D,posY_D)!=0)
+    {
+        int damage2=defender->damage(this);
+        this->setHP(damage2,'d');
+        canPlay=false;
+    }
 }
 
 void Unit::join_unit(Unit* unit2)

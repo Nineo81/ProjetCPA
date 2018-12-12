@@ -29,6 +29,7 @@ protected:
     int MP;
     int type;
     bool canPlay;
+    int attack_type;
 
 
 
@@ -44,6 +45,7 @@ public:
     void setround();                      //fait
     int gettype() const;                  //fait
     int getMoveType() const;              //fait
+    int getAttackType() const;
     int getMP() const;                    //fait
     int get_D_TR() const;                 //fait
     int get_MPLoss(unsigned int x,unsigned int y);         //fait

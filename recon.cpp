@@ -7,5 +7,6 @@ Recon::Recon(vector<unsigned int> pos,int color, int round,Game *game):Unit(pos,
     this->MP=this->absMP;
     this->cost=4000;
     this->move_type=3;
+    this->attack_type=9;
 
 }
