@@ -133,7 +133,7 @@ int Unit::get_absMP() const
     return this->absMP;
 }
 
-int Unit::find_B(Unit defender)
+int Unit::find_B(Unit* defender)
 {
     int damage_chart[11][11]={{45,120,105,75,65,105,10,1,5,60,25},  //Lignes:attaquant
                            {25,65,75,0,0,75,25,10,20,55,55},    //Colonnes:défense
@@ -147,11 +147,11 @@ int Unit::find_B(Unit defender)
                            {4,12,65,0,0,70,1,1,1,35,6},
                            {65,10,70,0,0,75,15,10,15,85,55}};
 
-    int B=damage_chart[this->gettype()][defender.gettype()];
+    int B=damage_chart[this->gettype()][defender->gettype()];
     return B;
 }
 
-bool Unit::can_attack(Unit defender)
+bool Unit::can_attack(Unit* defender)
 {
     int B=this->find_B(defender);
     if (B!=0)
@@ -169,11 +169,11 @@ int Unit::get_D_TR() const
     return D_TR;
 }
 
-int Unit::damage(Unit defender)
+int Unit::damage(Unit* defender)
 {
 
     int A_HP=this->HP;
-    int D_HP=defender.getHP();
+    int D_HP=defender->getHP();
     int B=find_B(defender);
     int D_TR=this->get_D_TR();
     int damage=static_cast<int>((B*A_HP/10*(100-D_TR*D_HP)/100)+0.5); /*ajout de 0,5 pour être sûr que
@@ -182,12 +182,12 @@ int Unit::damage(Unit defender)
     return damage;
 }
 
-void Unit::attack(Unit defender)
+void Unit::attack(Unit* defender)
 {
     if(canPlay==true)
     {
         int damage=this->damage(defender);
-        defender.setHP(damage,'d');
+        defender->setHP(damage,'d');
         canPlay=false;
     }
 }
@@ -435,4 +435,9 @@ void Unit::capture()
 
 void Unit::wait(){
     canPlay=false;
+}
+
+Unit::~Unit()
+{
+   PUM->setElement(0,position[0],position[1]);
 }

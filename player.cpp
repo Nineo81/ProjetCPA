@@ -6,7 +6,8 @@ Player::Player(int playerNumber, vector<Building*> firstBuildings,Map* terrainMa
     this->terrainMap=terrainMap;
     this->unitMap=unitMap;
     this->listBuilding=firstBuildings;
-    this->money=1000*listBuilding.size();
+    //this->money=1000*listBuilding.size();
+    this->money=1000;
     for (Building* b : listBuilding) {
         b->setPlayer(this);
     }
