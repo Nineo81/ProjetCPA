@@ -103,11 +103,11 @@ Game::Game():terrainMap("Map1V1.txt"),
     cursor.getPlayer()->set_money(3000,'a');
     //création de l'unité de base de OS
     Unit* firstUnit = new infantery({15,3},1,0,this);
-    Unit* secondUnit = new infantery({15,4},2,0,this);
+    Unit* secondUnit = new infantery({15,4},1,0,this);
     secondUnit->setCanPlay(true);
     firstUnit->setCanPlay(true);
     listPlayer[0]->add_unit(firstUnit);
-    listPlayer[1]->add_unit(secondUnit);
+    listPlayer[0]->add_unit(secondUnit);
 }
 
 void Game::delete_building(Building* building){

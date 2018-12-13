@@ -380,10 +380,12 @@ void Unit::move(unsigned int x,unsigned int y)
         if (PUM->getElement(x,y) == type){
             unit = game->getCursor()->getPlayer()->getUnit(x,y);
         }
-        PUM->replace(oldX,oldY,x,y);
-        vector<unsigned int> newposition={x,y};
-        this->setposition(newposition);
-        this->resetMP();
+        else{
+            PUM->replace(oldX,oldY,x,y);
+            vector<unsigned int> newposition={x,y};
+            this->setposition(newposition);
+            this->resetMP();
+        }
         int T=game->getTerrainMap().getElement(oldX,oldY);
         if (T>=34 && T<=36)
         {
