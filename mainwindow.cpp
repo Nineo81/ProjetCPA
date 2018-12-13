@@ -30,10 +30,12 @@ MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) : cursor(cur
             connect(other, SIGNAL(connected()), this, SLOT(onConnected()));
             other->connectToHost("127.0.0.1", 8123);
             connect(other, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
+            myTurn = true;
         }
         else {
             std::cout << "I am the server" << std::endl;
             other = nullptr;
+            myTurn = false;
         }
         connect(server, SIGNAL(newConnection()), this, SLOT(onNewConnection()));
     }
@@ -162,6 +164,7 @@ void MainWindow::onData() {
         {
             bool fin = json["endofturn"].toBool();
             if (fin){ cursor->switchPlayerState();}
+            myTurn = true;
         }
     }
 }
@@ -175,7 +178,9 @@ void MainWindow::sendJson(QJsonObject obj) {
 }
 
 void MainWindow::keyPressEvent(QKeyEvent * event){
-     /* ça depend de comment on fait notre truc il me semble.*/
+    if (!myTurn){
+        return;
+    }
     if (event->key() == Qt::Key_Left){
     //faire bouger la case selectionnee vers la gauche
         if(cursorState==0){
@@ -230,7 +235,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         {
             BuildingMenu *menu = new BuildingMenu(cursor->getRealX(),cursor->getRealY(),cursor->getPlayer()->getBuilding(cursor->getPosX(),cursor->getPosY()));
             QObject::connect(menu,SIGNAL(qMenuClose()),this,SLOT(updateWin()));
-            QObject::connect(menu,SIGNAL(createIn()),this,SLOT(createUnit()));
+            QObject::connect(menu,SIGNAL(createU()),this,SLOT(createUnit()));
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
         }
@@ -326,6 +331,7 @@ void MainWindow::switchPlayer()
         QJsonObject action;
         action["endofturn"] = true;
         sendJson(action);
+        myTurn = false;
     }
 }
 

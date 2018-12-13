@@ -27,7 +27,8 @@ private:
     quint32 currentSize = 0;
     void sendJson(QJsonObject obj);
     bool isConfigured=false;
-    bool reseau = true;
+    bool reseau = false;
+    bool myTurn = true;
 
 signals:
 
