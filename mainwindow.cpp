@@ -170,7 +170,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
         }
-        else if(cursor->buildOfPlayer() == 35 && cursorState==0 && !cursor->unitOfPlayer())
+        else if((cursor->buildOfPlayer() == 35 || cursor->buildOfPlayer()==36) && cursorState==0 && !cursor->unitOfPlayer())
         {
             BuildingMenu *menu = new BuildingMenu(cursor->getRealX(),cursor->getRealY(),cursor->getPlayer()->getBuilding(cursor->getPosX(),cursor->getPosY()));
             QObject::connect(menu,SIGNAL(qMenuClose()),this,SLOT(updateWin()));
@@ -199,7 +199,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
         }
-        else if(cursorState==2)
+        else if(cursorState==2 && unitPosX!=cursor->getPosX() && unitPosY!=cursor->getPosY())
         {
             cursor->getPlayer()->getUnit(unitPosX,unitPosY)->attack(cursor->getOpponent()->getUnit(cursor->getPosX(),cursor->getPosY()));
             centerZone.attackReset();
