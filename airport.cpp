@@ -7,11 +7,13 @@ Airport::Airport(vector<unsigned int> pos, Player* player,Game *game):Building (
 {
     this->game=game;
     type = 36;
+    this->player = player;
 }
 
 Airport::Airport(vector<unsigned int> pos,Game *game):Building(pos){
     type = 36;
     this->game=game;
+    player = NULL;
 }
 
 void Airport::createUnit(int typeUnit){
@@ -38,7 +40,13 @@ void Airport::createUnit(int typeUnit){
 void Airport::setLife(int damage, Player* attacker){
     int temp = life - damage;
     if (temp <= 0){
-        this->player->delete_building(this);
+        if (player != NULL)
+        {
+            player->delete_building(this);
+        }
+        else {
+            game->delete_building(this);
+        }
         attacker->add_building(this);
         this->setPlayer(attacker);
         this->life = 20;

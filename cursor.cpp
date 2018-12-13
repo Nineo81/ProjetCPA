@@ -190,3 +190,8 @@ int Cursor::getPlayerState() const
 {
     return playerState;
 }
+
+Map *Cursor::getUnitMap() const
+{
+    return unitMap;
+}

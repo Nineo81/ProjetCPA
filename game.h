@@ -36,6 +36,7 @@ public:
     Building* getBuilding(unsigned int x,unsigned int y);
     void play(Player player);
     void otherTurn();
+    void delete_building(Building *building);
 };
 
 #endif // GAME_H

@@ -14,11 +14,13 @@ Factory::Factory(vector<unsigned int> pos, Player* player,Game *game):Building (
 {
     type = 35;
     this->game = game;
+    this->player = player;
 }
 
 Factory::Factory(vector<unsigned int> pos,Game *game):Building (pos){
     type = 35;
     this->game = game;
+    player = NULL;
 }
 
 void Factory::createUnit(int typeUnit){
@@ -64,7 +66,13 @@ void Factory::createUnit(int typeUnit){
 void Factory::setLife(int damage, Player* attacker){
     int temp = life - damage;
     if (temp <= 0){
-        this->player->delete_building(this);
+        if (player != NULL)
+        {
+            player->delete_building(this);
+        }
+        else {
+            game->delete_building(this);
+        }
         attacker->add_building(this);
         this->setPlayer(attacker);
         this->life = 20;

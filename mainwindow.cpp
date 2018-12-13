@@ -21,19 +21,21 @@ MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) : cursor(cur
     move(screen->availableGeometry().center()-this->rect().center());
 
     /*création du serveur? */
-    server = new QTcpServer();
-    if(! server->listen(QHostAddress::Any, 8123)) {
-        std::cout << "I am a client" << std::endl;
-        other = new QTcpSocket();
-        connect(other, SIGNAL(connected()), this, SLOT(onConnected()));
-        other->connectToHost("127.0.0.1", 8123);
-        connect(other, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
+    if (reseau){
+        server = new QTcpServer();
+        if(! server->listen(QHostAddress::Any, 8123)) {
+            std::cout << "I am a client" << std::endl;
+            other = new QTcpSocket();
+            connect(other, SIGNAL(connected()), this, SLOT(onConnected()));
+            other->connectToHost("127.0.0.1", 8123);
+            connect(other, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
         }
-    else {
-        std::cout << "I am the server" << std::endl;
-        other = nullptr;
+        else {
+            std::cout << "I am the server" << std::endl;
+            other = nullptr;
         }
-    connect(server, SIGNAL(newConnection()), this, SLOT(onNewConnection()));
+        connect(server, SIGNAL(newConnection()), this, SLOT(onNewConnection()));
+    }
 }
 
 void MainWindow::onNewConnection() {
@@ -89,6 +91,22 @@ void MainWindow::onData() {
     }
     else {
 
+        //Mouvement
+        if ( json.contains("xM") || json.contains("yM") || json.contains("oldXM") || json.contains("oldYM") )
+        {
+            int oldX = json["xM"].toInt();
+            int oldY = json["yM"].toInt();
+            int newX = json["newXM"].toInt();
+            int newY = json["newYM"].toInt();
+            std::cout<<oldX<<" "<<oldY<<endl<<newX<<" "<<newY<<endl;
+            cursor->getPlayer()->getUnit(oldX,oldY)->move(newX,newY);
+        }
+        //Fin de tour
+        if ( json.contains("endofturn") )
+        {
+            bool fin = json["endofturn"].toBool();
+            if (fin){ cursor->switchPlayerState();}
+        }
     }
 }
 
@@ -164,6 +182,16 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
             cursor->getPlayer()->getUnit(unitPosX,unitPosY)->move(cursor->getPosX(),cursor->getPosY());
             centerZone.movementsReset();
             cursorState=0;
+
+            if (reseau){
+                QJsonObject action;
+                action["xM"] = unitPosX;
+                action["yM"] = unitPosY;
+                action["newXM"] = cursor->getPosX();
+                action["newYM"] = cursor->getPosY();
+                sendJson(action);
+            }
+
             UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY(),typeOfUnitMenu(1));
             QObject::connect(menu,SIGNAL(attacking()),this,SLOT(unitAttack()));
             QObject::connect(menu,SIGNAL(capturing()),this,SLOT(unitCapture()));
@@ -226,6 +254,12 @@ void MainWindow::movingUnit()
 void MainWindow::switchPlayer()
 {
     cursor->switchPlayerState();
+
+    if (reseau){
+        QJsonObject action;
+        action["endofturn"] = true;
+        sendJson(action);
+    }
 }
 
 void MainWindow::setUnitWainting()

@@ -331,7 +331,6 @@ void Unit::movePossib_recusif(vector<vector<int>>* l1,vector<vector<int>> l2)
             if (terrain_avail(static_cast<unsigned int>(l3[j][0]),static_cast<unsigned int>(l3[j][1]))==true)  //si on peut se déplacer sur ce terrain
             {
                 vector<int> X={l3[j][0],l3[j][1]};
-                cout<<X[0]<<", "<<X[1]<<endl;
                 e+=this->get_MPLoss(static_cast<unsigned int>(X[0]),static_cast<unsigned int>(X[1]));              //on calcul le nbe de MP restants si on va sur ce terrain
                 if (e<= this->get_absMP())                   //si le nbre de points de déplacement n'est pas trop élevé
                 {

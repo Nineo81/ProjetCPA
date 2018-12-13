@@ -27,6 +27,8 @@ public:
     void setSizePicture(int sizePicture);
     void updateMovements(vector<vector<int>> movements);
     int getPlayerState() const;
+    Map *getUnitMap() const;
+
 private:
     vector<vector<int>> movements;
     int sizePicture;

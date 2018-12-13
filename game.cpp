@@ -56,7 +56,7 @@ Game::Game():terrainMap("Map1V1.txt"),
             pos.push_back(i);
             switch(temp){
                 case 34:{
-                    neutralBuildings.push_back(new City(pos));
+                    neutralBuildings.push_back(new City(pos,this));
                     break;
                 }
                 case 35:{
@@ -68,7 +68,7 @@ Game::Game():terrainMap("Map1V1.txt"),
                     break;
                 }
                 case 38:{
-                    buildingsOS.push_back(new City(pos));
+                    buildingsOS.push_back(new City(pos,this));
                     break;
                 }
                 case 39:{
@@ -80,7 +80,7 @@ Game::Game():terrainMap("Map1V1.txt"),
                     break;
                 }
                 case 43:{
-                    buildingsBM.push_back(new City(pos));
+                    buildingsBM.push_back(new City(pos,this));
                     break;
                 }
                 case 44:{
@@ -100,18 +100,24 @@ Game::Game():terrainMap("Map1V1.txt"),
     cursor.setPlayer(playerBM,2);
     cursor.setPlayer(playerOS,1);
 
+    cursor.getPlayer()->set_money(3000,'a');
     //création de l'unité de base de OS
     Unit* firstUnit = new infantery({15,3},1,0,this);
     firstUnit->setCanPlay(true);
     listPlayer[0]->add_unit(firstUnit);
-    Unit* secondUnit =new infantery({15,4},2,0,this);
-    secondUnit->setCanPlay(true);
-    listPlayer[1]->add_unit(secondUnit);
 }
 
-void Game::otherTurn(){
-}
+void Game::delete_building(Building* building){
+    unsigned int i = 0;
+    while (neutralBuildings[i] != building){
+        i++;
+    }
+    if ( i < neutralBuildings.size()){
+       neutralBuildings.erase(neutralBuildings.begin()+static_cast<int>(i));
+    }
+    else {cout<<"Bâtiment non trouvé"<<endl;}
 
+}
 void Game::updateMap(int type,unsigned int x,unsigned int y)
 {
     unitMap.setElement(type,x,y);
@@ -212,7 +218,6 @@ void Game::play(Player player)
     for (Player p : listPlayer){
         delete &p;
     }
-    delete this;
 }*/
 
 /*std::vector<std::vector<int>> initDefense(Map terrainMap){
