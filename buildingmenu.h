@@ -17,6 +17,7 @@ private:
     Building* building;
 signals:
     void qMenuClose();
+    void createU();
 
 public slots:
     void create(int type);

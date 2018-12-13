@@ -374,10 +374,13 @@ void Unit::move(unsigned int x,unsigned int y)
 {
     if(canPlay==true)
     {
-        Map* unitMap=this->getUnitMap();
-        unsigned int oldX=this->get_X();
-        unsigned int oldY=this->get_Y();
-        unitMap->replace(oldX,oldY,x,y);
+        unsigned int oldX=position[0];
+        unsigned int oldY=position[1];
+        Unit *unit = NULL;
+        if (PUM->getElement(x,y) == type){
+            unit = game->getCursor()->getPlayer()->getUnit(x,y);
+        }
+        PUM->replace(oldX,oldY,x,y);
         vector<unsigned int> newposition={x,y};
         this->setposition(newposition);
         this->resetMP();
@@ -391,6 +394,9 @@ void Unit::move(unsigned int x,unsigned int y)
         }
         else if(T>=38 && T<=40){
             game->getPlayer(1)->getBuilding(oldX,oldY)->resetLife();
+        }
+        if (unit != NULL){
+            join_unit(unit);
         }
     }
 }

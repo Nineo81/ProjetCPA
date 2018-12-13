@@ -9,6 +9,7 @@
 #include "unitmenu.h"
 #include "buildingmenu.h"
 #include "pausemenu.h"
+#include "infantery.h"
 
 MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) : cursor(cursor),centerZone(terrainMap,unitMap,cursor)
 {
@@ -29,10 +30,12 @@ MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) : cursor(cur
             connect(other, SIGNAL(connected()), this, SLOT(onConnected()));
             other->connectToHost("127.0.0.1", 8123);
             connect(other, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
+            myTurn = true;
         }
         else {
             std::cout << "I am the server" << std::endl;
             other = nullptr;
+            myTurn = false;
         }
         connect(server, SIGNAL(newConnection()), this, SLOT(onNewConnection()));
     }
@@ -98,14 +101,70 @@ void MainWindow::onData() {
             int oldY = json["yM"].toInt();
             int newX = json["newXM"].toInt();
             int newY = json["newYM"].toInt();
-            std::cout<<oldX<<" "<<oldY<<endl<<newX<<" "<<newY<<endl;
             cursor->getPlayer()->getUnit(oldX,oldY)->move(newX,newY);
+        }
+        //Attaque
+        if ( json.contains("XA") )
+        {
+            int x = json["XA"].toInt();
+            int y = json["YA"].toInt();
+            int fromX = json["fromXA"].toInt();
+            int fromY = json["fromYA"].toInt();
+            cursor->getPlayer()->getUnit(fromX,fromY)->attack(cursor->getOpponent()->getUnit(x,y));
+        }
+        //Capture
+        if ( json.contains("XC") )
+        {
+            int x = json["XC"].toInt();
+            int y = json["YC"].toInt();
+            cursor->getPlayer()->getUnit(static_cast<unsigned int>(x),static_cast<unsigned int>(y))->capture();
+        }
+        //Construction
+        if ( json.contains("XB") )
+        {
+            unsigned int x = json["XB"].toInt();
+            unsigned int y = json["YB"].toInt();
+            QString unit = json["type"].toString();
+            if ( unit == "infantery"){
+                cursor->getPlayer()->getBuilding(x,y)->createUnit(1);
+            }
+            else if ( unit == "bazooka"){
+                cursor->getPlayer()->getBuilding(x,y)->createUnit(2);
+            }
+            else if ( unit == "recon"){
+                cursor->getPlayer()->getBuilding(x,y)->createUnit(3);
+            }
+            else if ( unit == "antiair"){
+                cursor->getPlayer()->getBuilding(x,y)->createUnit(4);
+            }
+            else if ( unit == "tank"){
+                cursor->getPlayer()->getBuilding(x,y)->createUnit(5);
+            }
+            else if ( unit == "mdtank"){
+                cursor->getPlayer()->getBuilding(x,y)->createUnit(6);
+            }
+            else if ( unit == "megatank"){
+                cursor->getPlayer()->getBuilding(x,y)->createUnit(7);
+            }
+            else if ( unit == "neotank"){
+                cursor->getPlayer()->getBuilding(x,y)->createUnit(8);
+            }
+            else if ( unit == "bcopter"){
+                cursor->getPlayer()->getBuilding(x,y)->createUnit(1);
+            }
+            else if ( unit == "fighter"){
+                cursor->getPlayer()->getBuilding(x,y)->createUnit(2);
+            }
+            else if ( unit == "bomber"){
+                cursor->getPlayer()->getBuilding(x,y)->createUnit(3);
+            }
         }
         //Fin de tour
         if ( json.contains("endofturn") )
         {
             bool fin = json["endofturn"].toBool();
             if (fin){ cursor->switchPlayerState();}
+            myTurn = true;
         }
     }
 }
@@ -119,7 +178,9 @@ void MainWindow::sendJson(QJsonObject obj) {
 }
 
 void MainWindow::keyPressEvent(QKeyEvent * event){
-     /* ça depend de comment on fait notre truc il me semble.*/
+    if (!myTurn){
+        return;
+    }
     if (event->key() == Qt::Key_Left){
     //faire bouger la case selectionnee vers la gauche
         if(cursorState==0){
@@ -174,6 +235,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         {
             BuildingMenu *menu = new BuildingMenu(cursor->getRealX(),cursor->getRealY(),cursor->getPlayer()->getBuilding(cursor->getPosX(),cursor->getPosY()));
             QObject::connect(menu,SIGNAL(qMenuClose()),this,SLOT(updateWin()));
+            QObject::connect(menu,SIGNAL(createU()),this,SLOT(createUnit()));
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
         }
@@ -203,6 +265,16 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         {
             cursor->getPlayer()->getUnit(unitPosX,unitPosY)->attack(cursor->getOpponent()->getUnit(cursor->getPosX(),cursor->getPosY()));
             centerZone.attackReset();
+
+            if (reseau){
+                QJsonObject action;
+                action["XA"] = cursor->getPosX();
+                action["YA"] = cursor->getPosY();
+                action["fromXA"] = unitPosX;
+                action["fromYA"] = unitPosY;
+                sendJson(action);
+            }
+
             cursorState=0;
         }
     }
@@ -259,6 +331,7 @@ void MainWindow::switchPlayer()
         QJsonObject action;
         action["endofturn"] = true;
         sendJson(action);
+        myTurn = false;
     }
 }
 
@@ -276,11 +349,19 @@ void MainWindow::unitAttack()
     centerZone.setAttack(possibPos);
     cursor->updateMovements(possibPos);
     cursorState=2;
+
 }
 
 void MainWindow::unitCapture()
 {
     cursor->getPlayer()->getUnit(static_cast<unsigned int>(cursor->getPosX()),static_cast<unsigned int>(cursor->getPosY()))->capture();
+
+    if (reseau){
+        QJsonObject action;
+        action["XC"] = cursor->getPosX();
+        action["YC"] = cursor->getPosY();
+        sendJson(action);
+    }
 }
 
 int MainWindow::typeOfUnitMenu(int moveState)
@@ -325,4 +406,51 @@ int MainWindow::typeOfUnitMenu(int moveState)
         }
     }
     return state;
+}
+
+void MainWindow::createUnit(){
+
+    if (reseau){
+        int x = cursor->getPosX();
+        int y = cursor->getPosY();
+        if ( cursor->getUnitMap()->getElement(x,y) != 0){
+            QJsonObject action;
+            action["XB"] = x;
+            action["YB"] = y;
+            if ( cursor->getUnitMap()->getElement(x,y) == 50 ||cursor->getUnitMap()->getElement(x,y) == 61){
+                action["type"] = "infantery";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 51 ||cursor->getUnitMap()->getElement(x,y) == 62){
+                action["type"] = "mdtank";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 52 ||cursor->getUnitMap()->getElement(x,y) == 63){
+                action["type"] = "megatank";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 53 ||cursor->getUnitMap()->getElement(x,y) == 64){
+                action["type"] = "neotank";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 54 ||cursor->getUnitMap()->getElement(x,y) == 65){
+                action["type"] = "recon";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 55 ||cursor->getUnitMap()->getElement(x,y) == 66){
+                action["type"] = "tank";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 56 ||cursor->getUnitMap()->getElement(x,y) == 67){
+                action["type"] = "fighter";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 57 ||cursor->getUnitMap()->getElement(x,y) == 68){
+                action["type"] = "bomber";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 58 ||cursor->getUnitMap()->getElement(x,y) == 69){
+                action["type"] = "bazooka";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 59 ||cursor->getUnitMap()->getElement(x,y) == 70){
+                action["type"] = "bcopter";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 60 ||cursor->getUnitMap()->getElement(x,y) == 71){
+                action["type"] = "antiair";
+            }
+            sendJson(action);
+        }
+    }
 }
