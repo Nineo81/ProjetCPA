@@ -298,6 +298,78 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
     }
 }
 
+void MainWindow::mousePressEvent(QMouseEvent *ev){
+    //confirmer la selection == bouton A
+        cursor->setPosition(ev->x(),ev->y());
+        update();
+        if(cursor->unitOfPlayer() && cursorState==0 && cursor->getPlayer()->getUnit(cursor->getPosX(),cursor->getPosY())->getCanPlay())
+        {
+            cursorState = -1;
+            UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY(),typeOfUnitMenu(0));
+            QObject::connect(menu,SIGNAL(moveUnit()),this,SLOT(movingUnit()));
+            QObject::connect(menu,SIGNAL(attacking()),this,SLOT(unitAttack()));
+            QObject::connect(menu,SIGNAL(capturing()),this,SLOT(unitCapture()));
+            QObject::connect(menu,SIGNAL(waiting()),this,SLOT(setUnitWainting()));
+            QObject::connect(menu,SIGNAL(menuClose()),this,SLOT(curState()));
+            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+            menu->show();
+        }
+        else if((cursor->buildOfPlayer() == 35 || cursor->buildOfPlayer()==36) && cursorState==0 && !cursor->unitOfPlayer())
+        {
+            cursorState = -1;
+            BuildingMenu *menu = new BuildingMenu(cursor->getRealX(),cursor->getRealY(),cursor->getPlayer()->getBuilding(cursor->getPosX(),cursor->getPosY()));
+            QObject::connect(menu,SIGNAL(qMenuClose()),this,SLOT(updateWin()));
+            QObject::connect(menu,SIGNAL(menuClose()),this,SLOT(curState()));
+            QObject::connect(menu,SIGNAL(createU()),this,SLOT(createUnit()));
+            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+            menu->show();
+        }
+        else if(cursorState==1)
+        {
+            cursor->getPlayer()->getUnit(unitPosX,unitPosY)->move(cursor->getPosX(),cursor->getPosY());
+            centerZone.movementsReset();
+            cursorState=0;
+
+            if (reseau){
+                QJsonObject action;
+                action["xM"] = unitPosX;
+                action["yM"] = unitPosY;
+                action["newXM"] = cursor->getPosX();
+                action["newYM"] = cursor->getPosY();
+                sendJson(action);
+            }
+
+            cursorState = -1;
+            UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY(),typeOfUnitMenu(1));
+            QObject::connect(menu,SIGNAL(attacking()),this,SLOT(unitAttack()));
+            QObject::connect(menu,SIGNAL(capturing()),this,SLOT(unitCapture()));
+            QObject::connect(menu,SIGNAL(waiting()),this,SLOT(setUnitWainting()));
+            QObject::connect(menu,SIGNAL(menuClose()),this,SLOT(curState()));
+            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+            menu->show();
+        }
+        else if(cursorState==2 && !cursor->unitOfPlayer())
+        {
+            cursor->getPlayer()->getUnit(unitPosX,unitPosY)->attack(cursor->getOpponent()->getUnit(cursor->getPosX(),cursor->getPosY()));
+            centerZone.attackReset();
+
+            if (reseau){
+                QJsonObject action;
+                action["XA"] = cursor->getPosX();
+                action["YA"] = cursor->getPosY();
+                action["fromXA"] = unitPosX;
+                action["fromYA"] = unitPosY;
+                sendJson(action);
+            }
+
+            cursorState=0;
+        }
+}
+
+void MainWindow::curState(){
+    cursorState = 0;
+}
+
 GameWindow* MainWindow::getWidget()
 {
     return &centerZone;
@@ -409,7 +481,7 @@ int MainWindow::typeOfUnitMenu(int moveState)
 }
 
 void MainWindow::createUnit(){
-
+    cursorState = 0;
     if (reseau){
         int x = cursor->getPosX();
         int y = cursor->getPosY();

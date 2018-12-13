@@ -15,6 +15,7 @@ signals:
     void waiting();
     void capturing();
     void attacking();
+    void menuClose();
 public slots:
     void movement();
     void unitWait();

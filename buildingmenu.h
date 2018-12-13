@@ -23,6 +23,7 @@ private:
 signals:
     void qMenuClose();
     void createU();
+    void menuClose();
 
 public slots:
     void create(int type);

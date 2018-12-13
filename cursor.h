@@ -28,7 +28,7 @@ public:
     void updateMovements(vector<vector<int>> movements);
     int getPlayerState() const;
     Map *getUnitMap() const;
-
+    void setPosition(int realX, int realY);
 private:
     vector<vector<int>> movements;
     int sizePicture;

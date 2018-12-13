@@ -64,30 +64,35 @@ void UnitMenu::keyPressEvent(QKeyEvent* event)
 {
     if (event->key() == Qt::Key_Escape || event->key() == Qt::Key_Backspace){
     //retour == bouton B
+        emit menuClose();
         close();
     }
 }
 
 void UnitMenu::movement()
 {
+    emit menuClose();
     emit moveUnit();
     close();
 }
 
 void UnitMenu::unitWait()
 {
+    emit menuClose();
     emit waiting();
     close();
 }
 
 void UnitMenu::capture()
 {
+    emit menuClose();
     emit capturing();
     close();
 }
 
 void UnitMenu::attack()
 {
+    emit menuClose();
     emit attacking();
     close();
 }

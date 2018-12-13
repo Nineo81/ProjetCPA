@@ -41,6 +41,12 @@ int Cursor::getRealX()
     return sizePicture*(posX+1);
 }
 
+void Cursor::setPosition(int realX, int realY){
+    posX = realX/sizePicture -1 ;
+    posY = realY/sizePicture -1;
+
+}
+
 int Cursor::getRealY()
 {
     return sizePicture*(posY+1);
