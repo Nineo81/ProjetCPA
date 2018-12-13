@@ -230,51 +230,9 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         {
             BuildingMenu *menu = new BuildingMenu(cursor->getRealX(),cursor->getRealY(),cursor->getPlayer()->getBuilding(cursor->getPosX(),cursor->getPosY()));
             QObject::connect(menu,SIGNAL(qMenuClose()),this,SLOT(updateWin()));
+            QObject::connect(menu,SIGNAL(createIn()),this,SLOT(createUnit()));
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
-            //idealement à mettre dans buildingMenu => peut pas marcher mtn
-            /*if (reseau){
-                int x = cursor->getPosX();
-                int y = cursor->getPosY();
-                if ( cursor->getUnitMap()->getElement(x,y) != 0){
-                    QJsonObject action;
-                    action["XB"] = x;
-                    action["YB"] = y;
-                    if ( cursor->getUnitMap()->getElement(x,y) == 50 ||cursor->getUnitMap()->getElement(x,y) == 61){
-                        action["type"] = "infantery";
-                    }
-                    else if ( cursor->getUnitMap()->getElement(x,y) == 51 ||cursor->getUnitMap()->getElement(x,y) == 62){
-                        action["type"] = "mdtank";
-                    }
-                    else if ( cursor->getUnitMap()->getElement(x,y) == 52 ||cursor->getUnitMap()->getElement(x,y) == 63){
-                        action["type"] = "megatank";
-                    }
-                    else if ( cursor->getUnitMap()->getElement(x,y) == 53 ||cursor->getUnitMap()->getElement(x,y) == 64){
-                        action["type"] = "neotank";
-                    }
-                    else if ( cursor->getUnitMap()->getElement(x,y) == 54 ||cursor->getUnitMap()->getElement(x,y) == 65){
-                        action["type"] = "recon";
-                    }
-                    else if ( cursor->getUnitMap()->getElement(x,y) == 55 ||cursor->getUnitMap()->getElement(x,y) == 66){
-                        action["type"] = "tank";
-                    }
-                    else if ( cursor->getUnitMap()->getElement(x,y) == 56 ||cursor->getUnitMap()->getElement(x,y) == 67){
-                        action["type"] = "fighter";
-                    }
-                    else if ( cursor->getUnitMap()->getElement(x,y) == 57 ||cursor->getUnitMap()->getElement(x,y) == 68){
-                        action["type"] = "bomber";
-                    }
-                    else if ( cursor->getUnitMap()->getElement(x,y) == 58 ||cursor->getUnitMap()->getElement(x,y) == 69){
-                        action["type"] = "bazooka";
-                    }
-                    else if ( cursor->getUnitMap()->getElement(x,y) == 59 ||cursor->getUnitMap()->getElement(x,y) == 70){
-                        action["type"] = "bcopter";
-                    }
-                    else if ( cursor->getUnitMap()->getElement(x,y) == 60 ||cursor->getUnitMap()->getElement(x,y) == 71){
-                        action["type"] = "antiair";
-                    }
-                }
-            }*/
         }
         else if(cursorState==1)
         {
@@ -442,4 +400,51 @@ int MainWindow::typeOfUnitMenu(int moveState)
         }
     }
     return state;
+}
+
+void MainWindow::createUnit(){
+
+    if (reseau){
+        int x = cursor->getPosX();
+        int y = cursor->getPosY();
+        if ( cursor->getUnitMap()->getElement(x,y) != 0){
+            QJsonObject action;
+            action["XB"] = x;
+            action["YB"] = y;
+            if ( cursor->getUnitMap()->getElement(x,y) == 50 ||cursor->getUnitMap()->getElement(x,y) == 61){
+                action["type"] = "infantery";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 51 ||cursor->getUnitMap()->getElement(x,y) == 62){
+                action["type"] = "mdtank";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 52 ||cursor->getUnitMap()->getElement(x,y) == 63){
+                action["type"] = "megatank";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 53 ||cursor->getUnitMap()->getElement(x,y) == 64){
+                action["type"] = "neotank";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 54 ||cursor->getUnitMap()->getElement(x,y) == 65){
+                action["type"] = "recon";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 55 ||cursor->getUnitMap()->getElement(x,y) == 66){
+                action["type"] = "tank";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 56 ||cursor->getUnitMap()->getElement(x,y) == 67){
+                action["type"] = "fighter";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 57 ||cursor->getUnitMap()->getElement(x,y) == 68){
+                action["type"] = "bomber";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 58 ||cursor->getUnitMap()->getElement(x,y) == 69){
+                action["type"] = "bazooka";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 59 ||cursor->getUnitMap()->getElement(x,y) == 70){
+                action["type"] = "bcopter";
+            }
+            else if ( cursor->getUnitMap()->getElement(x,y) == 60 ||cursor->getUnitMap()->getElement(x,y) == 71){
+                action["type"] = "antiair";
+            }
+            sendJson(action);
+        }
+    }
 }

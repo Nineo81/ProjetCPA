@@ -27,7 +27,7 @@ private:
     quint32 currentSize = 0;
     void sendJson(QJsonObject obj);
     bool isConfigured=false;
-    bool reseau = false;
+    bool reseau = true;
 
 signals:
 
@@ -42,6 +42,7 @@ public slots:
     void onConnected();
     void onDisconnected();
     void onData();
+    void createUnit();
 };
 
 #endif // MAINWINDOW_H

@@ -199,26 +199,26 @@ void Game::play(Player player)
     cursor.switchPlayerState();
 }
 
-/*Game::~Game(){
+Game::~Game(){
     for (Building* b : neutralBuildings){
         delete b;
     }
-    for (Building* b : listPlayer[0].get_listBuilding()){
+    for (Building* b : listPlayer[0]->get_listBuilding()){
         delete b;
     }
-    for (Building* b : listPlayer[1].get_listBuilding()){
+    for (Building* b : listPlayer[1]->get_listBuilding()){
         delete b;
     }
-    for (Unit* u : listPlayer[0].get_listUnit()){
+    for (Unit* u : listPlayer[0]->get_listUnit()){
         delete u;
     }
-    for (Unit* u : listPlayer[1].get_listUnit()){
+    for (Unit* u : listPlayer[1]->get_listUnit()){
         delete u;
     }
-    for (Player p : listPlayer){
-        delete &p;
+    for (Player* p : listPlayer){
+        delete p;
     }
-}*/
+}
 
 /*std::vector<std::vector<int>> initDefense(Map terrainMap){
     std::vector<std::vector<int>> defenseChart;
