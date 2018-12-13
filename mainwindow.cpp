@@ -261,7 +261,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
         }
-        else if(cursorState==2 && unitPosX!=cursor->getPosX() && unitPosY!=cursor->getPosY())
+        else if(cursorState==2 && !cursor->unitOfPlayer())
         {
             cursor->getPlayer()->getUnit(unitPosX,unitPosY)->attack(cursor->getOpponent()->getUnit(cursor->getPosX(),cursor->getPosY()));
             centerZone.attackReset();
