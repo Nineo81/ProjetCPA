@@ -20,14 +20,14 @@ void Airport::createUnit(int typeUnit){
     AirUnit* unit = nullptr;
     switch (typeUnit)
     {
-        case 1:{
-            unit = new B_Copter(this->position,this->color,0,game);      //c'est quoi l'attribut round?
+        case 9:{
+            unit = new B_Copter(this->position,player->getPlayerNumber(),0,game);      //c'est quoi l'attribut round?
             break;}
-        case 2:{
-            unit = new Fighter(this->position,this->color,0,game);
+        case 10:{
+            unit = new Fighter(this->position,player->getPlayerNumber(),0,game);
             break;}
-        case 3:{
-            unit = new Bomber(this->position,this->color,0,game);
+        case 11:{
+            unit = new Bomber(this->position,player->getPlayerNumber(),0,game);
             break;}
     }
     this->player->set_money(unit->getcost(),'d');

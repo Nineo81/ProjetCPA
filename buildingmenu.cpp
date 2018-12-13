@@ -1,45 +1,31 @@
 #include "buildingmenu.h"
 #include <QVBoxLayout>
-#include <QPushButton>
 #include "custombutton.h"
 
 BuildingMenu::BuildingMenu(int posX,int posY,Building* building):building(building)
 {
-    CustomButton *button1 = new CustomButton(1,"Infantry");
-    button1->setAutoDefault(true);
-    QObject::connect(button1,SIGNAL(customClicked(int)),this,SLOT(create(int)));
-    CustomButton *button2 = new CustomButton(2,"Bazooka");
-    button2->setAutoDefault(true);
-    QObject::connect(button2,SIGNAL(customClicked(int)),this,SLOT(create(int)));
-    CustomButton *button3 = new CustomButton(3,"Recon");
-    button3->setAutoDefault(true);
-    QObject::connect(button3,SIGNAL(customClicked(int)),this,SLOT(create(int)));
-    CustomButton *button4 = new CustomButton(4,"AntiAir");
-    button4->setAutoDefault(true);
-    QObject::connect(button4,SIGNAL(customClicked(int)),this,SLOT(create(int)));
-    CustomButton *button5 = new CustomButton(5,"Tank");
-    button5->setAutoDefault(true);
-    QObject::connect(button5,SIGNAL(customClicked(int)),this,SLOT(create(int)));
-    CustomButton *button6 = new CustomButton(6,"mdtank");
-    button6->setAutoDefault(true);
-    QObject::connect(button6,SIGNAL(customClicked(int)),this,SLOT(create(int)));
-    CustomButton *button7 = new CustomButton(7,"megatank");
-    button7->setAutoDefault(true);
-    QObject::connect(button7,SIGNAL(customClicked(int)),this,SLOT(create(int)));
-    CustomButton *button8 = new CustomButton(8,"neotank");
-    button8->setAutoDefault(true);
-    QObject::connect(button8,SIGNAL(customClicked(int)),this,SLOT(create(int)));
+    text <<"Infantery"<<"Bazooka"<<"Recon"<<"AntiAir"<<"Tank"<<"MdTank"<<"MegaTank"<<"NeoTank"<<"B-copter"<<"Bomber"<<"Fighter";
+    for(int i=0;i<11;i++)
+    {
+        listButton.push_back(new CustomButton(i+1,text.at(i)));
+        listButton[i]->setAutoDefault(true);
+        QObject::connect(listButton[i],SIGNAL(customClicked(int)),this,SLOT(create(int)));
+    }
 
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(button1);
-    layout->addWidget(button2);
-    layout->addWidget(button3);
-    layout->addWidget(button4);
-    layout->addWidget(button5);
-    layout->addWidget(button6);
-    layout->addWidget(button7);
-    layout->addWidget(button8);
-
+    if(building->getType()==35 || building->getType()==44){
+    for(int i=0;i<8;i++)
+    {
+        layout->addWidget(listButton[i]);
+    }
+    }
+    else
+    {
+        for(int i=8;i<11;i++)
+        {
+            layout->addWidget(listButton[i]);
+        }
+    }
     setLayout(layout);
     move(posX,posY);
 }

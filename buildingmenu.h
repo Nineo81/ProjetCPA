@@ -4,7 +4,10 @@
 #include <QWidget>
 #include <QKeyEvent>
 #include <QCloseEvent>
+#include <vector>
+#include "custombutton.h"
 #include "building.h"
+using namespace std;
 
 class BuildingMenu : public QWidget
 {
@@ -15,6 +18,8 @@ public:
     void isCLosing(QCloseEvent *event);
 private:
     Building* building;
+    vector<CustomButton*> listButton;
+    QStringList text;
 signals:
     void qMenuClose();
     void createU();
