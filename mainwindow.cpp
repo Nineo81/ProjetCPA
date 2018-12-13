@@ -255,6 +255,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
             }
 
             UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY(),typeOfUnitMenu(1));
+            menu->setEscape(false);
             QObject::connect(menu,SIGNAL(attacking()),this,SLOT(unitAttack()));
             QObject::connect(menu,SIGNAL(capturing()),this,SLOT(unitCapture()));
             QObject::connect(menu,SIGNAL(waiting()),this,SLOT(setUnitWainting()));

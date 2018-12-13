@@ -10,6 +10,9 @@ class UnitMenu : public QWidget
 public:
     explicit UnitMenu(int posX, int posY, int type);
     void keyPressEvent(QKeyEvent * event);
+    void setEscape(bool escape);
+private:
+    bool escape;
 signals:
     void moveUnit();
     void waiting();
