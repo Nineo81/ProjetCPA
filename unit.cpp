@@ -1,9 +1,10 @@
 ﻿#include "unit.h"
 #include <string>
 #include <iostream>
-//#include<algorithm>
+#include<algorithm>
 #include<cmath>
 #include "game.h"
+using std::sort;
 using std::cout;
 using std::endl;
 
@@ -37,9 +38,13 @@ Unit::Unit(std::vector<unsigned int> pos, int color, int round,Game *game) : Gam
 void Unit::setUnit()
 {
     if (color==1)
-        game->updateMap(this->type,this->position[0],this->position[1]);
+    game->updateMap(this->type,this->position[0],this->position[1]);
+
     else
-        game->updateMap(this->type+11,this->position[0],this->position[1]);
+     { this->type=type+11;
+        game->updateMap(this->type,this->position[0],this->position[1]);
+
+    }
 }
 
 int Unit::getHP() const
@@ -261,117 +266,84 @@ int Unit::get_MPLoss(unsigned int x,unsigned int y)
 bool Unit::terrain_avail(int x,int y)
 {
     bool res=true;
-    if (x<0 || y<0 || x>=game->getTerrainMap().getSize('x') || y>=game->getTerrainMap().getSize('y') || (this->type!=game->getUnitMap().getElement(x,y) && game->getUnitMap().getElement(x,y)!=0))
+    if (x<0 || y<0 || x>=game->getTerrainMap().getSize('x') || y>=game->getTerrainMap().getSize('y') || (game->getUnitMap().getElement(x,y)!=0 && this->type!=game->getUnitMap().getElement(x,y)))
+
+
         res=false;
+
+
     return res;
 }
 
 
-vector<vector<int>> Unit::fusion(vector<vector<int>> A)
+
+
+bool compare_position(vector<int> const& a, vector<int> const& b)
 {
-    unsigned int l =A.size();
-    if (l>1)
-    {
-        unsigned int mid=static_cast<unsigned int>(std::round(l/2.0));
-        vector<vector<int>> vLeft;
-        vector<vector<int>> vRight;
-        unsigned int left=0;
-        unsigned int right=l-1;
-        for (unsigned int i=left;i<mid-1;i++)
-        {
-            vLeft.push_back(A[i]);
-        }
-        for(unsigned int i=mid;i<right;i++)
-        {
-            vRight.push_back(A[i]);
-        }
-        vLeft=this->fusion(vLeft);
-        vRight=this->fusion(vRight);
-        unsigned int iL=0;
-        unsigned int iR=0;
-        vLeft.push_back({0,0,100});
-        vRight.push_back({0,0,100});
-        for (unsigned int i=left;i<right;i++)
-        {
-            if (vLeft[iL][2]<vRight[iR][2])
-            {
-                A[i]=vLeft[iL];
-                iL++;
-            }
-            else
-            {
-                A[i]=vRight[iR];
-                iR++;
-            }
-        }
-        return A;
-    }
-    else
-        return A;
+    return a[2] < b[2];
 }
 
-
-
-
-void Unit::movePossib_recusif(vector<vector<int>>* l1,vector<vector<int>> l2)
+void Unit::movePossib_recusif(vector<vector<int>>* l1, vector<vector<int>> l2)
 {
+    vector<vector<int>>& L1 = *l1;
     vector<vector<int>> l4;                       /*cette liste nous donnera les prochaines positions
                                                      *sur lesquelles il faudra appliquer la fonction récursive*/
-    bool rest_MP=false;
-    for (unsigned int i=0;i<l2.size();++i)                 //pour tous les éléments de la sous-liste à traiter
+    bool rest_MP = false;
+    for (unsigned int i = 0;i < l2.size(); ++i)                 //pour tous les éléments de la sous-liste à traiter
     {
         vector<vector<int>> l3;
         l3.push_back({l2[i][0],   l2[i][1]+1 });
         l3.push_back({l2[i][0]+1, l2[i][1]   });
         l3.push_back({l2[i][0],   l2[i][1]-1 });
         l3.push_back({l2[i][0]-1, l2[i][1]   });              //on ajoute toutes les positions autour de b à l3
-        for (unsigned int j=0;j<4;j++)                         //pour les 4 positions autour de b:
+        for (unsigned int j = 0;j < 4; j++)                         //pour les 4 positions autour de b:
         {
-            int e=l2[i][2];
-            if (terrain_avail(static_cast<unsigned int>(l3[j][0]),static_cast<unsigned int>(l3[j][1]))==true)  //si on peut se déplacer sur ce terrain
+            int e = l2[i][2];
+            if (terrain_avail(static_cast<unsigned int>(l3[j][0]),
+                              static_cast<unsigned int>(l3[j][1])))  //si on peut se déplacer sur ce terrain
             {
                 vector<int> X={l3[j][0],l3[j][1]};
-                e+=this->get_MPLoss(static_cast<unsigned int>(X[0]),static_cast<unsigned int>(X[1]));              //on calcul le nbe de MP restants si on va sur ce terrain
+                e += this->get_MPLoss(static_cast<unsigned int>(X[0]), static_cast<unsigned int>(X[1]));              //on calcul le nbe de MP restants si on va sur ce terrain
                 if (e<= this->get_absMP())                   //si le nbre de points de déplacement n'est pas trop élevé
                 {
                     bool inList1=false;
                     for (unsigned int k=0;k<l1->size();k++)
                     {
-                        if ((*l1)[k][0]==X[0] && (*l1)[k][1]==X[1])       //si la position qu'on regarde est déjà dans la liste des positions possibles
+                        if (L1[k][0] == X[0] && L1[k][1] == X[1])       //si la position qu'on regarde est déjà dans la liste des positions possibles
                         {
-                            if ((*l1)[k][3]>e)                             //et que le chemin qu'on regarde consomme moins de MP
+                            if (L1[k][3]>e)                             //et que le chemin qu'on regarde consomme moins de MP
                             {
-                                (*l1)[k][3]=e;                                //changer le nombre de MP perdus au minimum
+                                L1[k][3]=e;                                //changer le nombre de MP perdus au minimum
                             }
                             inList1=true;
                             break;//quitter la boucle
                         }
                     }
 
-                    if (inList1==false)
+                    if (inList1 == false)
                     {
                         l1->push_back({X[0],X[1],e});          //ajouter la position à la liste si elle n'y était pas
                     }
 
                     if (e<this->get_absMP())                  //s'il est encore possible à l'unité de se déplacer au-delà de X...
                     {
-                        rest_MP=true;
-                        bool inList4=false;
-                        for (unsigned int m=0;m<l4.size();m++)
+                        rest_MP = true;
+                        bool inList4 = false;
+                        for (unsigned int m = 0; m < l4.size(); m++)
                         {
-                            if (l4[m][0]==X[0] && l4[m][1]==X[1])
+                            if (l4[m][0] == X[0] && l4[m][1] == X[1])
                             {
-                                if (l4[m][3]>e)
+                                if (l4[m][3] > e)
                                 {
-                                    l4[m][3]=e;
+                                    l4[m][3] = e;
                                 }
-                                inList4=true;
+                                inList4 = true;
                                 break;
                             }
                         }
-                        if (inList4==false)
+                        if (inList4 == false)
                         {
-                            l4.push_back({X[0],X[1],e});         //... ajouter X à la liste des positions pour la prochaine fonction récursive
+                            l4.push_back({X[0], X[1], e});         //... ajouter X à la liste des positions pour la prochaine fonction récursive
                         }
                     }                
                 }             
@@ -379,13 +351,14 @@ void Unit::movePossib_recusif(vector<vector<int>>* l1,vector<vector<int>> l2)
         }
 
     }
-    //l4=this->fusion(l4);
-    if (rest_MP==true)
+    sort(l4.begin(), l4.end(), compare_position);
+    if (rest_MP == true)
     {
-        this->movePossib_recusif(l1,l4);
+        this->movePossib_recusif(l1, l4);
     }
 
 }
+
 
 vector<vector<int>> Unit::movePossib(int x,int y)
 {
@@ -401,10 +374,13 @@ void Unit::move(unsigned int x,unsigned int y)
 {
     if(canPlay==true)
     {
-        Map* unitMap=this->getUnitMap();
-        unsigned int oldX=this->get_X();
-        unsigned int oldY=this->get_Y();
-        unitMap->replace(oldX,oldY,x,y);
+        unsigned int oldX=position[0];
+        unsigned int oldY=position[1];
+        Unit *unit = NULL;
+        if (PUM->getElement(x,y) == type){
+            unit = game->getCursor()->getPlayer()->getUnit(x,y);
+        }
+        PUM->replace(oldX,oldY,x,y);
         vector<unsigned int> newposition={x,y};
         this->setposition(newposition);
         this->resetMP();
@@ -419,6 +395,9 @@ void Unit::move(unsigned int x,unsigned int y)
         else if(T>=38 && T<=40){
             game->getPlayer(1)->getBuilding(oldX,oldY)->resetLife();
         }
+        if (unit != NULL){
+            join_unit(unit);
+        }
     }
 }
 
@@ -426,8 +405,6 @@ void Unit::capture()
 {
     if ((type==58 || type==50) && canPlay==true)
     {
-
-
         Map terrainMap=game->getTerrainMap();
         int build=terrainMap.getElement(position[0],position[1]);
         if (build>=34 && build<=36)

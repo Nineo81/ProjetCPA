@@ -41,6 +41,7 @@ void BuildingMenu::keyPressEvent(QKeyEvent* event)
 void BuildingMenu::create(int type)
 {
     building->createUnit(type);
+    emit createU();
     this->close();
 }
 

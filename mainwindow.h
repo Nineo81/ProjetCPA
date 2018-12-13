@@ -28,6 +28,7 @@ private:
     void sendJson(QJsonObject obj);
     bool isConfigured=false;
     bool reseau = false;
+    bool myTurn = true;
 
 signals:
 
@@ -42,6 +43,7 @@ public slots:
     void onConnected();
     void onDisconnected();
     void onData();
+    void createUnit();
 };
 
 #endif // MAINWINDOW_H

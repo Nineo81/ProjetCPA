@@ -103,8 +103,11 @@ Game::Game():terrainMap("Map1V1.txt"),
     cursor.getPlayer()->set_money(3000,'a');
     //création de l'unité de base de OS
     Unit* firstUnit = new infantery({15,3},1,0,this);
+    Unit* secondUnit = new infantery({15,4},2,0,this);
+    secondUnit->setCanPlay(true);
     firstUnit->setCanPlay(true);
     listPlayer[0]->add_unit(firstUnit);
+    listPlayer[1]->add_unit(secondUnit);
 }
 
 void Game::delete_building(Building* building){
@@ -199,26 +202,26 @@ void Game::play(Player player)
     cursor.switchPlayerState();
 }
 
-/*Game::~Game(){
+Game::~Game(){
     for (Building* b : neutralBuildings){
         delete b;
     }
-    for (Building* b : listPlayer[0].get_listBuilding()){
+    for (Building* b : listPlayer[0]->get_listBuilding()){
         delete b;
     }
-    for (Building* b : listPlayer[1].get_listBuilding()){
+    for (Building* b : listPlayer[1]->get_listBuilding()){
         delete b;
     }
-    for (Unit* u : listPlayer[0].get_listUnit()){
+    for (Unit* u : listPlayer[0]->get_listUnit()){
         delete u;
     }
-    for (Unit* u : listPlayer[1].get_listUnit()){
+    for (Unit* u : listPlayer[1]->get_listUnit()){
         delete u;
     }
-    for (Player p : listPlayer){
-        delete &p;
+    for (Player* p : listPlayer){
+        delete p;
     }
-}*/
+}
 
 /*std::vector<std::vector<int>> initDefense(Map terrainMap){
     std::vector<std::vector<int>> defenseChart;

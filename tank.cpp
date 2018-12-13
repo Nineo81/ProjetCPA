@@ -8,5 +8,6 @@ Tank::Tank(vector<unsigned int> pos,int color, int round,Game *game):Unit(pos, c
     this->cost=7000;
     this->move_type=2;
     this->attack_type=10;
+    setUnit();
 
 }
