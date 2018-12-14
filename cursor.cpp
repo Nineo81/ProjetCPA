@@ -87,6 +87,7 @@ void Cursor::switchPlayerState()
         playerBM->setTurn(true);
         for (Unit *unit:playerBM->get_listUnit())
         {
+            unit->setCanPlay(true);
             int posX=unit->get_X(); int posY=unit->get_Y();
             if(terrainMap->getElement(posX,posY)==43 || terrainMap->getElement(posX,posY)==44)
             {
@@ -103,6 +104,7 @@ void Cursor::switchPlayerState()
         playerOS->setTurn(true);
         for (Unit *unit:playerOS->get_listUnit())
         {
+            unit->setCanPlay(true);
             int posX=unit->get_X(); int posY=unit->get_Y();
             if(terrainMap->getElement(posX,posY)==34 || terrainMap->getElement(posX,posY)==35)
             {
@@ -129,16 +131,13 @@ void Cursor::setPlayer(Player* player,int type)
 
 bool Cursor::unitOfPlayer()
 {
-    bool state = false;
-    if(playerState == 1)
-    {
-        state=playerOS->hasUnit(posX,posY);
+    if(playerState == 1) {
+        return playerOS->hasUnit(posX, posY);
+    } else {
+        return playerBM->hasUnit(posX, posY);
     }
-    else
-    {
-        state=playerBM->hasUnit(posX,posY);
-    }
-    return state;
+    // return playerState == 1 ? playerOS->hasUnit(posX, posY) : playerBM->hasUnit(posX, posY);
+    // return (playerState == 1 ? playerOS : playerBM)->hasUnit(posX, posY);
 }
 
 vector<vector<int>> Cursor::opponnentUnit()

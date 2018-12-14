@@ -55,8 +55,9 @@ void Player::delete_building(Building* building){
     if ( i < listBuilding.size()){
        listBuilding.erase(listBuilding.begin()+static_cast<int>(i));
     }
-    else {cout<<"Bâtiment non trouvé"<<endl;}
-
+    else {
+        cout << "Bâtiment non trouvé" << endl;
+    }
 }
 
 void Player::delete_unit(Unit *unit){
@@ -64,8 +65,8 @@ void Player::delete_unit(Unit *unit){
     while (listUnit[i] != unit){
         i++;
     }
-    if ( i < listUnit.size()){
-       listUnit.erase(listUnit.begin()+static_cast<int>(i));
+    if (i < listUnit.size()) {
+       listUnit.erase(listUnit.begin() + static_cast<int>(i));
     }
     else {cout<<"Unité non trouvée"<<endl;}
 
@@ -85,13 +86,12 @@ vector<Unit*> Player::get_listUnit(){
 }
 
 bool Player::hasUnit(unsigned int X,unsigned int Y){
-    bool b = false;
     for (Unit* u : listUnit){
         if (u->get_X() == X && u->get_Y() == Y){
-            b = true;
+           return true;
         }
     }
-    return b;
+    return false;
 }
 
 int Player::hasBuilding(unsigned int X,unsigned int Y)

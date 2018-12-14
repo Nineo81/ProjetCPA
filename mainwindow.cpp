@@ -178,12 +178,12 @@ void MainWindow::sendJson(QJsonObject obj) {
 }
 
 void MainWindow::keyPressEvent(QKeyEvent * event){
-    if (!myTurn){
+    if (! myTurn){
         return;
     }
     if (event->key() == Qt::Key_Left){
-    //faire bouger la case selectionnee vers la gauche
-        if(cursorState==0){
+        // faire bouger la case selectionnee vers la gauche
+        if(cursorState == 0){
             cursor->move(0,1,0,0);
         }
         else if(cursorState==1 || cursorState==2){
@@ -191,8 +191,9 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         }
         centerZone.updateMap();
     }
+
     if (event->key() == Qt::Key_Right){
-        if(cursorState==0){
+        if(cursorState == 0){
             cursor->move(0,0,0,1);
         }
         else if(cursorState==1 || cursorState==2){
@@ -200,9 +201,10 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         }
         centerZone.updateMap();
     }
+
     if (event->key() == Qt::Key_Up){
-    //faire bouger la case ou l'option (dans un menu) selectionee
-        if(cursorState==0){
+        // faire bouger la case ou l'option (dans un menu) selectionee
+        if(cursorState == 0){
             cursor->move(1,0,0,0);
         }
         else if(cursorState==1 || cursorState==2){
@@ -210,6 +212,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         }
         centerZone.updateMap();
     }
+
     if (event->key() == Qt::Key_Down){
         if(cursorState==0){
             cursor->move(0,0,1,0);
@@ -219,10 +222,14 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         }
         centerZone.updateMap();
     }
+
     if (event->key() == Qt::Key_Space || event->key() == Qt::Key_Enter){
-    //confirmer la selection == bouton A
-        if(cursor->unitOfPlayer() && cursorState==0 && cursor->getPlayer()->getUnit(cursor->getPosX(),cursor->getPosY())->getCanPlay())
+        //confirmer la selection == bouton A
+        if (cursor->unitOfPlayer()
+            && cursorState == 0
+            && cursor->getPlayer()->getUnit(cursor->getPosX(),cursor->getPosY())->getCanPlay())
         {
+            std::cout << "Yuluo" << std::endl;
             UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY(),typeOfUnitMenu(0));
             QObject::connect(menu,SIGNAL(moveUnit()),this,SLOT(movingUnit()));
             QObject::connect(menu,SIGNAL(attacking()),this,SLOT(unitAttack()));
@@ -231,21 +238,23 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
         }
-        else if((cursor->buildOfPlayer() == 35 || cursor->buildOfPlayer()==36) && cursorState==0 && !cursor->unitOfPlayer())
+        else if((cursor->buildOfPlayer() == 35 || cursor->buildOfPlayer()==36)
+                && cursorState == 0
+                && !cursor->unitOfPlayer())
         {
-            BuildingMenu *menu = new BuildingMenu(cursor->getRealX(),cursor->getRealY(),cursor->getPlayer()->getBuilding(cursor->getPosX(),cursor->getPosY()));
+            BuildingMenu *menu = new BuildingMenu(cursor->getRealX(), cursor->getRealY(),cursor->getPlayer()->getBuilding(cursor->getPosX(),cursor->getPosY()));
             QObject::connect(menu,SIGNAL(qMenuClose()),this,SLOT(updateWin()));
             QObject::connect(menu,SIGNAL(createU()),this,SLOT(createUnit()));
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
         }
-        else if(cursorState==1)
+        else if(cursorState == 1)
         {
-            cursor->getPlayer()->getUnit(unitPosX,unitPosY)->move(cursor->getPosX(),cursor->getPosY());
+            cursor->getPlayer()->getUnit(unitPosX, unitPosY)->move(cursor->getPosX(), cursor->getPosY());
             centerZone.movementsReset();
-            cursorState=0;
+            cursorState = 0;
 
-            if (reseau){
+            if (reseau) {
                 QJsonObject action;
                 action["xM"] = unitPosX;
                 action["yM"] = unitPosY;
@@ -254,11 +263,11 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
                 sendJson(action);
             }
 
-            UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY(),typeOfUnitMenu(1));
+            UnitMenu *menu = new UnitMenu(cursor->getRealX(), cursor->getRealY(), typeOfUnitMenu(1));
             menu->setEscape(false);
-            QObject::connect(menu,SIGNAL(attacking()),this,SLOT(unitAttack()));
-            QObject::connect(menu,SIGNAL(capturing()),this,SLOT(unitCapture()));
-            QObject::connect(menu,SIGNAL(waiting()),this,SLOT(setUnitWainting()));
+            QObject::connect(menu, SIGNAL(attacking()), this, SLOT(unitAttack()));
+            QObject::connect(menu, SIGNAL(capturing()), this, SLOT(unitCapture()));
+            QObject::connect(menu, SIGNAL(waiting()), this, SLOT(setUnitWainting()));
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
         }
