@@ -34,6 +34,7 @@ void BuildingMenu::keyPressEvent(QKeyEvent* event)
 {
     if (event->key() == Qt::Key_Escape || event->key() == Qt::Key_Backspace){
     //retour == bouton B
+        emit menuClose();
         close();
     }
 }
@@ -42,6 +43,7 @@ void BuildingMenu::create(int type)
 {
     building->createUnit(type);
     emit createU();
+    emit menuClose();
     this->close();
 }
 
@@ -49,6 +51,7 @@ void BuildingMenu::isCLosing(QCloseEvent *event)
 {
     if(event->isAccepted())
     {
+        emit menuClose();
         emit qMenuClose();
     }
 }

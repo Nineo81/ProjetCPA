@@ -41,6 +41,12 @@ int Cursor::getRealX()
     return sizePicture*(posX+1);
 }
 
+void Cursor::setPosition(int realX, int realY){
+    posX = realX/sizePicture -1 ;
+    posY = realY/sizePicture -1;
+
+}
+
 int Cursor::getRealY()
 {
     return sizePicture*(posY+1);
@@ -81,8 +87,13 @@ void Cursor::switchPlayerState()
         playerBM->setTurn(true);
         for (Unit *unit:playerBM->get_listUnit())
         {
-            unit->setCanPlay(true);
-            unit->setHP(2,'a');
+            int posX=unit->get_X(); int posY=unit->get_Y();
+            if(terrainMap->getElement(posX,posY)==43 || terrainMap->getElement(posX,posY)==44)
+            {
+                unit->setCanPlay(true);
+                unit->setHP(2,'a');
+                playerBM->set_money((unit->getcost()) / 10,'a');
+            }
         }
         playerBM->set_money(1000*static_cast<int>(playerBM->get_listBuilding().size()),'a');
     }
@@ -92,8 +103,13 @@ void Cursor::switchPlayerState()
         playerOS->setTurn(true);
         for (Unit *unit:playerOS->get_listUnit())
         {
-            unit->setCanPlay(true);
-            unit->setHP(2,'a');
+            int posX=unit->get_X(); int posY=unit->get_Y();
+            if(terrainMap->getElement(posX,posY)==34 || terrainMap->getElement(posX,posY)==35)
+            {
+                unit->setCanPlay(true);
+                unit->setHP(2,'a');
+                playerOS->set_money((unit->getcost()) / 10,'a');
+            }
         }
         playerOS->set_money(1000*static_cast<int>(playerOS->get_listBuilding().size()),'a');
     }

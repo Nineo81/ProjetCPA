@@ -12,10 +12,11 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor);
     void keyPressEvent(QKeyEvent * event);
+    void mousePressEvent(QMouseEvent *ev) override;
     int typeOfUnitMenu(int moveState);
     GameWindow* getWidget();
     void updateWidget();
-
+    void moved(QMouseEvent *event);
 private:
     int unitPosX;
     int unitPosY;
@@ -31,6 +32,7 @@ private:
     bool myTurn = true;
 
 signals:
+    void mouseMoved();
 
 public slots:
     void switchPlayer();
@@ -44,6 +46,7 @@ public slots:
     void onDisconnected();
     void onData();
     void createUnit();
+    void curState();
 };
 
 #endif // MAINWINDOW_H
