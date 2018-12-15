@@ -34,7 +34,7 @@ GameWindow::GameWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) :terrainMap(
 void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
-    QFont font("times",sizePicture/6,QFont::Bold);
+    QFont font("times",sizePicture/3,QFont::Bold);
     sizePicture = static_cast<int>(height/(terrainMap->getSize('y')+1));
     painter.setFont(font);
     painter.drawText(QPoint(sizePicture*(terrainMap->getSize('x')+2),sizePicture*3),("Player's money : " + to_string(money)).c_str());
