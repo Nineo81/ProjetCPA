@@ -5,6 +5,7 @@
 #include "map.h"
 #include "cursor.h"
 #include <vector>
+#include <QPushButton>
 #include <QLabel>
 
 class GameWindow : public QWidget
@@ -29,6 +30,8 @@ private:
     int sizePicture;
     unsigned int height;
     unsigned int width;
+    QPushButton* button1;
+    QPushButton* button2;
     Map *terrainMap;
     Map *unitMap;
     Cursor* cursor;

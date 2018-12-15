@@ -16,6 +16,8 @@ GameWindow::GameWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) :terrainMap(
 {
     money=0;
     player=0;
+    button1 = new QPushButton("Pass Turn",this);
+    button2 = new QPushButton("End Game",this);
     for(int i=1;i<117;i++) //Construction de la liste d'image
     {
         const char* imageName = (std::to_string(i)+".png").c_str();
@@ -39,6 +41,10 @@ void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
     painter.setFont(font);
     painter.drawText(QPoint(sizePicture*(terrainMap->getSize('x')+2),sizePicture*3),("Player's money : " + to_string(money)).c_str());
     painter.drawText(QPoint(sizePicture*(terrainMap->getSize('x')+2),sizePicture*2),("Turn of player " + to_string(player)).c_str());
+    button1->move(sizePicture*(terrainMap->getSize('x')+2),sizePicture*4);
+    button1->setFont(font);
+    button2->move(sizePicture*(terrainMap->getSize('x')+3),sizePicture*4);
+    button2->setFont(font);
 
     for(unsigned int y=0;y<=terrainMap->getSize('y')-1;y++)
     {
