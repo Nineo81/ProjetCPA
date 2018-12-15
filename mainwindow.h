@@ -38,7 +38,7 @@ private:
     bool myTurn = true;
     bool inactiveAI = false;
     bool pathfindAI = false;
-    AI* ai;
+    AI* ai = nullptr;
 
 signals:
     void mouseMoved();
