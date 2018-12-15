@@ -33,7 +33,7 @@ Game::Game(int gameType):terrainMap("Map1V1.txt"),
             else if (n == 3){
               defenseChart[i][j] = 2;
             }
-            else if (n == 2){
+            else if (n == 2 || n == 42 || n == 47){
               defenseChart[i][j] = 4;
             }
             else {defenseChart[i][j] = 3;}
