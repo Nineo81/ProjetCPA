@@ -112,6 +112,7 @@ Game::Game(int gameType):terrainMap("Map1V1.txt"),
     Unit* firstUnit = new infantery({15,3},1,0,this);
 
     firstUnit->setCanPlay(true);
+
     listPlayer[0]->add_unit(firstUnit);
 
     //IA qui joue
