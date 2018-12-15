@@ -410,6 +410,8 @@ GameWindow* MainWindow::getWidget()
 
 void MainWindow::updateWidget()
 {
+    cout<<"player: "<<cursor->getPlayerState()<<endl;
+    cout<<"money player: "<<cursor->getPlayer()->get_money()<<endl;
     centerZone.updateMap(cursor->getPlayer()->get_money(),cursor->getPlayerState());
 }
 

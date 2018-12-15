@@ -92,9 +92,15 @@ void Cursor::switchPlayerState()
             int posX=unit->get_X(); int posY=unit->get_Y();
             if(terrainMap->getElement(posX,posY)==43 || terrainMap->getElement(posX,posY)==44)
             {
-                unit->setCanPlay(true);
-                unit->setHP(2,'a');
-                playerBM->set_money((unit->getcost()) / 10,'d');
+
+                if(((playerBM->get_money())-((unit->getcost()) / 10))>0 && unit->getHP() < 10)
+                {
+                    unit->setHP(2,'a');
+                    playerBM->set_money((unit->getcost()) / 10,'d');
+
+                }
+
+
             }
         }
         playerBM->set_money(1000*static_cast<int>(playerBM->get_listBuilding().size()),'a');
@@ -110,9 +116,12 @@ void Cursor::switchPlayerState()
             int posX=unit->get_X(); int posY=unit->get_Y();
             if(terrainMap->getElement(posX,posY)==38 || terrainMap->getElement(posX,posY)==39)
             {
-                unit->setCanPlay(true);
-                unit->setHP(2,'a');
-                playerOS->set_money((unit->getcost()) / 10,'d');
+                if(((playerOS->get_money())-((unit->getcost()) / 10))>0 && unit->getHP() < 10)
+                {
+                    unit->setCanPlay(true);
+                    unit->setHP(2,'a');
+                    playerOS->set_money((unit->getcost()) / 10,'d');
+                }
 
             }
         }
