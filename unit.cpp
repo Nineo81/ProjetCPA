@@ -405,11 +405,11 @@ void Unit::capture()
         {
             game->getBuilding(position[0],position[1])->setLife(HP,game->getPlayer(color));
         }
-        else if(color == 1 && build >= 43 && build <= 45)
+        else if(color == 1 && build >= 43 && build <= 47)
         {
             game->getPlayer(2)->getBuilding(position[0],position[1])->setLife(HP,game->getPlayer(color));
         }
-        else if(color == 2 && build >= 38 && build <= 40)
+        else if(color == 2 && build >= 38 && build <= 42)
         {
             game->getPlayer(1)->getBuilding(position[0],position[1])->setLife(HP,game->getPlayer(color));
         }
