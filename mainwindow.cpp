@@ -213,7 +213,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         else if(cursorState==1 || cursorState==2){
             cursor->moveAlt(0,1,0,0);
         }
-        centerZone.updateMap();
+        updateWidget();
     }
 
     if (event->key() == Qt::Key_Right){
@@ -223,7 +223,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         else if(cursorState==1 || cursorState==2){
             cursor->moveAlt(0,0,0,1);
         }
-        centerZone.updateMap();
+        updateWidget();
     }
 
     if (event->key() == Qt::Key_Up){
@@ -234,7 +234,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         else if(cursorState==1 || cursorState==2){
             cursor->moveAlt(1,0,0,0);
         }
-        centerZone.updateMap();
+        updateWidget();
     }
 
     if (event->key() == Qt::Key_Down){
@@ -244,7 +244,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         else if(cursorState==1 || cursorState==2){
             cursor->moveAlt(0,0,1,0);
         }
-        centerZone.updateMap();
+        updateWidget();
     }
 
     if (event->key() == Qt::Key_Space || event->key() == Qt::Key_Enter){
@@ -411,7 +411,7 @@ GameWindow* MainWindow::getWidget()
 
 void MainWindow::updateWidget()
 {
-    centerZone.updateMap();
+    centerZone.updateMap(cursor->getPlayer()->get_money(),cursor->getPlayerState());
 }
 
 void MainWindow::updateWin()

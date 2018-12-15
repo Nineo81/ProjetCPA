@@ -5,6 +5,7 @@
 #include <string>
 #include <QImage>
 #include <QApplication>
+#include <QPoint>
 #include <QScreen>
 #include <string>
 #include <unistd.h>
@@ -12,6 +13,8 @@ using namespace std;
 
 GameWindow::GameWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) :terrainMap(terrainMap),unitMap(unitMap),cursor(cursor)
 {
+    money=0;
+    player=0;
     for(int i=1;i<117;i++) //Construction de la liste d'image
     {
         const char* imageName = (std::to_string(i)+".png").c_str();
@@ -31,6 +34,9 @@ void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     sizePicture = static_cast<int>(height/(terrainMap->getSize('y')+1));
+    painter.setFont(QFont("times",sizePicture/6));
+    painter.drawText(QPoint(sizePicture*(terrainMap->getSize('x')+2),sizePicture*3),("Player's money : " + to_string(money)).c_str());
+    painter.drawText(QPoint(sizePicture*(terrainMap->getSize('x')+2),sizePicture*2),("Turn of player " + to_string(player)).c_str());
 
     for(unsigned int y=0;y<=terrainMap->getSize('y')-1;y++)
     {
@@ -70,8 +76,10 @@ void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
     cursor->setSizePicture(sizePicture);
 }
 
-void GameWindow::updateMap()
+void GameWindow::updateMap(int money, int player)
 {
+    setMoney(money);
+    setPlayer(player);
     update();
 }
 
@@ -111,4 +119,14 @@ void GameWindow::attackReset()
 int GameWindow::getSizePicture()
 {
     return sizePicture;
+}
+
+void GameWindow::setMoney(int money)
+{
+    this->money=money;
+}
+
+void GameWindow::setPlayer(int player)
+{
+    this->player=player;
 }

@@ -5,6 +5,7 @@
 #include "map.h"
 #include "cursor.h"
 #include <vector>
+#include <QLabel>
 
 class GameWindow : public QWidget
 {
@@ -14,13 +15,17 @@ public:
 
     void paintEvent(QPaintEvent *event);
     void setSize(double width,double height);
-    void updateMap();
+    void updateMap(int money, int player);
     void movementsReset();
     void setMovements(vector<vector<int>> movements);
     void attackReset();
     void setAttack(vector<vector<int>> attack);
     int getSizePicture();
+    void setMoney(int money);
+    void setPlayer(int player);
 private:
+    int money;
+    int player;
     int sizePicture;
     unsigned int height;
     unsigned int width;
