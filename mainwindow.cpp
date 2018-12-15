@@ -253,7 +253,6 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
             && cursorState == 0
             && cursor->getPlayer()->getUnit(cursor->getPosX(),cursor->getPosY())->getCanPlay())
         {
-            std::cout << "Yuluo" << std::endl;
             UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY(),typeOfUnitMenu(0));
             QObject::connect(menu,SIGNAL(moveUnit()),this,SLOT(movingUnit()));
             QObject::connect(menu,SIGNAL(attacking()),this,SLOT(unitAttack()));
@@ -410,8 +409,6 @@ GameWindow* MainWindow::getWidget()
 
 void MainWindow::updateWidget()
 {
-    cout<<"player: "<<cursor->getPlayerState()<<endl;
-    cout<<"money player: "<<cursor->getPlayer()->get_money()<<endl;
     centerZone.updateMap(cursor->getPlayer()->get_money(),cursor->getPlayerState());
 }
 

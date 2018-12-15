@@ -189,11 +189,13 @@ bool Cursor::onABuilding()
     int element = terrainMap->getElement(posX,posY);
     if(element <= 45 && element >= 34)
     {
-        if(playerState == 1 && element != 38 && element != 39 && element != 40)
+
+        if(playerState == 1 && element != 38 && element != 39 && element != 40 && (unitMap->getElement(posX,posY) == 50 || unitMap->getElement(posX,posY) == 58))
         {
             rep=true;
         }
-        else if(playerState == 2 && element != 43 && element != 44 && element != 45)
+        else if(playerState == 2 && element != 43 && element != 44 && element != 45 && (unitMap->getElement(posX,posY) == 61 || unitMap->getElement(posX,posY) == 69))
+
         {
             rep=true;
         }

@@ -59,13 +59,16 @@ void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
         }
 
     }
-    for(Unit* u :cursor->getPlayer()->get_listUnit())
+    if(cursor->getPlayer())
     {
-        painter.drawText(QPoint((u->get_X()+1)*sizePicture,(u->get_Y()+1)*sizePicture),to_string(u->getHP()).c_str());
-    }
-    for(Unit* u :cursor->getOpponent()->get_listUnit())
-    {
-        painter.drawText(QPoint((u->get_X()+1)*sizePicture,(u->get_Y()+1)*sizePicture),to_string(u->getHP()).c_str());
+        for(Unit* u :cursor->getPlayer()->get_listUnit())
+        {
+            painter.drawText(QPoint((u->get_X()+1)*sizePicture,(u->get_Y()+1)*sizePicture),to_string(u->getHP()).c_str());
+        }
+        for(Unit* u :cursor->getOpponent()->get_listUnit())
+        {
+            painter.drawText(QPoint((u->get_X()+1)*sizePicture,(u->get_Y()+1)*sizePicture),to_string(u->getHP()).c_str());
+        }
     }
     for(std::vector<int> pos : movements)
     {
