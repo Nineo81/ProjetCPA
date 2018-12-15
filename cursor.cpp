@@ -1,6 +1,6 @@
 #include "cursor.h"
 
-Cursor::Cursor(int posX,int posY,Map* unitMap,Map* terrainMap):posX(posX),posY(posY),unitMap(unitMap),terrainMap(terrainMap),playerOS(nullptr),playerBM(nullptr)
+Cursor::Cursor(unsigned int posX,unsigned int posY,Map* unitMap,Map* terrainMap):posX(posX),posY(posY),unitMap(unitMap),terrainMap(terrainMap),playerOS(nullptr),playerBM(nullptr)
 {
     playerState=2;
 }
@@ -144,7 +144,7 @@ bool Cursor::unitOfPlayer()
 vector<vector<int>> Cursor::opponnentUnit()
 {
     vector<vector<int>> opponnent;
-    vector<vector<int>> position={{posX-1,posY},{posX+1,posY},{posX,posY-1},{posX,posY+1}};
+    vector<vector<int>> position={{static_cast<int>(posX-1),static_cast<int>(posY)},{static_cast<int>(posX+1),static_cast<int>(posY)},{static_cast<int>(posX),static_cast<int>(posY-1)},{static_cast<int>(posX),static_cast<int>(posY+1)}};
     for(vector<int> pos : position)
     {
         if (pos[0]>0 && pos[1]>0 && pos[0]<unitMap->getSize('x') && pos[1]<unitMap->getSize('y'))

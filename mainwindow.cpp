@@ -193,12 +193,14 @@ AI *MainWindow::getAI() const
 void MainWindow::setAI(AI *value)
 {
     ai = value;
-    connect(this,SIGNAL(passedTurn()),ai,SLOT(play()));
+    if (inactiveAI || pathfindAI){
+       connect(this,SIGNAL(passedTurn()),ai,SLOT(play()));
+    }
 }
 
 bool MainWindow::getInactiveAI() const
 {
-    return ai;
+    return inactiveAI;
 }
 
 void MainWindow::keyPressEvent(QKeyEvent * event){
@@ -280,8 +282,8 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
 
             if (reseau) {
                 QJsonObject action;
-                action["xM"] = unitPosX;
-                action["yM"] = unitPosY;
+                action["xM"] = static_cast<int>(unitPosX);
+                action["yM"] = static_cast<int>(unitPosY);
                 action["newXM"] = cursor->getPosX();
                 action["newYM"] = cursor->getPosY();
                 sendJson(action);
@@ -304,8 +306,8 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
                 QJsonObject action;
                 action["XA"] = cursor->getPosX();
                 action["YA"] = cursor->getPosY();
-                action["fromXA"] = unitPosX;
-                action["fromYA"] = unitPosY;
+                action["fromXA"] = static_cast<int>(unitPosX);
+                action["fromYA"] = static_cast<int>(unitPosY);
                 sendJson(action);
             }
 
@@ -366,8 +368,8 @@ void MainWindow::mousePressEvent(QMouseEvent *ev){
 
             if (reseau){
                 QJsonObject action;
-                action["xM"] = unitPosX;
-                action["yM"] = unitPosY;
+                action["xM"] = static_cast<int>(unitPosX);
+                action["yM"] = static_cast<int>(unitPosY);
                 action["newXM"] = cursor->getPosX();
                 action["newYM"] = cursor->getPosY();
                 sendJson(action);
@@ -391,8 +393,8 @@ void MainWindow::mousePressEvent(QMouseEvent *ev){
                 QJsonObject action;
                 action["XA"] = cursor->getPosX();
                 action["YA"] = cursor->getPosY();
-                action["fromXA"] = unitPosX;
-                action["fromYA"] = unitPosY;
+                action["fromXA"] = static_cast<int>(unitPosX);
+                action["fromYA"] = static_cast<int>(unitPosY);
                 sendJson(action);
             }
 
@@ -423,7 +425,7 @@ void MainWindow::movingUnit()
 {
     unitPosX=cursor->getPosX();
     unitPosY=cursor->getPosY();
-    vector<vector<int>> possibPos=cursor->getPlayer()->getUnit(static_cast<unsigned int>(unitPosX),static_cast<unsigned int>(unitPosY))->movePossib(cursor->getPosX(),cursor->getPosY());
+    vector<vector<int>> possibPos=cursor->getPlayer()->getUnit(unitPosX,unitPosY)->movePossib(cursor->getPosX(),cursor->getPosY());
     centerZone.setMovements(possibPos);
     cursor->updateMovements(possibPos);
     cursorState=1;
@@ -433,7 +435,8 @@ void MainWindow::switchPlayer()
 {
     cursor->switchPlayerState();
 
-    if (ai){
+    if (inactiveAI || pathfindAI){
+        cout<<"signal emit"<<endl;
         emit passedTurn();
     }
     if (reseau){
@@ -454,7 +457,7 @@ void MainWindow::unitAttack()
     vector<vector<int>> possibPos = cursor->opponnentUnit();
     unitPosX=cursor->getPosX();
     unitPosY=cursor->getPosY();
-    possibPos.push_back({unitPosX,unitPosY});
+    possibPos.push_back({static_cast<int>(unitPosX),static_cast<int>(unitPosY)});
     centerZone.setAttack(possibPos);
     cursor->updateMovements(possibPos);
     cursorState=2;

@@ -5,6 +5,7 @@
 #include "airport.h"
 #include "infantery.h"
 #include "inactiveai.h"
+#include "pathfindai.h"
 
 Game::Game():terrainMap("Map1V1.txt"),
     unitMap(terrainMap.getSize('x'),
@@ -110,7 +111,7 @@ Game::Game():terrainMap("Map1V1.txt"),
         w.setAI(new InactiveAI(this,1));        //joue Orange Star
     }
     if (w.getPathfindAI()){
-        w.setAI(new InactiveAI(this,2));        //joue Blue Moon
+        w.setAI(new PathfindAI(this,2));        //joue Blue Moon
     }
 }
 

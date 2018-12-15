@@ -24,8 +24,8 @@ public:
     bool getPathfindAI() const;
 
 private:
-    int unitPosX;
-    int unitPosY;
+    unsigned int unitPosX;
+    unsigned int unitPosY;
     Cursor* cursor;
     GameWindow centerZone;
     int cursorState;
@@ -37,7 +37,7 @@ private:
     bool reseau = false;
     bool myTurn = true;
     bool inactiveAI = false;
-    bool pathfindAI = false;
+    bool pathfindAI = true;
     AI* ai = nullptr;
 
 signals:
