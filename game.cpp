@@ -4,9 +4,10 @@
 #include "factory.h"
 #include "airport.h"
 #include "infantery.h"
+#include "inactiveai.h"
 
 Game::Game():terrainMap("Map1V1.txt"),
-            unitMap(terrainMap.getSize('x'),
+    unitMap(terrainMap.getSize('x'),
             terrainMap.getSize('y')),cursor(5,5,&unitMap,&terrainMap),
             w(&terrainMap,&unitMap,&cursor)
 {
@@ -14,9 +15,7 @@ Game::Game():terrainMap("Map1V1.txt"),
     terrainMap.setWindow(w.getWidget());
     w.show();
 
-    /*Initialisation du tableau de défense
-    La fonction ne marche pas pour l'instant ("undifined reference to[]")
-    donc je laisse comme ça pour l'instant, je reviendrais dessus*/
+    /*Initialisation du tableau de défense*/
 
     //defenseChart = initDefense(terrainMap);
     std::vector<std::vector<int>> defenseChart;
@@ -103,11 +102,14 @@ Game::Game():terrainMap("Map1V1.txt"),
     cursor.getPlayer()->set_money(3000,'a');
     //création de l'unité de base de OS
     Unit* firstUnit = new infantery({15,3},1,0,this);
-    Unit* secondUnit = new infantery({15,4},1,0,this);
-    secondUnit->setCanPlay(true);
     firstUnit->setCanPlay(true);
     listPlayer[0]->add_unit(firstUnit);
-    listPlayer[0]->add_unit(secondUnit);
+
+    if (w.getInactiveAI()){
+        w.setAI(new InactiveAI(this,1));
+    }
+    cout<<"Game game : "<<this<<endl;
+    cout<<"Game cursor :"<<&cursor<<endl;
 }
 
 void Game::delete_building(Building* building){
@@ -222,37 +224,3 @@ Game::~Game(){
         delete p;
     }
 }
-
-/*std::vector<std::vector<int>> initDefense(Map terrainMap){
-    std::vector<std::vector<int>> defenseChart;
-    defenseChart.resize(terrainMap.getSize('m'));
-    for (unsigned int i = 0; i<terrainMap.getSize('m');i++){
-        defenseChart[i].resize(terrainMap.getSize('p'));
-    }
-    for (unsigned int i = 0; i<terrainMap.getSize('m');i++){
-        for (unsigned int j = 0; j<terrainMap.getSize('p');j++){
-            int temp =terrainMap.getElement(i,j);
-            if (temp == 4 || temp == 5 ||temp == 6 ||temp == 7 ||temp == 8 ||temp == 9 ||
-                temp == 10 ||temp == 11 ||temp == 12 ||temp == 13 ||temp == 14 ||temp == 15 ||
-                temp == 16 ||temp == 17 ||temp == 18 ||temp == 19 ||temp == 20 ||temp == 21 ||
-                temp == 22 ||temp == 23 ||temp == 24 ||temp == 25 ||temp == 26 ||temp == 27 ||
-                temp == 28 ||temp == 29 ||temp == 30 ||temp == 31 ||temp == 32 ||temp == 101 ||
-                temp == 102 ||temp == 103 ||temp == 104 ||temp == 105 ||temp == 106 ||temp == 107 ||
-                temp == 108 ||temp == 109 ||temp == 110){
-              defenseChart[i][j] = 0;
-            }
-            else if (temp == 1 ||temp == 33){
-              defenseChart[i][j] = 1;
-            }
-            else if (temp == 3){
-              defenseChart[i][j] = 2;
-            }
-            else if (temp == 2){
-              defenseChart[i][j] = 4;
-            }
-            else {defenseChart[i][j] = 3;}
-        }
-    }
-    return defenseChart;
-}
-*/

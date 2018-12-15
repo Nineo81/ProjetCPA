@@ -81,6 +81,7 @@ Player* Cursor::getOpponent()
 
 void Cursor::switchPlayerState()
 {
+    //emit playerChanged();
     if(playerState==1)
     {
         playerState=2;
@@ -202,7 +203,7 @@ void Cursor::updateMovements(vector<vector<int>> movements)
     this->movements=movements;
 }
 
-int Cursor::getPlayerState() const
+int Cursor::getPlayerState()
 {
     return playerState;
 }

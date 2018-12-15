@@ -6,10 +6,13 @@
 #include <QStyle>
 #include <QKeyEvent>
 #include <QMouseEvent>
+#include <QLabel>
 #include "unitmenu.h"
 #include "buildingmenu.h"
 #include "pausemenu.h"
 #include "infantery.h"
+#include "ai.h"
+
 
 MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) : cursor(cursor),centerZone(terrainMap,unitMap,cursor)
 {
@@ -175,6 +178,22 @@ void MainWindow::sendJson(QJsonObject obj) {
     out << (quint32) data.length();
     other->write(data);
     std::cout << "Sending " << data.toStdString() << std::endl;
+}
+
+AI *MainWindow::getAI() const
+{
+    return ai;
+}
+
+void MainWindow::setAI(AI *value)
+{
+    ai = value;
+    connect(this,SIGNAL(passedTurn()),ai,SLOT(play()));
+}
+
+bool MainWindow::getInactiveAI() const
+{
+    return ai;
 }
 
 void MainWindow::keyPressEvent(QKeyEvent * event){
@@ -399,6 +418,9 @@ void MainWindow::switchPlayer()
 {
     cursor->switchPlayerState();
 
+    if (ai){
+        emit passedTurn();
+    }
     if (reseau){
         QJsonObject action;
         action["endofturn"] = true;

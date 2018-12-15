@@ -432,5 +432,6 @@ void Unit::wait(){
 
 Unit::~Unit()
 {
-   PUM->setElement(0,position[0],position[1]);
+
+    PUM->setElement(0,position[0],position[1]);
 }

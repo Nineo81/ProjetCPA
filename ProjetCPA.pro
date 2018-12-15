@@ -53,7 +53,9 @@ SOURCES += \
     unitmenu.cpp \
     buildingmenu.cpp \
     pausemenu.cpp \
-    custombutton.cpp
+    custombutton.cpp \
+    inactiveai.cpp \
+    ai.cpp
 
 HEADERS += \
     game.h \
@@ -83,7 +85,9 @@ HEADERS += \
     unitmenu.h \
     buildingmenu.h \
     pausemenu.h \
-    custombutton.h
+    custombutton.h \
+    inactiveai.h \
+    ai.h
 
 FORMS +=
 

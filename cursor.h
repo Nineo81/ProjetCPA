@@ -3,6 +3,7 @@
 #include "map.h"
 #include <QRect>
 #include <vector>
+#include <QObject>
 #include "player.h"
 using namespace std;
 
@@ -26,7 +27,7 @@ public:
     void switchPlayerState();
     void setSizePicture(int sizePicture);
     void updateMovements(vector<vector<int>> movements);
-    int getPlayerState() const;
+    int getPlayerState();
     Map *getUnitMap() const;
     void setPosition(int realX, int realY);
 private:

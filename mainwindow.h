@@ -6,6 +6,7 @@
 #include "cursor.h"
 #include <QtNetwork>
 
+class AI;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -17,6 +18,10 @@ public:
     GameWindow* getWidget();
     void updateWidget();
     void moved(QMouseEvent *event);
+    bool getInactiveAI() const;
+    void setAI(AI *value);
+    AI *getAI() const;
+
 private:
     int unitPosX;
     int unitPosY;
@@ -30,9 +35,12 @@ private:
     bool isConfigured=false;
     bool reseau = false;
     bool myTurn = true;
+    bool inactiveAI = false;
+    AI* ai;
 
 signals:
     void mouseMoved();
+    void passedTurn();
 
 public slots:
     void switchPlayer();
