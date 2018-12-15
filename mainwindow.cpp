@@ -47,7 +47,7 @@ MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor,int gameType)
             std::cout << "I am a client" << std::endl;
             other = new QTcpSocket();
             connect(other, SIGNAL(connected()), this, SLOT(onConnected()));
-            other->connectToHost("192.168.0.110", 8123);
+            other->connectToHost("192.168.0.1", 8123);
             connect(other, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
             myTurn = true;
         }
