@@ -92,9 +92,11 @@ Game::Game():terrainMap("Map1V1.txt"),
                 }
                 case 42:{
                     buildingsOS.push_back(new City(pos,this,true));
+                    break;
                 }
-                case 47:{
+               case 47:{
                     buildingsBM.push_back(new City(pos,this,true));
+                    break;
                 }
             }
         }
