@@ -5,6 +5,7 @@
 UnitMenu::UnitMenu(int posX,int posY,int type)
 {
     setEscape(true);
+    setFocusPolicy(Qt::ClickFocus);
     QPushButton *button1 = new QPushButton("Move");
     button1->setAutoDefault(true);
     QObject::connect(button1, SIGNAL(clicked()),this,SLOT(movement()));
@@ -105,5 +106,13 @@ void UnitMenu::setEscape(bool escape)
 
 void UnitMenu::focusOutEvent(QFocusEvent* event)
 {
-    close();
+    if(!forceResponse)
+    {
+        close();
+    }
+}
+
+void UnitMenu::forceResp()
+{
+    forceResponse=true;
 }

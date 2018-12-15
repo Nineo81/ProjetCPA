@@ -307,7 +307,9 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
             QObject::connect(menu, SIGNAL(attacking()), this, SLOT(unitAttack()));
             QObject::connect(menu, SIGNAL(capturing()), this, SLOT(unitCapture()));
             QObject::connect(menu, SIGNAL(waiting()), this, SLOT(setUnitWainting()));
-            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Popup);
+            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+            menu->setFocus();
+            menu->forceResp();
             menu->show();
         }
         else if(cursorState==2 && !cursor->unitOfPlayer())
@@ -392,7 +394,10 @@ void MainWindow::mousePressEvent(QMouseEvent *ev){
             QObject::connect(menu,SIGNAL(capturing()),this,SLOT(unitCapture()));
             QObject::connect(menu,SIGNAL(waiting()),this,SLOT(setUnitWainting()));
             QObject::connect(menu,SIGNAL(menuClose()),this,SLOT(curState()));
-            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Popup);
+            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+            this->setDisabled(true);
+            menu->setFocus();
+            menu->forceResp();
             menu->show();
         }
         else if(cursorState==2 && !cursor->unitOfPlayer() && cursor->canMoveUnit(cursor->getPosX(),cursor->getPosY()))
@@ -441,6 +446,7 @@ void MainWindow::movingUnit()
     centerZone.setMovements(possibPos);
     cursor->updateMovements(possibPos);
     cursorState=1;
+    this->setDisabled(false);
     updateWidget();
 }
 
@@ -469,6 +475,7 @@ void MainWindow::switchPlayer()
 void MainWindow::setUnitWainting()
 {
     cursor->getPlayer()->getUnit(static_cast<unsigned int>(cursor->getPosX()),static_cast<unsigned int>(cursor->getPosY()))->wait();
+    this->setDisabled(false);
     updateWidget();
 }
 
@@ -481,6 +488,7 @@ void MainWindow::unitAttack()
     centerZone.setAttack(possibPos);
     cursor->updateMovements(possibPos);
     cursorState=2;
+    this->setDisabled(false);
     updateWidget();
 }
 
@@ -494,6 +502,7 @@ void MainWindow::unitCapture()
         action["YC"] = cursor->getPosY();
         sendJson(action);
     }
+    this->setDisabled(false);
     updateWidget();
 }
 
