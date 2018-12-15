@@ -208,19 +208,19 @@ void Unit::attack(Unit* defender)
     {
         int damage2=defender->damage(this);
         this->setHP(damage2,'d');
-        canPlay=false;
+        canPlay = false;
     }
 }
 
 void Unit::join_unit(Unit* unit2)
 {
-    unit2->setHP(this->getHP(),'a');
-    if (unit2->getHP()>10)
+    unit2->setHP(this->getHP(), 'a');
+    if (unit2->getHP() > 10)
         unit2->setHP();               //si HP de unit2 >10 : on arrondi son HP à 10
     delete this;                     //auto-destruction de l'unité pour que les 2 unités deviennent un
 }
 
-int Unit::get_MPLoss(unsigned int x,unsigned int y)
+int Unit::get_MPLoss(unsigned int x, unsigned int y)
 {
     int terrainChart[11][5]={{1,1,1,2,1},
                              {2,1,10,10,1},
@@ -372,32 +372,31 @@ vector<vector<int>> Unit::movePossib(int x,int y)
 
 void Unit::move(unsigned int x,unsigned int y)
 {
-    if(canPlay==true)
+    if(canPlay)
     {
-        unsigned int oldX=position[0];
-        unsigned int oldY=position[1];
-        Unit *unit = NULL;
+        unsigned int oldX = position[0];
+        unsigned int oldY = position[1];
+        Unit *unit = nullptr;
         if (PUM->getElement(x,y) == type){
             unit = game->getCursor()->getPlayer()->getUnit(x,y);
         }
-        else{
-            PUM->replace(oldX,oldY,x,y);
-            vector<unsigned int> newposition={x,y};
+        else {
+            PUM->replace(oldX, oldY, x, y);
+            vector<unsigned int> newposition = {x, y};
             this->setposition(newposition);
             this->resetMP();
         }
-        int T=game->getTerrainMap().getElement(oldX,oldY);
-        if (T>=34 && T<=36)
-        {
+        int T = game->getTerrainMap().getElement(oldX,oldY);
+        if (T>=34 && T<=36) {
             game->getBuilding(oldX,oldY)->resetLife();
         }
-        else if(T>=43 && T<=45){
+        else if(43 <= T && T <= 45){  // 43 <= T <= 45
             game->getPlayer(2)->getBuilding(oldX,oldY)->resetLife();
         }
-        else if(T>=38 && T<=40){
+        else if(38 <= T && T <= 40){
             game->getPlayer(1)->getBuilding(oldX,oldY)->resetLife();
         }
-        if (unit != NULL){
+        if (unit != nullptr) {
             join_unit(unit);
         }
     }
@@ -405,9 +404,9 @@ void Unit::move(unsigned int x,unsigned int y)
 
 void Unit::capture()
 {
-    if ((type==58 || type==50) && canPlay==true)
+    if ((type==58 || type==50) && canPlay)
     {
-        Map terrainMap=game->getTerrainMap();
+        Map terrainMap = game->getTerrainMap();
         int build=terrainMap.getElement(position[0],position[1]);
         if (build>=34 && build<=36)
         {
@@ -421,17 +420,17 @@ void Unit::capture()
         {
             game->getPlayer(1)->getBuilding(position[0],position[1])->setLife(HP,game->getPlayer(color));
         }
-        canPlay=false;
+        canPlay = false;
     }
 
 }
 
 void Unit::wait(){
-    canPlay=false;
+    canPlay = false;
 }
 
 Unit::~Unit()
 {
-
-    PUM->setElement(0,position[0],position[1]);
+   game->getPlayer(color)->delete_unit(this);
+   PUM->setElement(0,position[0], position[1]);
 }

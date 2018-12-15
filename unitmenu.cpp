@@ -4,6 +4,7 @@
 
 UnitMenu::UnitMenu(int posX,int posY,int type)
 {
+    setEscape(true);
     QPushButton *button1 = new QPushButton("Move");
     button1->setAutoDefault(true);
     QObject::connect(button1, SIGNAL(clicked()),this,SLOT(movement()));
@@ -62,7 +63,7 @@ UnitMenu::UnitMenu(int posX,int posY,int type)
 
 void UnitMenu::keyPressEvent(QKeyEvent* event)
 {
-    if (event->key() == Qt::Key_Escape || event->key() == Qt::Key_Backspace){
+    if (event->key() == Qt::Key_Escape && escape){
     //retour == bouton B
         emit menuClose();
         close();
@@ -95,4 +96,9 @@ void UnitMenu::attack()
     emit menuClose();
     emit attacking();
     close();
+}
+
+void UnitMenu::setEscape(bool escape)
+{
+    this->escape=escape;
 }
