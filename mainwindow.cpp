@@ -334,7 +334,7 @@ void MainWindow::mousePressEvent(QMouseEvent *ev){
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
         }
-        else if(cursorState==1)
+        else if(cursorState==1 && cursor->canMoveUnit(cursor->getPosX(),cursor->getPosY()))
         {
             cursor->getPlayer()->getUnit(unitPosX,unitPosY)->move(cursor->getPosX(),cursor->getPosY());
             centerZone.movementsReset();
@@ -358,7 +358,7 @@ void MainWindow::mousePressEvent(QMouseEvent *ev){
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
             menu->show();
         }
-        else if(cursorState==2 && !cursor->unitOfPlayer())
+        else if(cursorState==2 && !cursor->unitOfPlayer() && cursor->canMoveUnit(cursor->getPosX(),cursor->getPosY()))
         {
             cursor->getPlayer()->getUnit(unitPosX,unitPosY)->attack(cursor->getOpponent()->getUnit(cursor->getPosX(),cursor->getPosY()));
             centerZone.attackReset();

@@ -29,6 +29,8 @@ public:
     int getPlayerState() const;
     Map *getUnitMap() const;
     void setPosition(int realX, int realY);
+    bool canMoveUnit(int posX,int posY);
+    bool canAttackUnit(int posX,int posY);
 private:
     vector<vector<int>> movements;
     int sizePicture;

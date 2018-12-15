@@ -210,3 +210,17 @@ Map *Cursor::getUnitMap() const
 {
     return unitMap;
 }
+
+bool Cursor::canMoveUnit(int posX, int posY)
+{
+    vector<vector<int>> movements= this->movements;
+    bool canMoveUnit=false;
+    unsigned i=0;
+    while(i<movements.size() && canMoveUnit==false)
+    {
+        if (this->getPosX()==movements[i][0] && this->getPosY()==movements[i][1])
+            canMoveUnit=true;
+        i++;
+    }
+    return canMoveUnit;
+}
