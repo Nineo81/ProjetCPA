@@ -53,13 +53,10 @@ void Factory::createUnit(int typeUnit){
             break;}
     }
     this->player->set_money(unit->getcost(),'d');
+    player->add_unit(unit);
     if (this->player->get_money()<0){
         this->player->set_money(unit->getcost(),'a');
         delete unit;
-    }
-    else
-    {
-        player->add_unit(unit);
     }
 }
 
