@@ -39,8 +39,11 @@ private:
     vector<vector<int>> movements;
     vector<vector<int>> attack;
 signals:
-
+    void nextTurn();
+    void endGame();
 public slots:
+    void sendNextTurn();
+    void endingGame();
 };
 
 #endif // GAMEWINDOW_H

@@ -12,7 +12,9 @@ public:
     void keyPressEvent(QKeyEvent * event);
     void setEscape(bool escape);
     void focusOutEvent(QFocusEvent* event);
+    void forceResp();
 private:
+    bool forceResponse=false;
     bool escape;
 signals:
     void moveUnit();
