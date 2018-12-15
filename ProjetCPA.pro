@@ -56,7 +56,8 @@ SOURCES += \
     custombutton.cpp \
     inactiveai.cpp \
     ai.cpp \
-    pathfindai.cpp
+    pathfindai.cpp \
+    mainmenu.cpp
 
 HEADERS += \
     game.h \
@@ -89,7 +90,8 @@ HEADERS += \
     custombutton.h \
     inactiveai.h \
     ai.h \
-    pathfindai.h
+    pathfindai.h \
+    mainmenu.h
 
 FORMS +=
 
