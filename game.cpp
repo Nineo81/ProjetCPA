@@ -20,10 +20,10 @@ Game::Game(int gameType):terrainMap("Map1V1.txt"),
     //defenseChart = initDefense(terrainMap);
     std::vector<std::vector<int>> defenseChart;
     defenseChart.resize(terrainMap.getSize('y'));
-    for (unsigned int i = 0; i<terrainMap.getSize('y');i++){
+    for (unsigned int i = 0; i < terrainMap.getSize('y');i++){
         defenseChart[i].resize(terrainMap.getSize('x'));
-        for (unsigned int j = 0; j<terrainMap.getSize('x');j++){
-            int n =terrainMap.getElement(j,i);
+        for (unsigned int j = 0; j < terrainMap.getSize('x');j++){
+            int n = terrainMap.getElement(j,i);
             if ((n >= 4 && n <= 32)||n >= 101){
               defenseChart[i][j] = 0;
             }
@@ -47,9 +47,9 @@ Game::Game(int gameType):terrainMap("Map1V1.txt"),
 
     /*ajout des batimentst*/
 
-    for (unsigned int i = 0; i<terrainMap.getSize('y');i++){
-        for (unsigned int j = 0; j<terrainMap.getSize('x');j++){
-            int temp =terrainMap.getElement(j,i);
+    for (unsigned int i = 0; i < terrainMap.getSize('y');i++){
+        for (unsigned int j = 0; j < terrainMap.getSize('x');j++){
+            int temp = terrainMap.getElement(j,i);
             vector<unsigned int> pos;
             pos.push_back(j);
             pos.push_back(i);
@@ -171,11 +171,11 @@ Building* Game::getBuilding(unsigned int X,unsigned int Y)
 Player* Game::getPlayer(int color)
 {
     Player* P=nullptr;
-    if (color==1)
+    if (color == 1)
     {
         P=listPlayer[0];
     }
-    else if(color==2)
+    else if(color == 2)
     {
         P=listPlayer[1];
     }
@@ -207,7 +207,7 @@ void Game::play(Player player)
         unit->setHP(2,'a');
     }
 
-    player.set_money(1000*static_cast<int>(player.get_listBuilding().size()),'a');
+    player.set_money(1000 * static_cast<int>(player.get_listBuilding().size()),'a');
 
     while (player.getTurn())
     {

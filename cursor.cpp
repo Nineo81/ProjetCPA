@@ -10,7 +10,7 @@ void Cursor::move(int up,int left,int down,int right)
     if(posX - left >= 0){this->posX = posX - left;}
     if(posX + right <= static_cast<int>(terrainMap->getSize('x')) -1 ){this->posX = posX + right;}
     if(posY-up >= 0){this->posY = posY - up;}
-    if(posY+down <= static_cast<int>(terrainMap->getSize('y')) - 1){this->posY=posY+down;}
+    if(posY+down <= static_cast<int>(terrainMap->getSize('y')) - 1 ){this->posY=posY+down;}
 }
 
 void Cursor::moveAlt(int up,int left,int down,int right) //Vérifie que le cursor sera bien dans la zone autorisée pour l'unité
@@ -42,7 +42,7 @@ int Cursor::getRealX()
 }
 
 void Cursor::setPosition(int realX, int realY){
-    posX = realX/sizePicture -1 ;
+    posX = realX/sizePicture -1;
     posY = realY/sizePicture -1;
 
 }
@@ -125,7 +125,7 @@ void Cursor::switchPlayerState()
 
             }
         }
-        playerOS->set_money(1000*static_cast<int>(playerOS->get_listBuilding().size()),'a');
+        playerOS->set_money(1000 * static_cast<int>(playerOS->get_listBuilding().size()),'a');
 
     }
 }

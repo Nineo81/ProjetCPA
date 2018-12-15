@@ -3,15 +3,15 @@
 Player::Player(int playerNumber, vector<Building*> firstBuildings,Map* terrainMap,Map* unitMap)
 {
     this->playerNumber = playerNumber;
-    this->terrainMap=terrainMap;
-    this->unitMap=unitMap;
-    this->listBuilding=firstBuildings;
+    this->terrainMap = terrainMap;
+    this->unitMap = unitMap;
+    this->listBuilding = firstBuildings;
     //this->money=1000*listBuilding.size();
     //this->money = 1000;
     for (Building* b : listBuilding) {
         b->setPlayer(this);
     }
-    turn=false;
+    turn = false;
 }
 
 int Player::get_money(){
@@ -30,10 +30,10 @@ void Player::set_money(int diff, char sign){
 void Player::add_building(Building* building){
     listBuilding.push_back(building);
     if (playerNumber == 1){
-        terrainMap->setElement(building->getType()+4,building->get_X(),building->get_Y());
+        terrainMap->setElement(building->getType()+ 4,building->get_X(),building->get_Y());
     }
     else if (playerNumber == 2){
-        terrainMap->setElement(building->getType()+9,building->get_X(),building->get_Y());
+        terrainMap->setElement(building->getType() + 9,building->get_X(),building->get_Y());
     }
 }
 
@@ -124,7 +124,7 @@ bool Player::getTurn(){
 
 
 void Player::setTurn(bool turn){
-    this->turn=turn;
+    this->turn = turn;
 }
 
 Unit* Player::getUnit(unsigned X,unsigned int Y)

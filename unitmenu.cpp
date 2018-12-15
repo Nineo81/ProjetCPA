@@ -101,7 +101,7 @@ void UnitMenu::attack()
 
 void UnitMenu::setEscape(bool escape)
 {
-    this->escape=escape;
+    this->escape = escape;
 }
 
 void UnitMenu::focusOutEvent(QFocusEvent* event)
@@ -114,5 +114,5 @@ void UnitMenu::focusOutEvent(QFocusEvent* event)
 
 void UnitMenu::forceResp()
 {
-    forceResponse=true;
+    forceResponse = true;
 }
