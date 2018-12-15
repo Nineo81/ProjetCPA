@@ -38,7 +38,7 @@ GameWindow::GameWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) :terrainMap(
 void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
-    QFont font("times",sizePicture/3,QFont::Bold);
+    QFont font("Times",sizePicture/3,QFont::Bold);
     sizePicture = static_cast<int>(height/(terrainMap->getSize('y')+1));
     painter.setFont(font);
     painter.drawText(QPoint(sizePicture*(terrainMap->getSize('x')+2),sizePicture*3),("Player's money : " + to_string(money)).c_str());
@@ -92,8 +92,7 @@ void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
             painter.fillRect(QRect(sizePicture*(pos[0]+1),sizePicture*(pos[1]+1),sizePicture,sizePicture), QBrush(QColor(128, 128, 255, 128)));
         }
     }
-    painter.setPen(Qt::red);
-    painter.drawRect(sizePicture*(cursor->getPosX()+1),sizePicture*(cursor->getPosY()+1),sizePicture,sizePicture);
+    painter.drawImage(QRect(sizePicture*(cursor->getPosX()+1),sizePicture*(cursor->getPosY()+1),sizePicture,sizePicture),QImage("cursor.png"));
     cursor->setSizePicture(sizePicture);
 }
 
