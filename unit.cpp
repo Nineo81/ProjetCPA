@@ -404,7 +404,7 @@ void Unit::move(unsigned int x,unsigned int y)
 
 void Unit::capture()
 {
-    if ((type==58 || type==50) && canPlay)
+    if (canPlay)
     {
         Map terrainMap = game->getTerrainMap();
         int build=terrainMap.getElement(position[0],position[1]);
