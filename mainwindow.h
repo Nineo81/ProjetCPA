@@ -11,7 +11,7 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor);
+    explicit MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor,int gameType);
     void keyPressEvent(QKeyEvent * event) override;
     void mousePressEvent(QMouseEvent *ev) override;
     int typeOfUnitMenu(int moveState);

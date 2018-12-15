@@ -6,10 +6,10 @@
 #include "infantery.h"
 #include "inactiveai.h"
 
-Game::Game():terrainMap("Map1V1.txt"),
+Game::Game(int gameType):terrainMap("Map1V1.txt"),
     unitMap(terrainMap.getSize('x'),
             terrainMap.getSize('y')),cursor(5,5,&unitMap,&terrainMap),
-            w(&terrainMap,&unitMap,&cursor)
+            w(&terrainMap,&unitMap,&cursor,gameType)
 {
     unitMap.setWindow(&w);
     terrainMap.setWindow(&w);

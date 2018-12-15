@@ -1,11 +1,12 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QPushButton>
-#include "game.h"
+#include "mainmenu.h"
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    Game g;
+    MainMenu m;
+    m.show();
     return app.exec();
 }

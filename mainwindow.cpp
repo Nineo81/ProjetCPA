@@ -14,7 +14,7 @@
 #include "ai.h"
 
 
-MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) : cursor(cursor),centerZone(terrainMap,unitMap,cursor)
+MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor,int gameType) : cursor(cursor),centerZone(terrainMap,unitMap,cursor)
 {
     cursorState=0;
     setCentralWidget(&centerZone);
@@ -23,6 +23,21 @@ MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) : cursor(cur
     QScreen *screen = QGuiApplication::primaryScreen();
     this->resize(screen->availableGeometry().width()/2,screen->availableGeometry().height()/2);
     move(screen->availableGeometry().center()-this->rect().center());
+    switch(gameType)
+    {
+    case(1):
+        reseau=false;
+        break;
+    case(2):
+        reseau=true;
+        break;
+    case(3):
+        inactiveAI=true;
+        break;
+    case(4):
+        pathfindAI=true;
+        break;
+    }
 
     /*création du serveur? */
     if (reseau){
