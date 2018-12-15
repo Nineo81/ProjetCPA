@@ -18,10 +18,10 @@ MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) : cursor(cur
 {
     cursorState=0;
     setCentralWidget(&centerZone);
+    resizeTimer = new QTimer(this);
+    connect(resizeTimer,SIGNAL(timeout()),this,SLOT(resizeTimeout()));
     QScreen *screen = QGuiApplication::primaryScreen();
-    QRect  screenGeometry = screen->geometry();
-    centerZone.setSize(screenGeometry.width()*0.9,screenGeometry.height()*0.9);
-    this->adjustSize();
+    this->resize(screen->availableGeometry().width()/2,screen->availableGeometry().height()/2);
     move(screen->availableGeometry().center()-this->rect().center());
 
     /*création du serveur? */
@@ -429,6 +429,12 @@ void MainWindow::movingUnit()
     updateWidget();
 }
 
+void MainWindow::resizeEvent(QResizeEvent* event)
+{
+    resizeTimer->stop();
+    resizeTimer->start(RESIZE_TIMEOUT);
+}
+
 void MainWindow::switchPlayer()
 {
     cursor->switchPlayerState();
@@ -473,6 +479,13 @@ void MainWindow::unitCapture()
         action["YC"] = cursor->getPosY();
         sendJson(action);
     }
+    updateWidget();
+}
+
+void MainWindow::resizeTimeout()
+{
+    resizeTimer->stop();
+    centerZone.setSize(this->width(),this->height());
     updateWidget();
 }
 

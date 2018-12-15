@@ -22,6 +22,7 @@ public:
     void setAI(AI *value);
     AI *getAI() const;
     bool getPathfindAI() const;
+    void resizeEvent(QResizeEvent* event) override;
 
 private:
     int unitPosX;
@@ -39,6 +40,8 @@ private:
     bool inactiveAI = false;
     bool pathfindAI = false;
     AI* ai = nullptr;
+    static const int RESIZE_TIMEOUT = 250;
+    QTimer* resizeTimer;
 
 signals:
     void mouseMoved();
@@ -57,6 +60,7 @@ public slots:
     void onData();
     void createUnit();
     void curState();
+    void resizeTimeout();
 };
 
 #endif // MAINWINDOW_H

@@ -97,7 +97,7 @@ void GameWindow::setSize(double width,double height)
 {
     this->width=static_cast<unsigned int>(width);
     this->height=static_cast<unsigned int>(height);
-    setFixedSize(static_cast<int>(this->width),static_cast<int>(this->height));
+    resize(static_cast<int>(this->width),static_cast<int>(this->height));
 }
 
 void GameWindow::setMovements(vector<vector<int>> movements)
