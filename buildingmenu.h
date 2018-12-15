@@ -16,6 +16,7 @@ public:
     explicit BuildingMenu(int posX, int posY,Building* building);
     void keyPressEvent(QKeyEvent * event);
     void isCLosing(QCloseEvent *event);
+    void focusOutEvent(QFocusEvent* event);
 private:
     Building* building;
     vector<CustomButton*> listButton;

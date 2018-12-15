@@ -55,3 +55,8 @@ void BuildingMenu::isCLosing(QCloseEvent *event)
         emit qMenuClose();
     }
 }
+
+void BuildingMenu::focusOutEvent(QFocusEvent* event)
+{
+    close();
+}

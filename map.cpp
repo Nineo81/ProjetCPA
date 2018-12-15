@@ -2,7 +2,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "gamewindow.h"
+#include "mainwindow.h"
 
 using namespace std;
 
@@ -79,7 +79,7 @@ void Map::replace(unsigned int oldX,unsigned int oldY,unsigned int newX,unsigned
     int element = map[oldY][oldX];
     map[oldY][oldX]=0;
     map[newY][newX]=element;
-    window->updateMap();
+    window->updateWidget();
 }
 
 int Map::getElement(unsigned int posX, unsigned int posY)
@@ -90,10 +90,10 @@ int Map::getElement(unsigned int posX, unsigned int posY)
 void Map::setElement(int element, unsigned int posX, unsigned int posY)
 {
     map[posY][posX]=element;
-    window->updateMap();
+    window->updateWidget();
 }
 
-void Map::setWindow(GameWindow* window)
+void Map::setWindow(MainWindow* window)
 {
     this->window=window;
 }

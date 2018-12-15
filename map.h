@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-class GameWindow;
+class MainWindow;
 class Map
 {
 public:
@@ -19,11 +19,11 @@ public:
 
     void setElement(int element, unsigned int posX, unsigned int posY);
 
-    void setWindow(GameWindow* window);
+    void setWindow(MainWindow* window);
 
 private:
     std::vector<std::vector<int>> map;
-    GameWindow* window;
+    MainWindow* window;
 };
 
 #endif // MAP_H

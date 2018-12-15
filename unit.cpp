@@ -39,26 +39,24 @@ vector<vector<int>>* Unit::getPBP()
 
 Unit::Unit(std::vector<unsigned int> pos, int color, int round,Game *game) : GameObject(pos)
 {
-    this->game=game;
-    this->color=color;
-    this->round=round;
-    this->HP=10;
-    this->type=5;
-    this->PDC=game->getDefenseChart();
-    this->PTM=game->getPTM();
-    this->PUM=game->getPUM();
-    this->canPlay=false;
+    this->game = game;
+    this->color = color;
+    this->round = round;
+    this->HP = 10;
+    this->type = 5;
+    this->PDC = game->getDefenseChart();
+    this->PTM = game->getPTM();
+    this->PUM = game->getPUM();
+    this->canPlay = false;
 }
-
-
 
 void Unit::setUnit()
 {
-    if (color==1)
+    if (color == 1)
     game->updateMap(this->type,this->position[0],this->position[1]);
 
     else
-     { this->type=type+11;
+     { this->type = type + 11;
         game->updateMap(this->type,this->position[0],this->position[1]);
 
     }
@@ -71,23 +69,23 @@ int Unit::getHP() const
 
 void Unit::setHP()
 {
-    this->HP=10;
+    this->HP = 10;
 }
 
 void Unit::setHP(int newHP,char sign)
 {
-    if (sign=='a')
+    if (sign == 'a')
     {
-        this->HP+=newHP;
-        if (HP>10)
+        this->HP += newHP;
+        if (HP > 10)
         {
             setHP();
         }
      }
-    else if (sign=='d')
+    else if (sign == 'd')
     {
-        this->HP-=newHP;
-        if (HP<=0)
+        this->HP -= newHP;
+        if (HP <= 0)
         {
             delete this;
         }
@@ -128,7 +126,7 @@ int Unit::getround() const
 
 void Unit::setround()
 {
-    this->round+=1;
+    this->round += 1;
 }
 
 int Unit::getMP() const
@@ -138,12 +136,12 @@ int Unit::getMP() const
 
 void Unit::setMP(int MPloss)
 {
-    this->MP-=MPloss;
+    this->MP -= MPloss;
 }
 
 void Unit::resetMP()
 {
-    this->MP=this->absMP;
+    this->MP = this->absMP;
 }
 
 int Unit::gettype() const
@@ -168,36 +166,36 @@ int Unit::get_absMP() const
 
 int Unit::find_B(Unit* defender)
 {
-    int damage_chart[11][11]={{45,120,105,75,65,105,10,1,5,60,25},  //Lignes:attaquant
-                           {25,65,75,0,0,75,25,10,20,55,55},    //Colonnes:défense
-                           {65,9,55,0,0,65,15,5,15,85,55},
-                           {95,0,110,0,0,110,95,35,90,105,105},
-                           {0,100,0,100,55,0,0,0,0,0,0},
-                           {5,15,45,0,0,55,1,1,112,5},
-                           {105,12,95,0,0,105,55,25,45,105,85},
-                           {195,22,125,0,0,135,125,65,115,195,180},
-                           {115,22,115,0,0,125,75,35,55,125,105},
-                           {4,12,65,0,0,70,1,1,1,35,6},
-                           {65,10,70,0,0,75,15,10,15,85,55}};
+    int damage_chart[11][11] = {{45,120,105,75,65,105,10,1,5,60,25},  //Lignes:attaquant
+                                {25,65,75,0,0,75,25,10,20,55,55},    //Colonnes:défense
+                                {65,9,55,0,0,65,15,5,15,85,55},
+                                {95,0,110,0,0,110,95,35,90,105,105},
+                                {0,100,0,100,55,0,0,0,0,0,0},
+                                {5,15,45,0,0,55,1,1,112,5},
+                                {105,12,95,0,0,105,55,25,45,105,85},
+                                {195,22,125,0,0,135,125,65,115,195,180},
+                                {115,22,115,0,0,125,75,35,55,125,105},
+                                {4,12,65,0,0,70,1,1,1,35,6},
+                                {65,10,70,0,0,75,15,10,15,85,55}};
 
-    int B=damage_chart[this->getAttackType()][defender->getAttackType()];
+    int B = damage_chart[this->getAttackType()][defender->getAttackType()];
     return B;
 }
 
 
 int Unit::get_D_TR() const
 {
-    unsigned int X=this->get_X();
-    unsigned int Y=this->get_Y();
+    unsigned int X = this->get_X();
+    unsigned int Y = this->get_Y();
     vector<vector<int>> defenseChart=this->getDefenseChart();
     int D_TR;
-    if (this->gettype()==56 || this->gettype()==57 || this->gettype()==59)
+    if (this->gettype() == 56 || this->gettype() == 57 || this->gettype() == 59)
     {
-        D_TR=0;
+        D_TR = 0;
     }
     else
     {
-        D_TR=defenseChart[X][Y];
+        D_TR = defenseChart[X][Y];
     }
     return D_TR;
 }
@@ -205,11 +203,11 @@ int Unit::get_D_TR() const
 int Unit::damage(Unit* defender)
 {
 
-    int A_HP=this->HP;
-    int D_HP=defender->getHP();
+    int A_HP = this->HP;
+    int D_HP = defender->getHP();
     int B=find_B(defender);
-    int D_TR=this->get_D_TR();
-    int damage=static_cast<int>(((B*A_HP/10*(100-D_TR*D_HP)/100)/10)+0.5); /*ajout de 0,5 pour être sûr que
+    int D_TR = this->get_D_TR();
+    int damage = static_cast<int>(((B * A_HP / 10 * (100-D_TR * D_HP) / 100) / 10) + 0.5); /*ajout de 0,5 pour être sûr que
                                                       *damage est arrondi aux bonnes valeurs
                                                       * c++ arrondi tjs en-dessous*/
     return damage;
@@ -217,13 +215,13 @@ int Unit::damage(Unit* defender)
 
 void Unit::attack(Unit* defender)
 {
-    unsigned int posX_D=defender->get_X();
-    unsigned int posY_D=defender->get_Y();
-    int damage=this->damage(defender);
+    unsigned int posX_D = defender->get_X();
+    unsigned int posY_D = defender->get_Y();
+    int damage = this->damage(defender);
     defender->setHP(damage,'d');
-    if(this->getUnitMap()->getElement(posX_D,posY_D)!=0)
+    if(this->getUnitMap()->getElement(posX_D,posY_D) != 0)
     {
-        int damage2=defender->damage(this);
+        int damage2 = defender->damage(this);
         this->setHP(damage2,'d');
         canPlay = false;
     }
@@ -239,60 +237,53 @@ void Unit::join_unit(Unit* unit2)
 
 int Unit::get_MPLoss(unsigned int x, unsigned int y)
 {
-    int terrainChart[11][5]={{1,1,1,2,1},
-                             {2,1,10,10,1},
-                             {1,1,2,3,1},
-                             {2,1,10,10,1},
-                             {1,1,1,1,1},
-                             {10,10,10,10,1},
-                             {1,1,1,1,1},
-                             {10,10,10,10,1},
-                             {1,1,1,1,1},
-                             {1,1,1,1,1},
-                             {10,10,10,10,10}};
+    int terrainChart[11][5] = {{1,1,1,2,1},
+                               {2,1,10,10,1},
+                               {1,1,2,3,1},
+                               {2,1,10,10,1},
+                               {1,1,1,1,1},
+                               {10,10,10,10,1},
+                               {1,1,1,1,1},
+                               {10,10,10,10,1},
+                               {1,1,1,1,1},
+                               {1,1,1,1,1},
+                               {10,10,10,10,10}};
 
-    int temp=game->getTerrainMap().getElement(x,y);
-    int terrainType=0;
-    if (temp==1)
-        terrainType=0;
-    else if(temp==2)
-        terrainType=1;
-    else if(temp==3)
-        terrainType=2;
-    else if(temp>=4 && temp<=14)
-        terrainType=3;
-    else if(temp>=15 && temp<=24)
-        terrainType=4;
-    else if(temp==28)
-        terrainType=5;
-    else if(temp>=29 && temp<=32)
-        terrainType=6;
-    else if(temp==33)
-        terrainType=7;
-    else if(temp==34 || temp==38 || temp==43)
-        terrainType=8;
-    else if(temp==35 || temp==39 || temp==44)
-        terrainType=9;
-    else if(temp>=101 && temp<=110)
-        terrainType=10;
+    int temp = game->getTerrainMap().getElement(x,y);
+    int terrainType = 0;
+    if (temp == 1)
+        terrainType = 0;
+    else if(temp == 2)
+        terrainType = 1;
+    else if(temp == 3)
+        terrainType = 2;
+    else if(temp >= 4 && temp <= 14)
+        terrainType = 3;
+    else if(temp >= 15 && temp <= 24)
+        terrainType = 4;
+    else if(temp == 28)
+        terrainType = 5;
+    else if(temp >= 29 && temp <= 32)
+        terrainType = 6;
+    else if(temp == 33)
+        terrainType = 7;
+    else if(temp == 34 || temp == 38 || temp == 43)
+        terrainType = 8;
+    else if(temp == 35 || temp == 39 || temp == 44)
+        terrainType = 9;
+    else if(temp >= 101 && temp <= 110)
+        terrainType = 10;
     return terrainChart[terrainType][this->getMoveType()];
 }
 
 
 bool Unit::terrain_avail(int x,int y)
 {
-    bool res=true;
-    if (x<0 || y<0 || x>=game->getTerrainMap().getSize('x') || y>=game->getTerrainMap().getSize('y') || (game->getUnitMap().getElement(x,y)!=0 && this->type!=game->getUnitMap().getElement(x,y)))
-
-
-        res=false;
-
-
+    bool res = true;
+    if (x < 0 || y < 0 || x >= game->getTerrainMap().getSize('x') || y >= game->getTerrainMap().getSize('y') || (game->getUnitMap().getElement(x,y) != 0 && this->type!=game->getUnitMap().getElement(x,y)))
+        res = false;
     return res;
 }
-
-
-
 
 bool compare_position(vector<int> const& a, vector<int> const& b)
 {
@@ -327,11 +318,11 @@ void Unit::movePossib_recusif(vector<vector<int>>* l1, vector<vector<int>> l2)
                     {
                         if (L1[k][0] == X[0] && L1[k][1] == X[1])       //si la position qu'on regarde est déjà dans la liste des positions possibles
                         {
-                            if (L1[k][3]>e)                             //et que le chemin qu'on regarde consomme moins de MP
+                            if (L1[k][3] > e)                             //et que le chemin qu'on regarde consomme moins de MP
                             {
-                                L1[k][3]=e;                                //changer le nombre de MP perdus au minimum
+                                L1[k][3] = e;                                //changer le nombre de MP perdus au minimum
                             }
-                            inList1=true;
+                            inList1 = true;
                             break;//quitter la boucle
                         }
                     }
@@ -376,10 +367,10 @@ void Unit::movePossib_recusif(vector<vector<int>>* l1, vector<vector<int>> l2)
 }
 
 
-vector<vector<int>> Unit::movePossib(int x,int y)
+vector<vector<int>> Unit::movePossib(int x,int y) //Initie la récursivité
 {
     vector<vector<int>> l1;
-    int e=0;
+    int e = 0;
     l1.push_back({x,y,e});
     movePossib_recusif(&l1,l1);
     return l1;
@@ -402,7 +393,7 @@ void Unit::move(unsigned int x,unsigned int y)
             this->resetMP();
         }
         int T = game->getTerrainMap().getElement(oldX,oldY);
-        if (T>=34 && T<=36) {
+        if (T >= 34 && T <= 36) {
             game->getBuilding(oldX,oldY)->resetLife();
         }
         else if(43 <= T && T <= 45){  // 43 <= T <= 45
@@ -419,19 +410,19 @@ void Unit::move(unsigned int x,unsigned int y)
 
 void Unit::capture()
 {
-    if ((type==58 || type==50) && canPlay)
+    if (canPlay)
     {
         Map terrainMap = game->getTerrainMap();
-        int build=terrainMap.getElement(position[0],position[1]);
-        if (build>=34 && build<=36)
+        int build = terrainMap.getElement(position[0],position[1]);
+        if (build >= 34 && build <= 36)
         {
             game->getBuilding(position[0],position[1])->setLife(HP,game->getPlayer(color));
         }
-        else if(color==1 && build>=43 && build<=45)
+        else if(color == 1 && build >= 43 && build <= 47)
         {
             game->getPlayer(2)->getBuilding(position[0],position[1])->setLife(HP,game->getPlayer(color));
         }
-        else if(color==2 && build>=38 && build<=40)
+        else if(color == 2 && build >= 38 && build <= 42)
         {
             game->getPlayer(1)->getBuilding(position[0],position[1])->setLife(HP,game->getPlayer(color));
         }

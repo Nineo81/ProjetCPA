@@ -11,7 +11,7 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor);
+    explicit MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor,int gameType);
     void keyPressEvent(QKeyEvent * event) override;
     void mousePressEvent(QMouseEvent *ev) override;
     int typeOfUnitMenu(int moveState);
@@ -22,6 +22,7 @@ public:
     void setAI(AI *value);
     AI *getAI() const;
     bool getPathfindAI() const;
+    void resizeEvent(QResizeEvent* event) override;
 
 private:
     unsigned int unitPosX;
@@ -39,6 +40,8 @@ private:
     bool inactiveAI = false;
     bool pathfindAI = true;
     AI* ai = nullptr;
+    static const int RESIZE_TIMEOUT = 250;
+    QTimer* resizeTimer;
 
 signals:
     void mouseMoved();
@@ -57,6 +60,7 @@ public slots:
     void onData();
     void createUnit();
     void curState();
+    void resizeTimeout();
 };
 
 #endif // MAINWINDOW_H

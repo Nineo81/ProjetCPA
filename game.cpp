@@ -7,13 +7,13 @@
 #include "inactiveai.h"
 #include "pathfindai.h"
 
-Game::Game():terrainMap("Map1V1.txt"),
+Game::Game(int gameType):terrainMap("Map1V1.txt"),
     unitMap(terrainMap.getSize('x'),
             terrainMap.getSize('y')),cursor(5,5,&unitMap,&terrainMap),
-            w(&terrainMap,&unitMap,&cursor)
+            w(&terrainMap,&unitMap,&cursor,gameType)
 {
-    unitMap.setWindow(w.getWidget());
-    terrainMap.setWindow(w.getWidget());
+    unitMap.setWindow(&w);
+    terrainMap.setWindow(&w);
     w.show();
 
     /*Initialisation du tableau de défense*/
@@ -56,7 +56,7 @@ Game::Game():terrainMap("Map1V1.txt"),
             pos.push_back(i);
             switch(temp){
                 case 34:{
-                    neutralBuildings.push_back(new City(pos,this));
+                    neutralBuildings.push_back(new City(pos,this,false));
                     break;
                 }
                 case 35:{
@@ -68,7 +68,7 @@ Game::Game():terrainMap("Map1V1.txt"),
                     break;
                 }
                 case 38:{
-                    buildingsOS.push_back(new City(pos,this));
+                    buildingsOS.push_back(new City(pos,this,false));
                     break;
                 }
                 case 39:{
@@ -80,7 +80,7 @@ Game::Game():terrainMap("Map1V1.txt"),
                     break;
                 }
                 case 43:{
-                    buildingsBM.push_back(new City(pos,this));
+                    buildingsBM.push_back(new City(pos,this,false));
                     break;
                 }
                 case 44:{
@@ -89,6 +89,14 @@ Game::Game():terrainMap("Map1V1.txt"),
                 }
                 case 45:{
                     buildingsBM.push_back(new Airport(pos,this));
+                    break;
+                }
+                case 42:{
+                    buildingsOS.push_back(new City(pos,this,true));
+                    break;
+                }
+               case 47:{
+                    buildingsBM.push_back(new City(pos,this,true));
                     break;
                 }
             }
@@ -103,6 +111,7 @@ Game::Game():terrainMap("Map1V1.txt"),
     cursor.getPlayer()->set_money(3000,'a');
     //création de l'unité de base de OS
     Unit* firstUnit = new infantery({15,3},1,0,this);
+
     firstUnit->setCanPlay(true);
     listPlayer[0]->add_unit(firstUnit);
 

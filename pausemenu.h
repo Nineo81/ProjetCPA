@@ -10,6 +10,7 @@ class PauseMenu : public QWidget
 public:
     explicit PauseMenu(QWidget *parent = nullptr);
     void keyPressEvent(QKeyEvent * event);
+    void focusOutEvent(QFocusEvent* event);
 signals:
     void nextPlayer();
     void ending();

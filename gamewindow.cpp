@@ -5,13 +5,21 @@
 #include <string>
 #include <QImage>
 #include <QApplication>
+#include <QPoint>
 #include <QScreen>
 #include <string>
 #include <unistd.h>
+#include "unit.h"
 using namespace std;
 
 GameWindow::GameWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) :terrainMap(terrainMap),unitMap(unitMap),cursor(cursor)
 {
+    money=0;
+    player=0;
+    button1 = new QPushButton("Pass Turn",this);
+    QObject::connect(button1,SIGNAL(clicked()),this,SLOT(sendNextTurn()));
+    button2 = new QPushButton("End Game",this);
+    QObject::connect(button2,SIGNAL(clicked()),this,SLOT(endingGame()));
     for(int i=1;i<117;i++) //Construction de la liste d'image
     {
         const char* imageName = (std::to_string(i)+".png").c_str();
@@ -30,7 +38,15 @@ GameWindow::GameWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) :terrainMap(
 void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
+    QFont font("times",sizePicture/3,QFont::Bold);
     sizePicture = static_cast<int>(height/(terrainMap->getSize('y')+1));
+    painter.setFont(font);
+    painter.drawText(QPoint(sizePicture*(terrainMap->getSize('x')+2),sizePicture*3),("Player's money : " + to_string(money)).c_str());
+    painter.drawText(QPoint(sizePicture*(terrainMap->getSize('x')+2),sizePicture*2),("Turn of player " + to_string(player)).c_str());
+    button1->setGeometry(sizePicture*(terrainMap->getSize('x')+2),sizePicture*4,sizePicture*3,sizePicture);
+    button1->setFont(font);
+    button2->setGeometry(sizePicture*(terrainMap->getSize('x')+5),sizePicture*4,sizePicture*3,sizePicture);
+    button2->setFont(font);
 
     for(unsigned int y=0;y<=terrainMap->getSize('y')-1;y++)
     {
@@ -51,6 +67,17 @@ void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
         }
 
     }
+    if(cursor->getPlayer())
+    {
+        for(Unit* u :cursor->getPlayer()->get_listUnit())
+        {
+            painter.drawText(QPoint((u->get_X()+1)*sizePicture,(u->get_Y()+1)*sizePicture),to_string(u->getHP()).c_str());
+        }
+        for(Unit* u :cursor->getOpponent()->get_listUnit())
+        {
+            painter.drawText(QPoint((u->get_X()+1)*sizePicture,(u->get_Y()+1)*sizePicture),to_string(u->getHP()).c_str());
+        }
+    }
     for(std::vector<int> pos : movements)
     {
         if(pos[0]>=0&&pos[1]>=0)
@@ -70,8 +97,10 @@ void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
     cursor->setSizePicture(sizePicture);
 }
 
-void GameWindow::updateMap()
+void GameWindow::updateMap(int money, int player)
 {
+    setMoney(money);
+    setPlayer(player);
     update();
 }
 
@@ -79,7 +108,7 @@ void GameWindow::setSize(double width,double height)
 {
     this->width=static_cast<unsigned int>(width);
     this->height=static_cast<unsigned int>(height);
-    setFixedSize(static_cast<int>(this->width),static_cast<int>(this->height));
+    resize(static_cast<int>(this->width),static_cast<int>(this->height));
 }
 
 void GameWindow::setMovements(vector<vector<int>> movements)
@@ -111,4 +140,24 @@ void GameWindow::attackReset()
 int GameWindow::getSizePicture()
 {
     return sizePicture;
+}
+
+void GameWindow::setMoney(int money)
+{
+    this->money=money;
+}
+
+void GameWindow::setPlayer(int player)
+{
+    this->player=player;
+}
+
+void GameWindow::sendNextTurn()
+{
+    emit nextTurn();
+}
+
+void GameWindow::endingGame()
+{
+    emit endGame();
 }
