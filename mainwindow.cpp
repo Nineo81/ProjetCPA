@@ -38,6 +38,7 @@ MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor,int gameType)
         pathfindAI=true;
         break;
     }
+    QObject::connect(&centerZone,SIGNAL(nextTurn()),this,SLOT(switchPlayer()));
 
     /*création du serveur? */
     if (reseau){
