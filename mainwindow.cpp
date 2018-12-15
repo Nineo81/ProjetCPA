@@ -247,7 +247,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         updateWidget();
     }
 
-    if (event->key() == Qt::Key_Space || event->key() == Qt::Key_Enter){
+    if (event->key() == Qt::Key_Space){
         //confirmer la selection == bouton A
         if (cursor->unitOfPlayer()
             && cursorState == 0
@@ -259,7 +259,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
             QObject::connect(menu,SIGNAL(attacking()),this,SLOT(unitAttack()));
             QObject::connect(menu,SIGNAL(capturing()),this,SLOT(unitCapture()));
             QObject::connect(menu,SIGNAL(waiting()),this,SLOT(setUnitWainting()));
-            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Popup);
             menu->show();
         }
         else if((cursor->buildOfPlayer() == 35 || cursor->buildOfPlayer()==36)
@@ -269,7 +269,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
             BuildingMenu *menu = new BuildingMenu(cursor->getRealX(), cursor->getRealY(),cursor->getPlayer()->getBuilding(cursor->getPosX(),cursor->getPosY()));
             QObject::connect(menu,SIGNAL(qMenuClose()),this,SLOT(updateWin()));
             QObject::connect(menu,SIGNAL(createU()),this,SLOT(createUnit()));
-            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Popup);
             menu->show();
         }
         else if(cursorState == 1)
@@ -292,7 +292,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
             QObject::connect(menu, SIGNAL(attacking()), this, SLOT(unitAttack()));
             QObject::connect(menu, SIGNAL(capturing()), this, SLOT(unitCapture()));
             QObject::connect(menu, SIGNAL(waiting()), this, SLOT(setUnitWainting()));
-            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Popup);
             menu->show();
         }
         else if(cursorState==2 && !cursor->unitOfPlayer())
@@ -312,7 +312,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
             cursorState=0;
         }
     }
-    if (event->key() == Qt::Key_Escape || event->key() == Qt::Key_Backspace){
+    if (event->key() == Qt::Key_Escape){
     //retour == bouton B
         if(cursorState==1){
             centerZone.movementsReset();
@@ -325,8 +325,9 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
         }
         else if(cursorState==0){
             PauseMenu *menu = new PauseMenu();
+            menu->move(this->rect().center());
             QObject::connect(menu,SIGNAL(nextPlayer()),this,SLOT(switchPlayer()));
-            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Popup);
             menu->show();
         }
     }
@@ -338,24 +339,22 @@ void MainWindow::mousePressEvent(QMouseEvent *ev){
         update();
         if(cursor->unitOfPlayer() && cursorState==0 && cursor->getPlayer()->getUnit(cursor->getPosX(),cursor->getPosY())->getCanPlay())
         {
-            cursorState = -1;
             UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY(),typeOfUnitMenu(0));
             QObject::connect(menu,SIGNAL(moveUnit()),this,SLOT(movingUnit()));
             QObject::connect(menu,SIGNAL(attacking()),this,SLOT(unitAttack()));
             QObject::connect(menu,SIGNAL(capturing()),this,SLOT(unitCapture()));
             QObject::connect(menu,SIGNAL(waiting()),this,SLOT(setUnitWainting()));
             QObject::connect(menu,SIGNAL(menuClose()),this,SLOT(curState()));
-            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Popup);
             menu->show();
         }
         else if((cursor->buildOfPlayer() == 35 || cursor->buildOfPlayer()==36) && cursorState==0 && !cursor->unitOfPlayer())
         {
-            cursorState = -1;
             BuildingMenu *menu = new BuildingMenu(cursor->getRealX(),cursor->getRealY(),cursor->getPlayer()->getBuilding(cursor->getPosX(),cursor->getPosY()));
             QObject::connect(menu,SIGNAL(qMenuClose()),this,SLOT(updateWin()));
             QObject::connect(menu,SIGNAL(menuClose()),this,SLOT(curState()));
             QObject::connect(menu,SIGNAL(createU()),this,SLOT(createUnit()));
-            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Popup);
             menu->show();
         }
         else if(cursorState==1 && cursor->canMoveUnit(cursor->getPosX(),cursor->getPosY()))
@@ -373,13 +372,12 @@ void MainWindow::mousePressEvent(QMouseEvent *ev){
                 sendJson(action);
             }
 
-            cursorState = -1;
             UnitMenu *menu = new UnitMenu(cursor->getRealX(),cursor->getRealY(),typeOfUnitMenu(1));
             QObject::connect(menu,SIGNAL(attacking()),this,SLOT(unitAttack()));
             QObject::connect(menu,SIGNAL(capturing()),this,SLOT(unitCapture()));
             QObject::connect(menu,SIGNAL(waiting()),this,SLOT(setUnitWainting()));
             QObject::connect(menu,SIGNAL(menuClose()),this,SLOT(curState()));
-            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+            menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Popup);
             menu->show();
         }
         else if(cursorState==2 && !cursor->unitOfPlayer() && cursor->canMoveUnit(cursor->getPosX(),cursor->getPosY()))
@@ -398,6 +396,7 @@ void MainWindow::mousePressEvent(QMouseEvent *ev){
 
             cursorState=0;
         }
+        updateWidget();
 }
 
 void MainWindow::curState(){
@@ -427,6 +426,7 @@ void MainWindow::movingUnit()
     centerZone.setMovements(possibPos);
     cursor->updateMovements(possibPos);
     cursorState=1;
+    updateWidget();
 }
 
 void MainWindow::switchPlayer()
@@ -442,11 +442,13 @@ void MainWindow::switchPlayer()
         sendJson(action);
         myTurn = false;
     }
+    updateWidget();
 }
 
 void MainWindow::setUnitWainting()
 {
     cursor->getPlayer()->getUnit(static_cast<unsigned int>(cursor->getPosX()),static_cast<unsigned int>(cursor->getPosY()))->wait();
+    updateWidget();
 }
 
 void MainWindow::unitAttack()
@@ -458,7 +460,7 @@ void MainWindow::unitAttack()
     centerZone.setAttack(possibPos);
     cursor->updateMovements(possibPos);
     cursorState=2;
-
+    updateWidget();
 }
 
 void MainWindow::unitCapture()
@@ -471,6 +473,7 @@ void MainWindow::unitCapture()
         action["YC"] = cursor->getPosY();
         sendJson(action);
     }
+    updateWidget();
 }
 
 int MainWindow::typeOfUnitMenu(int moveState)
@@ -562,4 +565,5 @@ void MainWindow::createUnit(){
             sendJson(action);
         }
     }
+    updateWidget();
 }

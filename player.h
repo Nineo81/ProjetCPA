@@ -28,7 +28,7 @@ public:
     Unit* getUnit(unsigned x,unsigned int y);
 private:
     bool turn;
-    int money;
+    int money=0;
     vector<Unit*> listUnit;
     vector<Building*> listBuilding;
     Map* terrainMap;

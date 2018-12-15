@@ -38,3 +38,8 @@ void PauseMenu::endGame()
     emit ending();
     close();
 }
+
+void PauseMenu::focusOutEvent(QFocusEvent* event)
+{
+    close();
+}

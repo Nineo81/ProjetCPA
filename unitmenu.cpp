@@ -102,3 +102,8 @@ void UnitMenu::setEscape(bool escape)
 {
     this->escape=escape;
 }
+
+void UnitMenu::focusOutEvent(QFocusEvent* event)
+{
+    close();
+}

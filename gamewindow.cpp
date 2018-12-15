@@ -9,6 +9,7 @@
 #include <QScreen>
 #include <string>
 #include <unistd.h>
+#include "unit.h"
 using namespace std;
 
 GameWindow::GameWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) :terrainMap(terrainMap),unitMap(unitMap),cursor(cursor)
@@ -33,8 +34,9 @@ GameWindow::GameWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) :terrainMap(
 void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
+    QFont font("times",sizePicture/6,QFont::Bold);
     sizePicture = static_cast<int>(height/(terrainMap->getSize('y')+1));
-    painter.setFont(QFont("times",sizePicture/6));
+    painter.setFont(font);
     painter.drawText(QPoint(sizePicture*(terrainMap->getSize('x')+2),sizePicture*3),("Player's money : " + to_string(money)).c_str());
     painter.drawText(QPoint(sizePicture*(terrainMap->getSize('x')+2),sizePicture*2),("Turn of player " + to_string(player)).c_str());
 
@@ -56,6 +58,14 @@ void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
             }
         }
 
+    }
+    for(Unit* u :cursor->getPlayer()->get_listUnit())
+    {
+        painter.drawText(QPoint((u->get_X()+1)*sizePicture,(u->get_Y()+1)*sizePicture),to_string(u->getHP()).c_str());
+    }
+    for(Unit* u :cursor->getOpponent()->get_listUnit())
+    {
+        painter.drawText(QPoint((u->get_X()+1)*sizePicture,(u->get_Y()+1)*sizePicture),to_string(u->getHP()).c_str());
     }
     for(std::vector<int> pos : movements)
     {

@@ -94,7 +94,7 @@ void Cursor::switchPlayerState()
             {
                 unit->setCanPlay(true);
                 unit->setHP(2,'a');
-                playerBM->set_money((unit->getcost()) / 10,'a');
+                playerBM->set_money((unit->getcost()) / 10,'d');
             }
         }
         playerBM->set_money(1000*static_cast<int>(playerBM->get_listBuilding().size()),'a');

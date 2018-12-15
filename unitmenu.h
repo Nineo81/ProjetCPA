@@ -11,6 +11,7 @@ public:
     explicit UnitMenu(int posX, int posY, int type);
     void keyPressEvent(QKeyEvent * event);
     void setEscape(bool escape);
+    void focusOutEvent(QFocusEvent* event);
 private:
     bool escape;
 signals:
