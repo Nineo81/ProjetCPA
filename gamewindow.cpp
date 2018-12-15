@@ -34,7 +34,7 @@ void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     sizePicture = static_cast<int>(height/(terrainMap->getSize('y')+1));
-    painter.setFont(QFont("times",sizePicture/6));
+    painter.setFont(QFont("times",sizePicture/3));
     painter.drawText(QPoint(sizePicture*(terrainMap->getSize('x')+2),sizePicture*3),("Player's money : " + to_string(money)).c_str());
     painter.drawText(QPoint(sizePicture*(terrainMap->getSize('x')+2),sizePicture*2),("Turn of player " + to_string(player)).c_str());
 

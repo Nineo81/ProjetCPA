@@ -20,7 +20,8 @@ int Player::get_money(){
 
 void Player::set_money(int diff, char sign){
     if (sign =='d'){
-        this->money -= diff;}
+        this->money -= diff;
+    }
     else if (sign == 'a') {
         this->money += diff;
     }
