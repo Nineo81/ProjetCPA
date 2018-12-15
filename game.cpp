@@ -105,11 +105,13 @@ Game::Game():terrainMap("Map1V1.txt"),
     firstUnit->setCanPlay(true);
     listPlayer[0]->add_unit(firstUnit);
 
+    //IA qui joue
     if (w.getInactiveAI()){
-        w.setAI(new InactiveAI(this,1));
+        w.setAI(new InactiveAI(this,1));        //joue Orange Star
     }
-    cout<<"Game game : "<<this<<endl;
-    cout<<"Game cursor :"<<&cursor<<endl;
+    if (w.getPathfindAI()){
+        w.setAI(new InactiveAI(this,2));        //joue Blue Moon
+    }
 }
 
 void Game::delete_building(Building* building){

@@ -10,9 +10,6 @@ public:
     InactiveAI(Game *game,int player);
 public slots:
     void play();
-private :
-    Game *game;
-    int player;
 };
 
 #endif // INACTIVEAI_H

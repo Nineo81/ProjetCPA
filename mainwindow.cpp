@@ -180,6 +180,11 @@ void MainWindow::sendJson(QJsonObject obj) {
     std::cout << "Sending " << data.toStdString() << std::endl;
 }
 
+bool MainWindow::getPathfindAI() const
+{
+    return pathfindAI;
+}
+
 AI *MainWindow::getAI() const
 {
     return ai;

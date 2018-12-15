@@ -12,7 +12,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 public:
     explicit MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor);
-    void keyPressEvent(QKeyEvent * event);
+    void keyPressEvent(QKeyEvent * event) override;
     void mousePressEvent(QMouseEvent *ev) override;
     int typeOfUnitMenu(int moveState);
     GameWindow* getWidget();
@@ -21,6 +21,7 @@ public:
     bool getInactiveAI() const;
     void setAI(AI *value);
     AI *getAI() const;
+    bool getPathfindAI() const;
 
 private:
     int unitPosX;
@@ -36,6 +37,7 @@ private:
     bool reseau = false;
     bool myTurn = true;
     bool inactiveAI = false;
+    bool pathfindAI = false;
     AI* ai;
 
 signals:

@@ -5,8 +5,6 @@ using std::endl;
 
 InactiveAI::InactiveAI(Game* game,int player):AI(game,player)       //donner une couleur ou un *player??
 {
-    this->game = game;
-    this->player = player;
 }
 
 void InactiveAI::play(){

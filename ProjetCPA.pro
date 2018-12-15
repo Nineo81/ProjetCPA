@@ -55,7 +55,8 @@ SOURCES += \
     pausemenu.cpp \
     custombutton.cpp \
     inactiveai.cpp \
-    ai.cpp
+    ai.cpp \
+    pathfindai.cpp
 
 HEADERS += \
     game.h \
@@ -87,7 +88,8 @@ HEADERS += \
     pausemenu.h \
     custombutton.h \
     inactiveai.h \
-    ai.h
+    ai.h \
+    pathfindai.h
 
 FORMS +=
 
@@ -178,4 +180,6 @@ DISTFILES += \
     69.png \
     70.png \
     71.png \
-    cursor.png
+    cursor.png \
+    42.png \
+    47.png
