@@ -55,7 +55,7 @@ Game::Game():terrainMap("Map1V1.txt"),
             pos.push_back(i);
             switch(temp){
                 case 34:{
-                    neutralBuildings.push_back(new City(pos,this));
+                    neutralBuildings.push_back(new City(pos,this,false));
                     break;
                 }
                 case 35:{
@@ -67,7 +67,7 @@ Game::Game():terrainMap("Map1V1.txt"),
                     break;
                 }
                 case 38:{
-                    buildingsOS.push_back(new City(pos,this));
+                    buildingsOS.push_back(new City(pos,this,false));
                     break;
                 }
                 case 39:{
@@ -79,7 +79,7 @@ Game::Game():terrainMap("Map1V1.txt"),
                     break;
                 }
                 case 43:{
-                    buildingsBM.push_back(new City(pos,this));
+                    buildingsBM.push_back(new City(pos,this,false));
                     break;
                 }
                 case 44:{
@@ -89,6 +89,12 @@ Game::Game():terrainMap("Map1V1.txt"),
                 case 45:{
                     buildingsBM.push_back(new Airport(pos,this));
                     break;
+                }
+                case 42:{
+                    buildingsOS.push_back(new City(pos,this,true));
+                }
+                case 47:{
+                    buildingsBM.push_back(new City(pos,this,true));
                 }
             }
         }

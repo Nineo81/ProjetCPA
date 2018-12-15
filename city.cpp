@@ -7,7 +7,7 @@ City::City(vector<unsigned int> pos,Player* player, Game * game):Building(pos, p
     this->player = player;
 }
 
-City::City(vector<unsigned int> pos, Game * game):Building (pos){
+City::City(vector<unsigned int> pos, Game * game,bool isHQ):Building (pos), isHQ(isHQ){
     type = 34;
     this->game =game;
     player = NULL;
@@ -39,3 +39,8 @@ void City::setLife(int damage, Player* attacker){
 }
 
 void City::createUnit(int typeUnit){}
+
+bool City::getIsHQ() const
+{
+    return isHQ;
+}
