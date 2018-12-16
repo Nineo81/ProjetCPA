@@ -22,21 +22,6 @@ void Unit::setCanPlay(bool value)
     canPlay = value;
 }
 
-void Unit::setBestPath(const vector<vector<int> > value)
-{
-    bestPath = value;
-}
-
-vector<vector<int>> Unit::getBestPath()
-{
-    return bestPath;
-}
-
-vector<vector<int>>* Unit::getPBP()
-{
-    return &bestPath;
-}
-
 Unit::Unit(std::vector<unsigned int> pos, int color, int round,Game *game) : GameObject(pos)
 {
     this->game = game;

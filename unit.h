@@ -65,10 +65,6 @@ public:
     void setCanPlay(bool value);
     void wait();
     ~Unit();
-    //void findPath(int xTarget, int yTarget);
-    void setBestPath(const vector<vector<int> > value);
-    vector<vector<int>> getBestPath();
-    vector<vector<int>>* getPBP();
 };
 
 #endif // UNIT_H

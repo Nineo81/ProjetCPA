@@ -56,10 +56,10 @@ SOURCES += \
     custombutton.cpp \
     inactiveai.cpp \
     ai.cpp \
-    pathfindai.cpp \
     mainmenu.cpp \
     victorymenu.cpp \
-    newpathfindingai.cpp
+    newpathfindingai.cpp \
+    greedyai.cpp
 
 HEADERS += \
     game.h \
@@ -92,10 +92,10 @@ HEADERS += \
     custombutton.h \
     inactiveai.h \
     ai.h \
-    pathfindai.h \
     mainmenu.h \
     victorymenu.h \
-    newpathfindingai.h
+    newpathfindingai.h \
+    greedyai.h
 
 FORMS +=
 
