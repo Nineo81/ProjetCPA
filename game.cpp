@@ -119,6 +119,10 @@ Game::Game(int gameType):terrainMap("Map1V1.txt"),
     firstUnit->setCanPlay(true);
 
     listPlayer[0]->add_unit(firstUnit);
+    if(gameType == 4)
+    {
+        aiPlay();
+    }
 
     //IA qui joue
     /*if (w.getInactiveAI()){

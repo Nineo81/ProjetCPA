@@ -2,10 +2,10 @@
 #define NEWPATHFINDINGAI_H
 #include "ai.h"
 #include <vector>
+#include "game.h"
 
-class NewPathFindingAI : public AI
+class NewPathFindingAI
 {
-    Q_OBJECT
 public:
     NewPathFindingAI(Game *game,int player);
     void moveAllUnit();
@@ -15,6 +15,8 @@ public:
     int randomPivot(int left,int right);
     void quickSort(int left,int right);
 private:
+    Game* game;
+    int player;
     int hq_PosX;
     int hq_PosY;
     std::vector<std::vector<int>> movePossible;
