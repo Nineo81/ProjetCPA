@@ -38,7 +38,7 @@ private:
     bool reseau = false;
     bool myTurn = true;
     bool inactiveAI = false;
-    bool pathfindAI = true;
+    bool pathfindAI = false;
     AI* ai = nullptr;
     static const int RESIZE_TIMEOUT = 250;
     QTimer* resizeTimer;
