@@ -106,7 +106,7 @@ void GreedyAI::createAllUnit()
     }
 }
 
-void GreedyAI::aiTurn()
+void GreedyAI::turn()
 {
     moveAllUnit();
     createAllUnit();

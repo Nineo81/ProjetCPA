@@ -2,7 +2,7 @@
 #include "unit.h"
 #include "building.h"
 
-NewPathFindingAI::NewPathFindingAI(Game *game,int player) : game(game),player(player)
+NewPathFindingAI::NewPathFindingAI(Game *game,int player) : AI(game, player)
 {
     //Trouver position du QG de l'enemi
     for(int y=0 ; y<this->game->getTerrainMap().getSize('y') ; y++)

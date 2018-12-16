@@ -11,12 +11,14 @@
 
 class GreedyAI;
 class NewPathFindingAI;
+class InactiveAI;
 class Game : public QWidget
 {
     Q_OBJECT
 private:
-   //NewPathFindingAI* ai;
-    GreedyAI* ai;
+   NewPathFindingAI* ai = nullptr;
+   InactiveAI* IAI = nullptr;
+   GreedyAI* GAI = nullptr;
    Map terrainMap;
    Map unitMap;
    Cursor cursor;

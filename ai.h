@@ -9,7 +9,7 @@ class AI : public QObject
 public:
     AI(Game *game,int player);
 public slots:
-    virtual void play();
+    virtual void aiTurn();
 protected:
     Game* game;
     int player;

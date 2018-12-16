@@ -6,6 +6,6 @@ AI::AI(Game *game, int player)
     this->player = player;
 }
 
-void AI::play(){
+void AI::aiTurn(){
 
 }

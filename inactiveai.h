@@ -8,7 +8,6 @@ class InactiveAI: public AI
     Q_OBJECT
 public:
     InactiveAI(Game *game,int player);
-public slots:
     void play();
 };
 

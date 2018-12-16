@@ -206,6 +206,11 @@ void MainWindow::sendJson(QJsonObject obj) {
     std::cout << "Sending " << data.toStdString() << std::endl;
 }
 
+bool MainWindow::getGreedyAI() const
+{
+    return greedyAI;
+}
+
 bool MainWindow::getPathfindAI() const
 {
     return pathfindAI;
@@ -465,7 +470,7 @@ void MainWindow::switchPlayer()
 {
     cursor->switchPlayerState();
 
-    if (inactiveAI || pathfindAI){
+    if (inactiveAI || pathfindAI || greedyAI){
         emit passedTurn();
     }
     if (reseau){

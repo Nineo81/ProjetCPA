@@ -26,6 +26,7 @@ public:
     bool completeControl();
     bool hqControl();
     void resizeEvent(QResizeEvent* event) override;
+    bool getGreedyAI() const;
 
 private:
     int unitPosX;

@@ -18,8 +18,15 @@ Game::Game(int gameType):terrainMap("Map1V1.txt"),
     QObject::connect(&w,SIGNAL(end()),this,SLOT(closeGame()));
     QObject::connect(&w,SIGNAL(passedTurn()),this,SLOT(aiPlay()));
     w.show();
-    //ai = new NewPathFindingAI(this,2);
-    ai = new GreedyAI(this,1);
+    if (w.getPathfindAI()){
+        ai = new NewPathFindingAI(this,2);
+    }
+    else if (w.getInactiveAI()){
+        IAI = new InactiveAI(this, 1);
+    }
+    else if (w.getGreedyAI()){
+        GAI = new GreedyAI(this, 1);
+    }
 
     /*Initialisation du tableau de défense*/
 
@@ -120,19 +127,10 @@ Game::Game(int gameType):terrainMap("Map1V1.txt"),
     firstUnit->setCanPlay(true);
 
     listPlayer[0]->add_unit(firstUnit);
-    if(gameType == 4)
+    if(gameType == 4 || gameType == 3 || gameType == 5)
     {
         aiPlay();
     }
-
-    //IA qui joue
-    /*if (w.getInactiveAI()){
-        w.setAI(new InactiveAI(this,1));        //joue Orange Star
-    }
-    if (w.getPathfindAI()){
-        w.setAI(new PathfindAI(this,2));        //joue Blue Moon
-    }*/
-    ai = new GreedyAI(this,1);
 }
 
 void Game::delete_building(Building* building){
@@ -239,9 +237,16 @@ void Game::closeGame()
 
 void Game::aiPlay()
 {
-    if(cursor.getPlayerState() == 2)
+    if(cursor.getPlayerState() == 2 && w.getPathfindAI())
     {
         ai->aiTurn();
+    }
+    if(w.getInactiveAI())
+    {
+        IAI->play();
+    }
+    if(cursor.getPlayerState() == 1 && w.getGreedyAI()){
+        GAI->turn();
     }
 }
 

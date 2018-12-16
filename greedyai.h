@@ -10,7 +10,7 @@ public:
     GreedyAI(Game* game, int player);
     void moveAllUnit();
     void createAllUnit();
-    void aiTurn();
+    void turn();
     int partition(int left,int right);
     int randomPivot(int left,int right);
     void quickSort(int left,int right);

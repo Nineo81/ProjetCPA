@@ -4,7 +4,7 @@
 #include <vector>
 #include "game.h"
 
-class NewPathFindingAI
+class NewPathFindingAI: public AI
 {
 public:
     NewPathFindingAI(Game *game,int player);
@@ -15,8 +15,6 @@ public:
     int randomPivot(int left,int right);
     void quickSort(int left,int right);
 private:
-    Game* game;
-    int player;
     int hq_PosX;
     int hq_PosY;
     std::vector<std::vector<int>> movePossible;
