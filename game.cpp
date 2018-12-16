@@ -269,4 +269,7 @@ Game::~Game(){
     for (Player* p : listPlayer){
         delete p;
     }
+    delete ai;
+    delete IAI;
+    delete GAI;
 }

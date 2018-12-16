@@ -592,7 +592,7 @@ bool MainWindow::completeControl()
     {
         for(int x=0;x<cursor->getTerrainMap()->getSize('x');x++)
         {
-            if(cursor->getOpponent()->hasBuilding(x,y) != 0
+            if(!cursor->getOpponent()->get_listBuilding().empty()
                || (cursor->getTerrainMap()->getElement(x,y) >= 34
                && 36 <= cursor->getTerrainMap()->getElement(x,y)))
             {

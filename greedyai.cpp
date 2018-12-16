@@ -110,6 +110,10 @@ void GreedyAI::turn()
 {
     moveAllUnit();
     createAllUnit();
+    if(this->game->getWindow()->completeControl())
+    {
+        this->game->closeGame();
+    }
     this->game->getCursor()->switchPlayerState();
 }
 
