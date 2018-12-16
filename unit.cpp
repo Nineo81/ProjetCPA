@@ -259,7 +259,7 @@ int Unit::get_MPLoss(unsigned int x, unsigned int y)
         terrainType = 2;
     else if(temp >= 4 && temp <= 14)
         terrainType = 3;
-    else if(temp >= 15 && temp <= 24)
+    else if((temp >= 15 && temp <= 24) || temp == 42 ||temp == 47)
         terrainType = 4;
     else if(temp == 28)
         terrainType = 5;

@@ -9,7 +9,7 @@ City::City(vector<unsigned int> pos,Player* player, Game * game):Building(pos, p
 
 City::City(vector<unsigned int> pos, Game * game,bool isHQ):Building (pos), isHQ(isHQ){
     type = 34;
-    this->game =game;
+    this->game = game;
     player = NULL;
 }
 
@@ -26,11 +26,11 @@ void City::setLife(int damage, Player* attacker){
         attacker->add_building(this);
         this->setPlayer(attacker);
         this->life = 20;
-        if (attacker==game->getPlayer(1))
+        if (attacker == game->getPlayer(1))
         {
             game->getTerrainMap().setElement(38,position[0],position[1]);
         }
-        else if (attacker==game->getPlayer(2))
+        else if (attacker == game->getPlayer(2))
         {
             game->getTerrainMap().setElement(43,position[0],position[1]);
         }

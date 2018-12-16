@@ -29,7 +29,7 @@ int Building::getLife() const{
 }
 
 void Building::resetLife(){
-    life=20;
+    life = 20;
 }
 
 void Building::setPlayer(Player* player){

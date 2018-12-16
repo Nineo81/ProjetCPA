@@ -16,6 +16,6 @@ unsigned int GameObject::get_Y() const
 }
  void GameObject::setposition(std::vector<unsigned int> newPos)
  {
-     position[0]=newPos[0];
-     position[1]=newPos[1];
+     position[0] = newPos[0];
+     position[1] = newPos[1];
  }

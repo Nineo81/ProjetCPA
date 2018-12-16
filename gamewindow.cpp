@@ -14,16 +14,16 @@ using namespace std;
 
 GameWindow::GameWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) :terrainMap(terrainMap),unitMap(unitMap),cursor(cursor)
 {
-    money=0;
-    player=0;
+    money = 0;
+    player = 0;
     button1 = new QPushButton("Pass Turn",this);
     QObject::connect(button1,SIGNAL(clicked()),this,SLOT(sendNextTurn()));
     button2 = new QPushButton("End Game",this);
     QObject::connect(button2,SIGNAL(clicked()),this,SLOT(endingGame()));
-    for(int i=1;i<117;i++) //Construction de la liste d'image
+    for(int i = 1; i < 117; i++) //Construction de la liste d'image
     {
-        const char* imageName = (std::to_string(i)+".png").c_str();
-        if(access(imageName,F_OK)!=-1) //check si l'image existe
+        const char* imageName = (std::to_string(i) + ".png").c_str();
+        if(access(imageName,F_OK) != -1) //check si l'image existe
         {
             listImage.push_back(QImage(imageName));
         }
@@ -38,31 +38,31 @@ GameWindow::GameWindow(Map *terrainMap,Map *unitMap,Cursor* cursor) :terrainMap(
 void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
-    QFont font("times",sizePicture/3,QFont::Bold);
-    sizePicture = static_cast<int>(height/(terrainMap->getSize('y')+1));
+    QFont font("Times",sizePicture/3,QFont::Bold);
+    sizePicture = static_cast<int>(height/(terrainMap->getSize('y') + 1 ));
     painter.setFont(font);
-    painter.drawText(QPoint(sizePicture*(terrainMap->getSize('x')+2),sizePicture*3),("Player's money : " + to_string(money)).c_str());
-    painter.drawText(QPoint(sizePicture*(terrainMap->getSize('x')+2),sizePicture*2),("Turn of player " + to_string(player)).c_str());
-    button1->setGeometry(sizePicture*(terrainMap->getSize('x')+2),sizePicture*4,sizePicture*3,sizePicture);
+    painter.drawText(QPoint(sizePicture*(terrainMap->getSize('x') + 2 ),sizePicture*3),("Player's money : " + to_string(money)).c_str());
+    painter.drawText(QPoint(sizePicture*(terrainMap->getSize('x') + 2 ),sizePicture*2),("Turn of player " + to_string(player)).c_str());
+    button1->setGeometry(sizePicture*(terrainMap->getSize('x') + 2 ),sizePicture*4,sizePicture*3,sizePicture);
     button1->setFont(font);
-    button2->setGeometry(sizePicture*(terrainMap->getSize('x')+5),sizePicture*4,sizePicture*3,sizePicture);
+    button2->setGeometry(sizePicture*(terrainMap->getSize('x') + 5 ),sizePicture*4,sizePicture*3,sizePicture);
     button2->setFont(font);
 
-    for(unsigned int y=0;y<=terrainMap->getSize('y')-1;y++)
+    for(unsigned int y = 0; y <= terrainMap->getSize('y') - 1 ; y++)
     {
-        for(unsigned int x=0;x<=terrainMap->getSize('x')-1;x++)
+        for(unsigned int x = 0; x <= terrainMap->getSize('x') - 1 ;x++)
         {
             painter.drawImage(QRect(sizePicture*(static_cast<int>(x)+1),sizePicture*(static_cast<int>(y)+1),sizePicture,sizePicture),listImage[static_cast<unsigned int>(terrainMap->getElement(x,y)-1)]);
         }
 
     }
-    for(unsigned int y=0;y<=terrainMap->getSize('y')-1;y++)
+    for(unsigned int y = 0; y <= terrainMap->getSize('y') -1 ; y++)
     {
-        for(unsigned int x=0;x<=terrainMap->getSize('x')-1;x++)
+        for(unsigned int x = 0; x <= terrainMap->getSize('x') - 1; x++)
         {
             if(unitMap->getElement(x,y) != 0)
             {
-                painter.drawImage(QRect(sizePicture*(static_cast<int>(x)+1),sizePicture*(static_cast<int>(y)+1),sizePicture,sizePicture),listImage[static_cast<unsigned int>(unitMap->getElement(x,y)-1)]);
+                painter.drawImage(QRect(sizePicture*(static_cast<int>(x) + 1),sizePicture*(static_cast<int>(y) + 1),sizePicture,sizePicture),listImage[static_cast<unsigned int>(unitMap->getElement(x,y) - 1)]);
             }
         }
 
@@ -71,29 +71,28 @@ void GameWindow::GameWindow::paintEvent(QPaintEvent *event)
     {
         for(Unit* u :cursor->getPlayer()->get_listUnit())
         {
-            painter.drawText(QPoint((u->get_X()+1)*sizePicture,(u->get_Y()+1)*sizePicture),to_string(u->getHP()).c_str());
+            painter.drawText(QPoint((u->get_X() + 1)*sizePicture,(u->get_Y() + 1)*sizePicture),to_string(u->getHP()).c_str());
         }
         for(Unit* u :cursor->getOpponent()->get_listUnit())
         {
-            painter.drawText(QPoint((u->get_X()+1)*sizePicture,(u->get_Y()+1)*sizePicture),to_string(u->getHP()).c_str());
+            painter.drawText(QPoint((u->get_X() + 1)*sizePicture,(u->get_Y() + 1)*sizePicture),to_string(u->getHP()).c_str());
         }
     }
     for(std::vector<int> pos : movements)
     {
-        if(pos[0]>=0&&pos[1]>=0)
+        if(pos[0] >= 0 && pos[1] >= 0)
         {
-            painter.fillRect(QRect(sizePicture*(pos[0]+1),sizePicture*(pos[1]+1),sizePicture,sizePicture), QBrush(QColor(128, 128, 255, 128)));
+            painter.fillRect(QRect(sizePicture*(pos[0] + 1),sizePicture*(pos[1] + 1),sizePicture,sizePicture), QBrush(QColor(128, 128, 255, 128)));
         }
     }
     for(std::vector<int> pos : attack)
     {
-        if(pos[0]>=0&&pos[1]>=0)
+        if(pos[0] >= 0 && pos[1] >= 0)
         {
-            painter.fillRect(QRect(sizePicture*(pos[0]+1),sizePicture*(pos[1]+1),sizePicture,sizePicture), QBrush(QColor(128, 128, 255, 128)));
+            painter.fillRect(QRect(sizePicture*(pos[0] + 1),sizePicture*(pos[1] + 1),sizePicture,sizePicture), QBrush(QColor(128, 128, 255, 128)));
         }
     }
-    painter.setPen(Qt::red);
-    painter.drawRect(sizePicture*(cursor->getPosX()+1),sizePicture*(cursor->getPosY()+1),sizePicture,sizePicture);
+    painter.drawImage(QRect(sizePicture*(cursor->getPosX()+1),sizePicture*(cursor->getPosY()+1),sizePicture,sizePicture),QImage("cursor.png"));
     cursor->setSizePicture(sizePicture);
 }
 

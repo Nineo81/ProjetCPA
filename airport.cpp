@@ -5,14 +5,14 @@
 
 Airport::Airport(vector<unsigned int> pos, Player* player,Game *game):Building (pos, player)
 {
-    this->game=game;
+    this->game = game;
     type = 36;
     this->player = player;
 }
 
 Airport::Airport(vector<unsigned int> pos,Game *game):Building(pos){
     type = 36;
-    this->game=game;
+    this->game = game;
     player = NULL;
 }
 
@@ -31,7 +31,8 @@ void Airport::createUnit(int typeUnit){
             break;}
     }
     this->player->set_money(unit->getcost(),'d');
-    if (this->player->get_money()<0){
+    player->add_unit(unit);
+    if (this->player->get_money() < 0){
         this->player->set_money(unit->getcost(),'a');
         delete unit;
     }
@@ -54,7 +55,7 @@ void Airport::setLife(int damage, Player* attacker){
         {
             game->getTerrainMap().setElement(40,position[0],position[1]);
         }
-        else if (attacker==game->getPlayer(2))
+        else if (attacker == game->getPlayer(2))
         {
             game->getTerrainMap().setElement(45,position[0],position[1]);
         }
