@@ -42,6 +42,10 @@ MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor,int gameType)
         pathfindAI=true;
         victoryCondition=1;
         break;
+    case(5):
+        greedyAI = true;
+        victoryCondition=2;
+        break;
     }
     QObject::connect(&centerZone,SIGNAL(nextTurn()),this,SLOT(switchPlayer()));
     QObject::connect(&centerZone,SIGNAL(endOfGame()),this,SLOT(endGame()));
@@ -211,14 +215,6 @@ AI *MainWindow::getAI() const
 {
     return ai;
 }
-
-/*void MainWindow::setAI(AI *value)
-{
-    ai = value;
-    if (inactiveAI || pathfindAI){
-       connect(this,SIGNAL(passedTurn()),ai,SLOT(play()));
-    }
-}*/
 
 bool MainWindow::getInactiveAI() const
 {
@@ -470,7 +466,6 @@ void MainWindow::switchPlayer()
     cursor->switchPlayerState();
 
     if (inactiveAI || pathfindAI){
-        cout<<"signal emit"<<endl;
         emit passedTurn();
     }
     if (reseau){

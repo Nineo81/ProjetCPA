@@ -32,6 +32,7 @@ public:
     void updateMap(int type,unsigned int x,unsigned int y);
     Cursor* getCursor();
     Player* getPlayer(int color);
+    MainWindow* getWindow();
     int getDefense(unsigned int X, unsigned int Y) const;
     std::vector<std::vector<int>>* getDefenseChart();
     void start();

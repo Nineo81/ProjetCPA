@@ -2,10 +2,8 @@
 #include "unit.h"
 #include "building.h"
 
-NewPathFindingAI::NewPathFindingAI(Game *game,int player) : AI(game,player)
+NewPathFindingAI::NewPathFindingAI(Game *game,int player) : game(game),player(player)
 {
-    this->player=player;
-    this->game=game;
     //Trouver position du QG de l'enemi
     for(int y=0 ; y<this->game->getTerrainMap().getSize('y') ; y++)
     {
@@ -92,6 +90,10 @@ void NewPathFindingAI::aiTurn()
 {
     moveAllUnit();
     createAllUnit();
+    if(this->game->getWindow()->hqControl())
+    {
+        this->game->closeGame();
+    }
     this->game->getCursor()->switchPlayerState();
 }
 
