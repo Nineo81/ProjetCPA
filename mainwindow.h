@@ -28,8 +28,8 @@ public:
     void resizeEvent(QResizeEvent* event) override;
 
 private:
-    unsigned int unitPosX;
-    unsigned int unitPosY;
+    int unitPosX;
+    int unitPosY;
     Cursor* cursor;
     GameWindow centerZone;
     int cursorState;

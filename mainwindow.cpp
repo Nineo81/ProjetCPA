@@ -492,9 +492,9 @@ void MainWindow::setUnitWainting()
 void MainWindow::unitAttack()
 {
     vector<vector<int>> possibPos = cursor->opponnentUnit();
-    unitPosX=cursor->getPosX();
-    unitPosY=cursor->getPosY();
-    possibPos.push_back({static_cast<int>(unitPosX),static_cast<int>(unitPosY)});
+    unitPosX = cursor->getPosX();
+    unitPosY = cursor->getPosY();
+    possibPos.push_back({unitPosX,unitPosY});
     centerZone.setAttack(possibPos);
     cursor->updateMovements(possibPos);
     cursorState = 2;
