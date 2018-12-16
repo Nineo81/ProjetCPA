@@ -5,8 +5,8 @@
 #include "airport.h"
 #include "infantery.h"
 #include "inactiveai.h"
-#include "pathfindai.h"
 #include "newpathfindingai.h"
+#include "greedyai.h"
 
 Game::Game(int gameType):terrainMap("Map1V1.txt"),
     unitMap(terrainMap.getSize('x'),
@@ -18,7 +18,8 @@ Game::Game(int gameType):terrainMap("Map1V1.txt"),
     QObject::connect(&w,SIGNAL(end()),this,SLOT(closeGame()));
     QObject::connect(&w,SIGNAL(passedTurn()),this,SLOT(aiPlay()));
     w.show();
-    ai = new NewPathFindingAI(this,2);
+    //ai = new NewPathFindingAI(this,2);
+    ai = new GreedyAI(this,1);
 
     /*Initialisation du tableau de défense*/
 
@@ -131,6 +132,7 @@ Game::Game(int gameType):terrainMap("Map1V1.txt"),
     if (w.getPathfindAI()){
         w.setAI(new PathfindAI(this,2));        //joue Blue Moon
     }*/
+    ai = new GreedyAI(this,1);
 }
 
 void Game::delete_building(Building* building){

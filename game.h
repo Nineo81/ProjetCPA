@@ -9,12 +9,14 @@
 #include "player.h"
 #include "cursor.h"
 
+class GreedyAI;
 class NewPathFindingAI;
 class Game : public QWidget
 {
     Q_OBJECT
 private:
-   NewPathFindingAI* ai;
+   //NewPathFindingAI* ai;
+    GreedyAI* ai;
    Map terrainMap;
    Map unitMap;
    Cursor cursor;
