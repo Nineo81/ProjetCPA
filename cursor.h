@@ -10,7 +10,7 @@ using namespace std;
 class Cursor : public QRect
 {
 public:
-    Cursor(int posX,int posY,Map* unitMap,Map* terrainMap);
+    Cursor(unsigned int posX,unsigned int posY,Map* unitMap,Map* terrainMap);
     void move(int up,int left,int down,int right);
     void moveAlt(int up,int left,int down,int right);
     int getPosX();
@@ -36,8 +36,8 @@ public:
 private:
     vector<vector<int>> movements;
     int sizePicture;
-    int posX;
-    int posY;
+    unsigned int posX;
+    unsigned int posY;
     int playerState;
     Map* unitMap;
     Map* terrainMap;

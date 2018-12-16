@@ -16,9 +16,7 @@ private:
     Map *PTM;                 //pointeur vers terrainMap
     Map *PUM;                 //pointeur vers unitMap
     Game *game;
-
-
-
+    vector<vector<int>> bestPath = {};
 
 protected:
     int HP;
@@ -30,9 +28,6 @@ protected:
     int type;
     bool canPlay;
     int attack_type;
-
-
-
 
 public:
     Unit(std::vector<unsigned int> pos, int color, int round,Game *game);
@@ -66,11 +61,14 @@ public:
     vector<vector<int>> fusion(vector<vector<int>> A); //fait
     void capture();
     void setUnit();
-
     bool getCanPlay() const;
     void setCanPlay(bool value);
     void wait();
     ~Unit();
+    //void findPath(int xTarget, int yTarget);
+    void setBestPath(const vector<vector<int> > value);
+    vector<vector<int>> getBestPath();
+    vector<vector<int>>* getPBP();
 };
 
 #endif // UNIT_H

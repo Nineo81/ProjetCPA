@@ -25,10 +25,10 @@ public:
     int getPlayerNumber();
     bool getTurn();
     void setTurn(bool turn);
-    Unit* getUnit(unsigned x,unsigned int y);
+    Unit* getUnit(unsigned int x,unsigned int y);
 private:
     bool turn;
-    int money=0;
+    int money = 0;
     vector<Unit*> listUnit;
     vector<Building*> listBuilding;
     Map* terrainMap;

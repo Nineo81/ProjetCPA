@@ -73,11 +73,11 @@ void Factory::setLife(int damage, Player* attacker){
         attacker->add_building(this);
         this->setPlayer(attacker);
         this->life = 20;
-        if (attacker==game->getPlayer(1))
+        if (attacker == game->getPlayer(1))
         {
             game->getTerrainMap().setElement(39,position[0],position[1]);
         }
-        else if (attacker==game->getPlayer(2))
+        else if (attacker == game->getPlayer(2))
         {
             game->getTerrainMap().setElement(44,position[0],position[1]);
         }

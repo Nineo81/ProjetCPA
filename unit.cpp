@@ -22,6 +22,21 @@ void Unit::setCanPlay(bool value)
     canPlay = value;
 }
 
+void Unit::setBestPath(const vector<vector<int> > value)
+{
+    bestPath = value;
+}
+
+vector<vector<int>> Unit::getBestPath()
+{
+    return bestPath;
+}
+
+vector<vector<int>>* Unit::getPBP()
+{
+    return &bestPath;
+}
+
 Unit::Unit(std::vector<unsigned int> pos, int color, int round,Game *game) : GameObject(pos)
 {
     this->game = game;
@@ -35,7 +50,7 @@ Unit::Unit(std::vector<unsigned int> pos, int color, int round,Game *game) : Gam
     this->canPlay = false;
 }
 
-void Unit::setUnit()  //Assure que l'unité s'affiche sur la carte
+void Unit::setUnit()
 {
     if (color == 1)
     game->updateMap(this->type,this->position[0],this->position[1]);
@@ -234,7 +249,6 @@ int Unit::get_MPLoss(unsigned int x, unsigned int y)
                                {1,1,1,1,1},
                                {10,10,10,10,10}};
 
-    //solution pour avoir le bon terrain, vu que ca commence à zero!
     int temp = game->getTerrainMap().getElement(x,y);
     int terrainType = 0;
     if (temp == 1)
@@ -284,18 +298,18 @@ void Unit::movePossib_recusif(vector<vector<int>>* l1, vector<vector<int>> l2)
     bool rest_MP = false;
     for (unsigned int i = 0;i < l2.size(); ++i)                 //pour tous les éléments de la sous-liste à traiter
     {
-        vector<vector<int>> l3;
-        l3.push_back({l2[i][0],   l2[i][1]+1 });
-        l3.push_back({l2[i][0]+1, l2[i][1]   });
-        l3.push_back({l2[i][0],   l2[i][1]-1 });
-        l3.push_back({l2[i][0]-1, l2[i][1]   });              //on ajoute toutes les positions autour de b à l3
+        vector<vector<unsigned int>> l3;
+        l3.push_back({static_cast<unsigned int>(l2[i][0]), static_cast<unsigned int>(l2[i][1]+1) });
+        l3.push_back({static_cast<unsigned int>(l2[i][0]+1), static_cast<unsigned int>(l2[i][1] )  });
+        l3.push_back({static_cast<unsigned int>(l2[i][0]), static_cast<unsigned int>(l2[i][1]-1) });
+        l3.push_back({static_cast<unsigned int>(l2[i][0]-1), static_cast<unsigned int>(l2[i][1]) });              //on ajoute toutes les positions autour de b à l3
         for (unsigned int j = 0;j < 4; j++)                         //pour les 4 positions autour de b:
         {
-            int e = l2[i][2];
+            unsigned int e = l2[i][2];
             if (terrain_avail(static_cast<unsigned int>(l3[j][0]),
                               static_cast<unsigned int>(l3[j][1])))  //si on peut se déplacer sur ce terrain
             {
-                vector<int> X={l3[j][0],l3[j][1]};
+                vector<unsigned int> X={l3[j][0],l3[j][1]};
                 e += this->get_MPLoss(static_cast<unsigned int>(X[0]), static_cast<unsigned int>(X[1]));              //on calcul le nbe de MP restants si on va sur ce terrain
                 if (e<= this->get_absMP())                   //si le nbre de points de déplacement n'est pas trop élevé
                 {
@@ -315,7 +329,7 @@ void Unit::movePossib_recusif(vector<vector<int>>* l1, vector<vector<int>> l2)
 
                     if (inList1 == false)
                     {
-                        l1->push_back({X[0],X[1],e});          //ajouter la position à la liste si elle n'y était pas
+                        l1->push_back({static_cast<int>(X[0]),static_cast<int>(X[1]),static_cast<int>(e)});          //ajouter la position à la liste si elle n'y était pas
                     }
 
                     if (e<this->get_absMP())                  //s'il est encore possible à l'unité de se déplacer au-delà de X...
@@ -336,7 +350,7 @@ void Unit::movePossib_recusif(vector<vector<int>>* l1, vector<vector<int>> l2)
                         }
                         if (inList4 == false)
                         {
-                            l4.push_back({X[0], X[1], e});         //... ajouter X à la liste des positions pour la prochaine fonction récursive
+                            l4.push_back({static_cast<int>(X[0]), static_cast<int>(X[1]), static_cast<int>(e)});         //... ajouter X à la liste des positions pour la prochaine fonction récursive
                         }
                     }                
                 }             
@@ -361,7 +375,6 @@ vector<vector<int>> Unit::movePossib(int x,int y) //Initie la récursivité
     movePossib_recusif(&l1,l1);
     return l1;
 }
-
 
 void Unit::move(unsigned int x,unsigned int y)
 {
@@ -427,3 +440,4 @@ Unit::~Unit()
    game->getPlayer(color)->delete_unit(this);
    PUM->setElement(0,position[0], position[1]);
 }
+
