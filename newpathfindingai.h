@@ -11,12 +11,14 @@ public:
     void moveAllUnit();
     void createAllUnit();
     void aiTurn();
-    int partition(std::vector<double> A,std::vector<std::vector<int>> B,int left,int right);
-    int randomPivot(std::vector<double> A,std::vector<std::vector<int>> B,int left,int right);
-    void quickSort(std::vector<double> A,std::vector<std::vector<int>> B,int left,int right);
+    int partition(int left,int right);
+    int randomPivot(int left,int right);
+    void quickSort(int left,int right);
 private:
     int hq_PosX;
     int hq_PosY;
+    std::vector<std::vector<int>> movePossible;
+    std::vector<double> dist;
 };
 
 #endif // NEWPATHFINDINGAI_H

@@ -41,24 +41,30 @@ void NewPathFindingAI::moveAllUnit()
             return;
         }
         //Trouver toute les positions possibles pour l'unit
-        std::vector<std::vector<int>> movePossible = u->movePossib(u->get_X(),u->get_Y());
-        std::vector<double> dist;
+        movePossible = u->movePossib(u->get_X(),u->get_Y());
+        dist = {};
         //Calcul de la distance entre les positions possible et le QG
         for(std::vector<int> pos : movePossible)
         {
             dist.push_back(sqrt(pow(hq_PosX-pos[0],2)+pow(hq_PosY-pos[1],2)));
         }
+
         //Trouver la distance la plus faible
-        quickSort(dist,movePossible,0,dist.size()-1);
+        quickSort(0,dist.size()-1);
         //déplacer l'unit
-        u->move(movePossible[0][0],movePossible[0][1]);
-        if(movePossible[0][0] == hq_PosX && movePossible[0][1] == hq_PosY)
-        {
-            u->capture();
-        }
-        else
-        {
-            u->wait();
+        for (int i = 0;i<movePossible.size();i++){
+            if (game->getPUM()->getElement(movePossible[i][0],movePossible[i][1]) == 0){
+                u->move(movePossible[i][0],movePossible[i][1]);
+                if(movePossible[0][0] == hq_PosX && movePossible[0][1] == hq_PosY)
+                {
+                    u->capture();
+                }
+                else
+                {
+                    u->wait();
+                }
+                break;
+            }
         }
     }
 
@@ -89,45 +95,45 @@ void NewPathFindingAI::aiTurn()
     this->game->getCursor()->switchPlayerState();
 }
 
-int NewPathFindingAI::partition(std::vector<double> A,std::vector<std::vector<int>> B,int left,int right)
+int NewPathFindingAI::partition(int left,int right)
 {
-    double x = A[right];
+    double x = dist[right];
     int i = left;
     for(int j=left;j<right;j++)
     {
-        if(A[j] <= x)
+        if(dist[j] <= x)
         {
-            std::swap(A[i],A[j]);
-            std::swap(B[i],B[j]);
+            std::swap(dist[i],dist[j]);
+            std::swap(movePossible[i],movePossible[j]);
             i++;
         }
     }
-    std::swap(A[i],A[right]);
-    std::swap(B[i],B[right]);
+    std::swap(dist[i],dist[right]);
+    std::swap(movePossible[i],movePossible[right]);
     return i;
 }
 
 //Selection aleatoire du pivot
-int NewPathFindingAI::randomPivot(std::vector<double> A,std::vector<std::vector<int>> B,int left,int right)
+int NewPathFindingAI::randomPivot(int left,int right)
 {
     int pivot,n;
     n = rand();
 
     pivot = left + n%(right-left+1);
 
-    std::swap(A[right],A[pivot]);
-    std::swap(B[right],B[pivot]);
+    std::swap(dist[right],dist[pivot]);
+    std::swap(movePossible[right],movePossible[pivot]);
 
-    return partition(A,B,left,right);
+    return partition(left,right);
 }
 
-void NewPathFindingAI::quickSort(std::vector<double> A,std::vector<std::vector<int>> B,int left,int right)
+void NewPathFindingAI::quickSort(int left,int right)
 {
     int i;
     if(left < right)
     {
-        i = randomPivot(A,B,left,right);
-        quickSort(A,B,left,i-1);
-        quickSort(A,B,i+1,right);
+        i = randomPivot(left,right);
+        quickSort(left,i-1);
+        quickSort(i+1,right);
     }
 }
