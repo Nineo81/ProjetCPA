@@ -203,6 +203,11 @@ Map* Game::getPUM() {
     return &unitMap;
 }
 
+MainWindow* Game::getWindow()
+{
+    return &w;
+}
+
 void Game::updateWindow()
 {
     w.updateWidget();

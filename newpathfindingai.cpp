@@ -90,6 +90,10 @@ void NewPathFindingAI::aiTurn()
 {
     moveAllUnit();
     createAllUnit();
+    if(this->game->getWindow()->hqControl())
+    {
+        this->game->closeGame();
+    }
     this->game->getCursor()->switchPlayerState();
 }
 
