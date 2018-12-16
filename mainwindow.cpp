@@ -27,7 +27,6 @@ MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor,int gameType)
     switch(gameType)
     {
     case(1):
-<<<<<<< HEAD
         reseau=false;
         victoryCondition=1;
         break;
@@ -42,18 +41,6 @@ MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor,int gameType)
     case(4):
         pathfindAI=true;
         victoryCondition=1;
-=======
-        reseau = false;
-        break;
-    case(2):
-        reseau = true;
-        break;
-    case(3):
-        inactiveAI = true;
-        break;
-    case(4):
-        pathfindAI = true;
->>>>>>> dcc19c3bfdae2d3d12977dffb68d3efa818e4a57
         break;
     }
     QObject::connect(&centerZone,SIGNAL(nextTurn()),this,SLOT(switchPlayer()));
