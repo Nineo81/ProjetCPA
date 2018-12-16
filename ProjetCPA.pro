@@ -58,7 +58,8 @@ SOURCES += \
     ai.cpp \
     pathfindai.cpp \
     mainmenu.cpp \
-    victorymenu.cpp
+    victorymenu.cpp \
+    newpathfindingai.cpp
 
 HEADERS += \
     game.h \
@@ -93,7 +94,8 @@ HEADERS += \
     ai.h \
     pathfindai.h \
     mainmenu.h \
-    victorymenu.h
+    victorymenu.h \
+    newpathfindingai.h
 
 FORMS +=
 

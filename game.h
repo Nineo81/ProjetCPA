@@ -9,10 +9,12 @@
 #include "player.h"
 #include "cursor.h"
 
+class NewPathFindingAI;
 class Game : public QWidget
 {
     Q_OBJECT
 private:
+   NewPathFindingAI* ai;
    Map terrainMap;
    Map unitMap;
    Cursor cursor;
@@ -41,6 +43,7 @@ public:
     void delete_building(Building *building);
 public slots:
     void closeGame();
+    void aiPlay();
 };
 
 #endif // GAME_H

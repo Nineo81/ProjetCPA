@@ -6,6 +6,7 @@
 #include "infantery.h"
 #include "inactiveai.h"
 #include "pathfindai.h"
+#include "newpathfindingai.h"
 
 Game::Game(int gameType):terrainMap("Map1V1.txt"),
     unitMap(terrainMap.getSize('x'),
@@ -15,7 +16,9 @@ Game::Game(int gameType):terrainMap("Map1V1.txt"),
     unitMap.setWindow(&w);
     terrainMap.setWindow(&w);
     QObject::connect(&w,SIGNAL(end()),this,SLOT(closeGame()));
+    QObject::connect(&w,SIGNAL(passedTurn()),this,SLOT(aiPlay()));
     w.show();
+    ai = new NewPathFindingAI(this,2);
 
     /*Initialisation du tableau de défense*/
 
@@ -118,12 +121,12 @@ Game::Game(int gameType):terrainMap("Map1V1.txt"),
     listPlayer[0]->add_unit(firstUnit);
 
     //IA qui joue
-    if (w.getInactiveAI()){
+    /*if (w.getInactiveAI()){
         w.setAI(new InactiveAI(this,1));        //joue Orange Star
     }
     if (w.getPathfindAI()){
         w.setAI(new PathfindAI(this,2));        //joue Blue Moon
-    }
+    }*/
 }
 
 void Game::delete_building(Building* building){
@@ -221,6 +224,14 @@ void Game::play(Player player)
 void Game::closeGame()
 {
     delete this;
+}
+
+void Game::aiPlay()
+{
+    if(cursor.getPlayerState() == 2)
+    {
+        ai->aiTurn();
+    }
 }
 
 Game::~Game(){

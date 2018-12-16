@@ -212,13 +212,13 @@ AI *MainWindow::getAI() const
     return ai;
 }
 
-void MainWindow::setAI(AI *value)
+/*void MainWindow::setAI(AI *value)
 {
     ai = value;
     if (inactiveAI || pathfindAI){
        connect(this,SIGNAL(passedTurn()),ai,SLOT(play()));
     }
-}
+}*/
 
 bool MainWindow::getInactiveAI() const
 {
