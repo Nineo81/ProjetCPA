@@ -29,6 +29,7 @@ public:
     void updateMovements(vector<vector<int>> movements);
     int getPlayerState();
     Map *getUnitMap() const;
+    Map *getTerrainMap() const;
     void setPosition(int realX, int realY);
     bool canMoveUnit(int posX,int posY);
     bool canAttackUnit(int posX,int posY);

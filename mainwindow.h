@@ -12,6 +12,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 public:
     explicit MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor,int gameType);
+    ~MainWindow() override;
     void keyPressEvent(QKeyEvent * event) override;
     void mousePressEvent(QMouseEvent *ev) override;
     int typeOfUnitMenu(int moveState);
@@ -22,6 +23,8 @@ public:
     void setAI(AI *value);
     AI *getAI() const;
     bool getPathfindAI() const;
+    bool completeControl();
+    bool hqControl();
     void resizeEvent(QResizeEvent* event) override;
 
 private:
@@ -30,6 +33,7 @@ private:
     Cursor* cursor;
     GameWindow centerZone;
     int cursorState;
+    int victoryCondition;
     QTcpServer* server = nullptr;
     QTcpSocket* other = nullptr;
     quint32 currentSize = 0;
@@ -46,6 +50,7 @@ private:
 signals:
     void mouseMoved();
     void passedTurn();
+    void end();
 
 public slots:
     void switchPlayer();
@@ -61,6 +66,7 @@ public slots:
     void createUnit();
     void curState();
     void resizeTimeout();
+    void endGame();
 };
 
 #endif // MAINWINDOW_H

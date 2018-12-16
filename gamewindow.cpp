@@ -158,5 +158,5 @@ void GameWindow::sendNextTurn()
 
 void GameWindow::endingGame()
 {
-    emit endGame();
+    emit endOfGame();
 }

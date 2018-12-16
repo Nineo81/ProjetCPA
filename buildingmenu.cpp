@@ -60,3 +60,11 @@ void BuildingMenu::focusOutEvent(QFocusEvent* event)
 {
     close();
 }
+
+BuildingMenu::~BuildingMenu()
+{
+    for(CustomButton* b : listButton)
+    {
+        delete b;
+    }
+}

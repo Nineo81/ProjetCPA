@@ -13,6 +13,7 @@ Game::Game(int gameType):terrainMap("Map1V1.txt"),
 {
     unitMap.setWindow(&w);
     terrainMap.setWindow(&w);
+    QObject::connect(&w,SIGNAL(end()),this,SLOT(closeGame()));
     w.show();
 
     /*Initialisation du tableau de défense*/
@@ -214,6 +215,11 @@ void Game::play(Player player)
 
     }
     cursor.switchPlayerState();
+}
+
+void Game::closeGame()
+{
+    delete this;
 }
 
 Game::~Game(){

@@ -1,61 +1,59 @@
 #include "unitmenu.h"
 #include <QVBoxLayout>
-#include <QPushButton>
 
 UnitMenu::UnitMenu(int posX,int posY,int type)
 {
     setEscape(true);
     setFocusPolicy(Qt::ClickFocus);
-    QPushButton *button1 = new QPushButton("Move");
-    button1->setAutoDefault(true);
-    QObject::connect(button1, SIGNAL(clicked()),this,SLOT(movement()));
-    QPushButton *button2 = new QPushButton("Attack");
-    button2->setAutoDefault(true);
-    QObject::connect(button2, SIGNAL(clicked()),this,SLOT(attack()));
-    QPushButton *button3 = new QPushButton("Capture");
-    button3->setAutoDefault(true);
-    QObject::connect(button3, SIGNAL(clicked()),this,SLOT(capture()));
-    QPushButton *button4 = new QPushButton("Wait");
-    button4->setAutoDefault(true);
-    QObject::connect(button4,SIGNAL(clicked()),this,SLOT(unitWait()));
+    text <<"Move"<<"Attack"<<"Capture"<<"Wait";
+    for(int i=0;i<4;i++)
+    {
+        listButton.push_back(new QPushButton(text.at(i)));
+        listButton[i]->setAutoDefault(true);
+    }
+
+    QObject::connect(listButton[0], SIGNAL(clicked()),this,SLOT(movement()));
+    QObject::connect(listButton[1], SIGNAL(clicked()),this,SLOT(attack()));
+    QObject::connect(listButton[2], SIGNAL(clicked()),this,SLOT(capture()));
+    QObject::connect(listButton[3],SIGNAL(clicked()),this,SLOT(unitWait()));
 
     QVBoxLayout *layout = new QVBoxLayout;
     switch(type){
         case 1:
-            layout->addWidget(button1);
-            layout->addWidget(button2);
-            layout->addWidget(button3);
-            layout->addWidget(button4);
+            layout->addWidget(listButton[0]);
+            layout->addWidget(listButton[1]);
+            layout->addWidget(listButton[2]);
+            layout->addWidget(listButton[3]);
         break;
         case 2:
-            layout->addWidget(button1);
-            layout->addWidget(button3);
-            layout->addWidget(button4);
+            layout->addWidget(listButton[1]);
+            layout->addWidget(listButton[2]);
+            layout->addWidget(listButton[3]);
         break;
         case 3:
-            layout->addWidget(button1);
-            layout->addWidget(button2);
-            layout->addWidget(button4);
+            layout->addWidget(listButton[0]);
+            layout->addWidget(listButton[1]);
+            layout->addWidget(listButton[3]);
         break;
         case 4:
-            layout->addWidget(button1);
-            layout->addWidget(button4);
+            layout->addWidget(listButton[0]);
+            layout->addWidget(listButton[3]);
         break;
         case 5:
-            layout->addWidget(button2);
-            layout->addWidget(button3);
-            layout->addWidget(button4);
+            layout->addWidget(listButton[1]);
+            layout->addWidget(listButton[2]);
+            layout->addWidget(listButton[3]);
         break;
         case 6:
-            layout->addWidget(button3);
-            layout->addWidget(button4);
+            layout->addWidget(listButton[2]);
+            layout->addWidget(listButton[3]);
         break;
         case 7:
-            layout->addWidget(button2);
-            layout->addWidget(button4);
+            layout->addWidget(listButton[1]);
+            layout->addWidget(listButton[3]);
         break;
         case 8:
-            layout->addWidget(button4);
+            layout->addWidget(listButton[3]);
         break;
     }
     setLayout(layout);
@@ -115,4 +113,12 @@ void UnitMenu::focusOutEvent(QFocusEvent* event)
 void UnitMenu::forceResp()
 {
     forceResponse=true;
+}
+
+UnitMenu::~UnitMenu()
+{
+    for(QPushButton* b : listButton)
+    {
+        delete b;
+    }
 }

@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 #include <string>
+#include <QWidget>
 #include "map.h"
 #include "mainwindow.h"
 #include <vector>
@@ -8,8 +9,9 @@
 #include "player.h"
 #include "cursor.h"
 
-class Game
+class Game : public QWidget
 {
+    Q_OBJECT
 private:
    Map terrainMap;
    Map unitMap;
@@ -37,6 +39,8 @@ public:
     void play(Player player);
     void otherTurn();
     void delete_building(Building *building);
+public slots:
+    void closeGame();
 };
 
 #endif // GAME_H

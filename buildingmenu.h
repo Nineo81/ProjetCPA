@@ -14,6 +14,7 @@ class BuildingMenu : public QWidget
     Q_OBJECT
 public:
     explicit BuildingMenu(int posX, int posY,Building* building);
+    ~BuildingMenu();
     void keyPressEvent(QKeyEvent * event);
     void isCLosing(QCloseEvent *event);
     void focusOutEvent(QFocusEvent* event);

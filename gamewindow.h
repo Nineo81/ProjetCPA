@@ -40,7 +40,7 @@ private:
     vector<vector<int>> attack;
 signals:
     void nextTurn();
-    void endGame();
+    void endOfGame();
 public slots:
     void sendNextTurn();
     void endingGame();

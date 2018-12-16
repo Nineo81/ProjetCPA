@@ -225,6 +225,11 @@ Map *Cursor::getUnitMap() const
     return unitMap;
 }
 
+Map* Cursor::getTerrainMap() const
+{
+    return terrainMap;
+}
+
 bool Cursor::canMoveUnit(int posX, int posY)
 {
     vector<vector<int>> movements = this->movements;

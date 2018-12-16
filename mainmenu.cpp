@@ -29,3 +29,11 @@ void MainMenu::creatGame(int gameType)
     Game* g = new Game(gameType);
     close();
 }
+
+MainMenu::~MainMenu()
+{
+    for(CustomButton* b : listButton)
+    {
+        delete b;
+    }
+}

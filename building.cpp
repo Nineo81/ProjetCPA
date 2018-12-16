@@ -1,4 +1,5 @@
 #include "building.h"
+#include "player.h"
 
 Building::Building(vector<unsigned int> pos, Player* player)
 {
@@ -10,6 +11,7 @@ Building::Building(vector<unsigned int> pos, Player* player)
 
 Building::Building(vector<unsigned int> pos){
     life = 20;
+    player=nullptr;
     position.push_back(pos[0]);
     position.push_back(pos[1]);
 }
@@ -44,4 +46,10 @@ void Building::setLife(int damage, Player* attacker){}
 
 void Building::createUnit(int typeUnit){}
 
-Building::~Building(){}
+Building::~Building()
+{
+    if(player)
+    {
+        player->delete_building(this);
+    }
+}

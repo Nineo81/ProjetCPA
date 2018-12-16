@@ -57,7 +57,8 @@ SOURCES += \
     inactiveai.cpp \
     ai.cpp \
     pathfindai.cpp \
-    mainmenu.cpp
+    mainmenu.cpp \
+    victorymenu.cpp
 
 HEADERS += \
     game.h \
@@ -91,7 +92,8 @@ HEADERS += \
     inactiveai.h \
     ai.h \
     pathfindai.h \
-    mainmenu.h
+    mainmenu.h \
+    victorymenu.h
 
 FORMS +=
 

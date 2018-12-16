@@ -12,6 +12,7 @@
 #include "pausemenu.h"
 #include "infantery.h"
 #include "ai.h"
+#include "victorymenu.h"
 
 
 MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor,int gameType) : cursor(cursor),centerZone(terrainMap,unitMap,cursor)
@@ -27,18 +28,23 @@ MainWindow::MainWindow(Map *terrainMap,Map *unitMap,Cursor* cursor,int gameType)
     {
     case(1):
         reseau=false;
+        victoryCondition=1;
         break;
     case(2):
         reseau=true;
+        victoryCondition=1;
         break;
     case(3):
         inactiveAI=true;
+        victoryCondition=1;
         break;
     case(4):
         pathfindAI=true;
+        victoryCondition=1;
         break;
     }
     QObject::connect(&centerZone,SIGNAL(nextTurn()),this,SLOT(switchPlayer()));
+    QObject::connect(&centerZone,SIGNAL(endOfGame()),this,SLOT(endGame()));
 
     /*création du serveur? */
     if (reseau){
@@ -344,6 +350,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
             PauseMenu *menu = new PauseMenu();
             menu->move(this->rect().center());
             QObject::connect(menu,SIGNAL(nextPlayer()),this,SLOT(switchPlayer()));
+            QObject::connect(menu,SIGNAL(ending()),this,SLOT(endGame()));
             menu->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Popup);
             menu->show();
         }
@@ -504,6 +511,20 @@ void MainWindow::unitCapture()
     }
     this->setDisabled(false);
     updateWidget();
+    if(victoryCondition == 1 && hqControl())
+    {
+        VictoryMenu* menu = new VictoryMenu(("Player "+to_string(cursor->getPlayerState())+" WON !").c_str());
+        QObject::connect(menu,SIGNAL(endingGame()),this,SLOT(endGame()));
+        this->setDisabled(true);
+        menu->show();
+    }
+    else if(victoryCondition == 2 && completeControl())
+    {
+        VictoryMenu* menu = new VictoryMenu(("Player "+to_string(cursor->getPlayerState())+" WON !").c_str());
+        QObject::connect(menu,SIGNAL(endingGame()),this,SLOT(endGame()));
+        this->setDisabled(true);
+        menu->show();
+    }
 }
 
 void MainWindow::resizeTimeout()
@@ -511,6 +532,11 @@ void MainWindow::resizeTimeout()
     resizeTimer->stop();
     centerZone.setSize(this->width(),this->height());
     updateWidget();
+}
+
+void MainWindow::endGame()
+{
+    emit end();
 }
 
 int MainWindow::typeOfUnitMenu(int moveState)
@@ -555,6 +581,39 @@ int MainWindow::typeOfUnitMenu(int moveState)
         }
     }
     return state;
+}
+
+bool MainWindow::completeControl()
+{
+    for(int y=0;y<cursor->getTerrainMap()->getSize('y');y++)
+    {
+        for(int x=0;x<cursor->getTerrainMap()->getSize('x');x++)
+        {
+            if(cursor->getOpponent()->hasBuilding(x,y) != 0
+               || (cursor->getTerrainMap()->getElement(x,y) >= 34
+               && 36 <= cursor->getTerrainMap()->getElement(x,y)))
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+bool MainWindow::hqControl()
+{
+    for(int y=0;y<cursor->getTerrainMap()->getSize('y');y++)
+    {
+        for(int x=0;x<cursor->getTerrainMap()->getSize('x');x++)
+        {
+            if((cursor->getPlayerState() == 2 && cursor->getTerrainMap()->getElement(x,y) == 42)
+               || (cursor->getPlayerState() == 1 && cursor->getTerrainMap()->getElement(x,y) == 47))
+            {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 void MainWindow::createUnit(){
@@ -603,4 +662,9 @@ void MainWindow::createUnit(){
         }
     }
     updateWidget();
+}
+
+MainWindow::~MainWindow()
+{
+    delete resizeTimer;
 }
