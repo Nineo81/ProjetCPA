@@ -160,3 +160,9 @@ void GameWindow::endingGame()
 {
     emit endOfGame();
 }
+
+GameWindow::~GameWindow()
+{
+    delete button1;
+    delete button2;
+}

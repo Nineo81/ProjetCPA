@@ -13,7 +13,7 @@ class GameWindow : public QWidget
     Q_OBJECT
 public:
     explicit GameWindow(Map *terrainMap=nullptr,Map *unitMap=nullptr,Cursor* cursor=nullptr);
-
+    ~GameWindow();
     void paintEvent(QPaintEvent *event);
     void setSize(double width,double height);
     void updateMap(int money, int player);
